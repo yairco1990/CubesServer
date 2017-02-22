@@ -1,0 +1,929 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'wait.for',
+1 verbose cli   '--save' ]
+2 info using npm@3.8.3
+3 info using node@v5.10.1
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData wait.for
+8 silly fetchNamedPackageData wait.for
+9 silly mapToRegistry name wait.for
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry https://registry.npmjs.org/
+12 silly mapToRegistry data Result {
+12 silly mapToRegistry   raw: 'wait.for',
+12 silly mapToRegistry   scope: null,
+12 silly mapToRegistry   name: 'wait.for',
+12 silly mapToRegistry   rawSpec: '',
+12 silly mapToRegistry   spec: 'latest',
+12 silly mapToRegistry   type: 'tag' }
+13 silly mapToRegistry uri https://registry.npmjs.org/wait.for
+14 verbose request uri https://registry.npmjs.org/wait.for
+15 verbose request no auth needed
+16 info attempt registry request try #1 at 1:22:09 PM
+17 verbose request id f80cd5ec513a4778
+18 http request GET https://registry.npmjs.org/wait.for
+19 http 200 https://registry.npmjs.org/wait.for
+20 verbose headers { server: 'nginx/1.10.1',
+20 verbose headers   'content-type': 'application/json',
+20 verbose headers   'last-modified': 'Sun, 17 Aug 2014 19:13:18 GMT',
+20 verbose headers   etag: 'W/"53f0fece-441f"',
+20 verbose headers   'content-encoding': 'gzip',
+20 verbose headers   'cache-control': 'max-age=300',
+20 verbose headers   'content-length': '4507',
+20 verbose headers   'accept-ranges': 'bytes',
+20 verbose headers   date: 'Tue, 21 Feb 2017 11:22:10 GMT',
+20 verbose headers   via: '1.1 varnish',
+20 verbose headers   age: '0',
+20 verbose headers   connection: 'keep-alive',
+20 verbose headers   'x-served-by': 'cache-lhr6350-LHR',
+20 verbose headers   'x-cache': 'MISS',
+20 verbose headers   'x-cache-hits': '0',
+20 verbose headers   'x-timer': 'S1487676130.492770,VS0,VE17',
+20 verbose headers   vary: 'Accept-Encoding' }
+21 silly get cb [ 200,
+21 silly get   { server: 'nginx/1.10.1',
+21 silly get     'content-type': 'application/json',
+21 silly get     'last-modified': 'Sun, 17 Aug 2014 19:13:18 GMT',
+21 silly get     etag: 'W/"53f0fece-441f"',
+21 silly get     'content-encoding': 'gzip',
+21 silly get     'cache-control': 'max-age=300',
+21 silly get     'content-length': '4507',
+21 silly get     'accept-ranges': 'bytes',
+21 silly get     date: 'Tue, 21 Feb 2017 11:22:10 GMT',
+21 silly get     via: '1.1 varnish',
+21 silly get     age: '0',
+21 silly get     connection: 'keep-alive',
+21 silly get     'x-served-by': 'cache-lhr6350-LHR',
+21 silly get     'x-cache': 'MISS',
+21 silly get     'x-cache-hits': '0',
+21 silly get     'x-timer': 'S1487676130.492770,VS0,VE17',
+21 silly get     vary: 'Accept-Encoding' } ]
+22 verbose get saving wait.for to C:\Users\Yair\AppData\Roaming\npm-cache\registry.npmjs.org\wait.for\.cache.json
+23 verbose correctMkdir C:\Users\Yair\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+24 silly install normalizeTree
+25 silly loadCurrentTree Finishing
+26 silly loadIdealTree Starting
+27 silly install loadIdealTree
+28 silly cloneCurrentTree Starting
+29 silly install cloneCurrentTreeToIdealTree
+30 silly cloneCurrentTree Finishing
+31 silly loadShrinkwrap Starting
+32 silly install loadShrinkwrap
+33 silly loadShrinkwrap Finishing
+34 silly loadAllDepsIntoIdealTree Starting
+35 silly install loadAllDepsIntoIdealTree
+36 silly resolveWithNewModule wait.for@0.6.6 checking installable status
+37 silly cache add args [ 'wait.for', null ]
+38 verbose cache add spec wait.for
+39 silly cache add parsed spec Result {
+39 silly cache add   raw: 'wait.for',
+39 silly cache add   scope: null,
+39 silly cache add   name: 'wait.for',
+39 silly cache add   rawSpec: '',
+39 silly cache add   spec: 'latest',
+39 silly cache add   type: 'tag' }
+40 silly addNamed wait.for@latest
+41 verbose addNamed "latest" is being treated as a dist-tag for wait.for
+42 info addNameTag [ 'wait.for', 'latest' ]
+43 silly mapToRegistry name wait.for
+44 silly mapToRegistry using default registry
+45 silly mapToRegistry registry https://registry.npmjs.org/
+46 silly mapToRegistry data Result {
+46 silly mapToRegistry   raw: 'wait.for',
+46 silly mapToRegistry   scope: null,
+46 silly mapToRegistry   name: 'wait.for',
+46 silly mapToRegistry   rawSpec: '',
+46 silly mapToRegistry   spec: 'latest',
+46 silly mapToRegistry   type: 'tag' }
+47 silly mapToRegistry uri https://registry.npmjs.org/wait.for
+48 verbose addNameTag registry:https://registry.npmjs.org/wait.for not in flight; fetching
+49 verbose get https://registry.npmjs.org/wait.for not expired, no request
+50 silly addNameTag next cb for wait.for with tag latest
+51 silly addNamed wait.for@0.6.6
+52 verbose addNamed "0.6.6" is a plain semver version for wait.for
+53 silly mapToRegistry name wait.for
+54 silly mapToRegistry using default registry
+55 silly mapToRegistry registry https://registry.npmjs.org/
+56 silly mapToRegistry data Result {
+56 silly mapToRegistry   raw: 'wait.for',
+56 silly mapToRegistry   scope: null,
+56 silly mapToRegistry   name: 'wait.for',
+56 silly mapToRegistry   rawSpec: '',
+56 silly mapToRegistry   spec: 'latest',
+56 silly mapToRegistry   type: 'tag' }
+57 silly mapToRegistry uri https://registry.npmjs.org/wait.for
+58 verbose addRemoteTarball https://registry.npmjs.org/wait.for/-/wait.for-0.6.6.tgz not in flight; adding
+59 verbose addRemoteTarball [ 'https://registry.npmjs.org/wait.for/-/wait.for-0.6.6.tgz',
+59 verbose addRemoteTarball   '0cc9079ce0680a80545e2ec9bb7a693a16e07504' ]
+60 info retry fetch attempt 1 at 1:22:10 PM
+61 info attempt registry request try #1 at 1:22:10 PM
+62 http fetch GET https://registry.npmjs.org/wait.for/-/wait.for-0.6.6.tgz
+63 http fetch 200 https://registry.npmjs.org/wait.for/-/wait.for-0.6.6.tgz
+64 silly fetchAndShaCheck shasum 0cc9079ce0680a80545e2ec9bb7a693a16e07504
+65 verbose addTmpTarball C:\Users\Yair\AppData\Local\Temp\npm-12916-c10446b3\registry.npmjs.org\wait.for\-\wait.for-0.6.6.tgz not in flight; adding
+66 verbose addTmpTarball already have metadata; skipping unpack for wait.for@0.6.6
+67 verbose correctMkdir C:\Users\Yair\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+68 silly cache afterAdd wait.for@0.6.6
+69 verbose afterAdd C:\Users\Yair\AppData\Roaming\npm-cache\wait.for\0.6.6\package\package.json not in flight; writing
+70 verbose correctMkdir C:\Users\Yair\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+71 verbose afterAdd C:\Users\Yair\AppData\Roaming\npm-cache\wait.for\0.6.6\package\package.json written
+72 silly fetchNamedPackageData fibers
+73 silly mapToRegistry name fibers
+74 silly mapToRegistry using default registry
+75 silly mapToRegistry registry https://registry.npmjs.org/
+76 silly mapToRegistry data Result {
+76 silly mapToRegistry   raw: 'fibers',
+76 silly mapToRegistry   scope: null,
+76 silly mapToRegistry   name: 'fibers',
+76 silly mapToRegistry   rawSpec: '',
+76 silly mapToRegistry   spec: 'latest',
+76 silly mapToRegistry   type: 'tag' }
+77 silly mapToRegistry uri https://registry.npmjs.org/fibers
+78 verbose request uri https://registry.npmjs.org/fibers
+79 verbose request no auth needed
+80 info attempt registry request try #1 at 1:22:11 PM
+81 http request GET https://registry.npmjs.org/fibers
+82 http 200 https://registry.npmjs.org/fibers
+83 verbose headers { server: 'nginx/1.10.1',
+83 verbose headers   'content-type': 'application/json',
+83 verbose headers   'last-modified': 'Thu, 16 Feb 2017 22:45:08 GMT',
+83 verbose headers   etag: 'W/"58a62b74-fef6"',
+83 verbose headers   'content-encoding': 'gzip',
+83 verbose headers   'cache-control': 'max-age=300',
+83 verbose headers   'content-length': '11612',
+83 verbose headers   'accept-ranges': 'bytes',
+83 verbose headers   date: 'Tue, 21 Feb 2017 11:22:11 GMT',
+83 verbose headers   via: '1.1 varnish',
+83 verbose headers   age: '45',
+83 verbose headers   connection: 'keep-alive',
+83 verbose headers   'x-served-by': 'cache-lhr6350-LHR',
+83 verbose headers   'x-cache': 'HIT',
+83 verbose headers   'x-cache-hits': '65',
+83 verbose headers   'x-timer': 'S1487676131.727020,VS0,VE0',
+83 verbose headers   vary: 'Accept-Encoding' }
+84 silly get cb [ 200,
+84 silly get   { server: 'nginx/1.10.1',
+84 silly get     'content-type': 'application/json',
+84 silly get     'last-modified': 'Thu, 16 Feb 2017 22:45:08 GMT',
+84 silly get     etag: 'W/"58a62b74-fef6"',
+84 silly get     'content-encoding': 'gzip',
+84 silly get     'cache-control': 'max-age=300',
+84 silly get     'content-length': '11612',
+84 silly get     'accept-ranges': 'bytes',
+84 silly get     date: 'Tue, 21 Feb 2017 11:22:11 GMT',
+84 silly get     via: '1.1 varnish',
+84 silly get     age: '45',
+84 silly get     connection: 'keep-alive',
+84 silly get     'x-served-by': 'cache-lhr6350-LHR',
+84 silly get     'x-cache': 'HIT',
+84 silly get     'x-cache-hits': '65',
+84 silly get     'x-timer': 'S1487676131.727020,VS0,VE0',
+84 silly get     vary: 'Accept-Encoding' } ]
+85 verbose get saving fibers to C:\Users\Yair\AppData\Roaming\npm-cache\registry.npmjs.org\fibers\.cache.json
+86 verbose correctMkdir C:\Users\Yair\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+87 silly resolveWithNewModule fibers@1.0.15 checking installable status
+88 silly cache add args [ 'fibers@>=1.0.1', null ]
+89 verbose cache add spec fibers@>=1.0.1
+90 silly cache add parsed spec Result {
+90 silly cache add   raw: 'fibers@>=1.0.1',
+90 silly cache add   scope: null,
+90 silly cache add   name: 'fibers',
+90 silly cache add   rawSpec: '>=1.0.1',
+90 silly cache add   spec: '>=1.0.1',
+90 silly cache add   type: 'range' }
+91 silly addNamed fibers@>=1.0.1
+92 verbose addNamed ">=1.0.1" is a valid semver range for fibers
+93 silly addNameRange { name: 'fibers', range: '>=1.0.1', hasData: false }
+94 silly mapToRegistry name fibers
+95 silly mapToRegistry using default registry
+96 silly mapToRegistry registry https://registry.npmjs.org/
+97 silly mapToRegistry data Result {
+97 silly mapToRegistry   raw: 'fibers',
+97 silly mapToRegistry   scope: null,
+97 silly mapToRegistry   name: 'fibers',
+97 silly mapToRegistry   rawSpec: '',
+97 silly mapToRegistry   spec: 'latest',
+97 silly mapToRegistry   type: 'tag' }
+98 silly mapToRegistry uri https://registry.npmjs.org/fibers
+99 verbose addNameRange registry:https://registry.npmjs.org/fibers not in flight; fetching
+100 verbose get https://registry.npmjs.org/fibers not expired, no request
+101 silly addNameRange number 2 { name: 'fibers', range: '>=1.0.1', hasData: true }
+102 silly addNameRange versions [ 'fibers',
+102 silly addNameRange   [ '0.1.0',
+102 silly addNameRange     '0.1.1',
+102 silly addNameRange     '0.1.2',
+102 silly addNameRange     '0.1.3',
+102 silly addNameRange     '0.1.4',
+102 silly addNameRange     '0.1.6',
+102 silly addNameRange     '0.1.7',
+102 silly addNameRange     '0.1.8',
+102 silly addNameRange     '0.2.0',
+102 silly addNameRange     '0.2.1',
+102 silly addNameRange     '0.2.2',
+102 silly addNameRange     '0.2.3',
+102 silly addNameRange     '0.2.4',
+102 silly addNameRange     '0.2.5',
+102 silly addNameRange     '0.2.6',
+102 silly addNameRange     '0.5.0',
+102 silly addNameRange     '0.6.0',
+102 silly addNameRange     '0.5.1',
+102 silly addNameRange     '0.6.1',
+102 silly addNameRange     '0.6.2',
+102 silly addNameRange     '0.6.3',
+102 silly addNameRange     '0.6.4',
+102 silly addNameRange     '0.6.5',
+102 silly addNameRange     '0.6.6',
+102 silly addNameRange     '0.6.7',
+102 silly addNameRange     '0.6.8',
+102 silly addNameRange     '0.6.9',
+102 silly addNameRange     '1.0.0',
+102 silly addNameRange     '1.0.1',
+102 silly addNameRange     '1.0.2',
+102 silly addNameRange     '1.0.4',
+102 silly addNameRange     '1.0.5',
+102 silly addNameRange     '1.0.6-b',
+102 silly addNameRange     '1.0.7',
+102 silly addNameRange     '1.0.8',
+102 silly addNameRange     '1.0.9',
+102 silly addNameRange     '1.0.10',
+102 silly addNameRange     '1.0.11',
+102 silly addNameRange     '1.0.12',
+102 silly addNameRange     '1.0.13',
+102 silly addNameRange     '1.0.14',
+102 silly addNameRange     '1.0.15' ] ]
+103 silly addNamed fibers@1.0.15
+104 verbose addNamed "1.0.15" is a plain semver version for fibers
+105 silly mapToRegistry name fibers
+106 silly mapToRegistry using default registry
+107 silly mapToRegistry registry https://registry.npmjs.org/
+108 silly mapToRegistry data Result {
+108 silly mapToRegistry   raw: 'fibers',
+108 silly mapToRegistry   scope: null,
+108 silly mapToRegistry   name: 'fibers',
+108 silly mapToRegistry   rawSpec: '',
+108 silly mapToRegistry   spec: 'latest',
+108 silly mapToRegistry   type: 'tag' }
+109 silly mapToRegistry uri https://registry.npmjs.org/fibers
+110 verbose addRemoteTarball https://registry.npmjs.org/fibers/-/fibers-1.0.15.tgz not in flight; adding
+111 verbose addRemoteTarball [ 'https://registry.npmjs.org/fibers/-/fibers-1.0.15.tgz',
+111 verbose addRemoteTarball   '22f039c8f18b856190fbbe4decf056154c1eae9c' ]
+112 info retry fetch attempt 1 at 1:22:11 PM
+113 info attempt registry request try #1 at 1:22:11 PM
+114 http fetch GET https://registry.npmjs.org/fibers/-/fibers-1.0.15.tgz
+115 http fetch 200 https://registry.npmjs.org/fibers/-/fibers-1.0.15.tgz
+116 silly fetchAndShaCheck shasum 22f039c8f18b856190fbbe4decf056154c1eae9c
+117 verbose addTmpTarball C:\Users\Yair\AppData\Local\Temp\npm-12916-c10446b3\registry.npmjs.org\fibers\-\fibers-1.0.15.tgz not in flight; adding
+118 verbose addTmpTarball already have metadata; skipping unpack for fibers@1.0.15
+119 verbose correctMkdir C:\Users\Yair\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+120 silly cache afterAdd fibers@1.0.15
+121 verbose afterAdd C:\Users\Yair\AppData\Roaming\npm-cache\fibers\1.0.15\package\package.json not in flight; writing
+122 verbose correctMkdir C:\Users\Yair\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+123 verbose afterAdd C:\Users\Yair\AppData\Roaming\npm-cache\fibers\1.0.15\package\package.json written
+124 silly loadAllDepsIntoIdealTree Finishing
+125 silly idealTree:prePrune socket-app@1.0.0
+125 silly idealTree:prePrune +-- accepts@1.3.3
+125 silly idealTree:prePrune +-- after@0.8.2
+125 silly idealTree:prePrune +-- array-flatten@1.1.1
+125 silly idealTree:prePrune +-- arraybuffer.slice@0.0.6
+125 silly idealTree:prePrune +-- backo2@1.0.2
+125 silly idealTree:prePrune +-- base64-arraybuffer@0.1.5
+125 silly idealTree:prePrune +-- base64id@1.0.0
+125 silly idealTree:prePrune +-- better-assert@1.0.2
+125 silly idealTree:prePrune +-- bignumber.js@1.4.0
+125 silly idealTree:prePrune +-- blob@0.0.4
+125 silly idealTree:prePrune +-- bluebird@3.4.7
+125 silly idealTree:prePrune +-- callsite@1.0.0
+125 silly idealTree:prePrune +-- component-bind@1.0.0
+125 silly idealTree:prePrune +-- component-emitter@1.1.2
+125 silly idealTree:prePrune +-- component-inherit@0.0.3
+125 silly idealTree:prePrune +-- concat-stream@1.5.2
+125 silly idealTree:prePrune | +-- isarray@1.0.0
+125 silly idealTree:prePrune | `-- readable-stream@2.0.6
+125 silly idealTree:prePrune +-- content-disposition@0.5.2
+125 silly idealTree:prePrune +-- content-type@1.0.2
+125 silly idealTree:prePrune +-- cookie-signature@1.0.6
+125 silly idealTree:prePrune +-- cookie@0.3.1
+125 silly idealTree:prePrune +-- core-util-is@1.0.2
+125 silly idealTree:prePrune +-- cross-env@3.1.4
+125 silly idealTree:prePrune +-- cross-spawn@3.0.1
+125 silly idealTree:prePrune +-- debug@2.2.0
+125 silly idealTree:prePrune +-- depd@1.1.0
+125 silly idealTree:prePrune +-- destroy@1.0.4
+125 silly idealTree:prePrune +-- dottie@1.1.1
+125 silly idealTree:prePrune +-- ee-first@1.1.1
+125 silly idealTree:prePrune +-- encodeurl@1.0.1
+125 silly idealTree:prePrune +-- engine.io-client@1.8.3
+125 silly idealTree:prePrune | +-- component-emitter@1.2.1
+125 silly idealTree:prePrune | +-- debug@2.3.3
+125 silly idealTree:prePrune | `-- ms@0.7.2
+125 silly idealTree:prePrune +-- engine.io-parser@1.3.2
+125 silly idealTree:prePrune +-- engine.io@1.8.3
+125 silly idealTree:prePrune | +-- debug@2.3.3
+125 silly idealTree:prePrune | `-- ms@0.7.2
+125 silly idealTree:prePrune +-- escape-html@1.0.3
+125 silly idealTree:prePrune +-- etag@1.7.0
+125 silly idealTree:prePrune +-- express@4.14.1
+125 silly idealTree:prePrune +-- fibers@1.0.15
+125 silly idealTree:prePrune +-- finalhandler@0.5.1
+125 silly idealTree:prePrune +-- forwarded@0.1.0
+125 silly idealTree:prePrune +-- fresh@0.3.0
+125 silly idealTree:prePrune +-- generic-pool@2.4.2
+125 silly idealTree:prePrune +-- has-binary@0.1.7
+125 silly idealTree:prePrune +-- has-cors@1.1.0
+125 silly idealTree:prePrune +-- http-errors@1.5.1
+125 silly idealTree:prePrune +-- indexof@0.0.1
+125 silly idealTree:prePrune +-- inflection@1.12.0
+125 silly idealTree:prePrune +-- inherits@2.0.3
+125 silly idealTree:prePrune +-- ipaddr.js@1.2.0
+125 silly idealTree:prePrune +-- isarray@0.0.1
+125 silly idealTree:prePrune +-- isexe@1.1.2
+125 silly idealTree:prePrune +-- jquery@3.1.1
+125 silly idealTree:prePrune +-- json3@3.3.2
+125 silly idealTree:prePrune +-- lodash@4.12.0
+125 silly idealTree:prePrune +-- lru-cache@4.0.2
+125 silly idealTree:prePrune +-- media-typer@0.3.0
+125 silly idealTree:prePrune +-- merge-descriptors@1.0.1
+125 silly idealTree:prePrune +-- methods@1.1.2
+125 silly idealTree:prePrune +-- mime-db@1.26.0
+125 silly idealTree:prePrune +-- mime-types@2.1.14
+125 silly idealTree:prePrune +-- mime@1.3.4
+125 silly idealTree:prePrune +-- minimist@1.1.3
+125 silly idealTree:prePrune +-- moment-timezone@0.5.11
+125 silly idealTree:prePrune +-- moment@2.17.1
+125 silly idealTree:prePrune +-- ms@0.7.1
+125 silly idealTree:prePrune +-- mysql@2.3.2
+125 silly idealTree:prePrune +-- negotiator@0.6.1
+125 silly idealTree:prePrune +-- object-assign@4.1.0
+125 silly idealTree:prePrune +-- object-component@0.0.3
+125 silly idealTree:prePrune +-- on-finished@2.3.0
+125 silly idealTree:prePrune +-- options@0.0.6
+125 silly idealTree:prePrune +-- parsejson@0.0.3
+125 silly idealTree:prePrune +-- parseqs@0.0.5
+125 silly idealTree:prePrune +-- parseuri@0.0.5
+125 silly idealTree:prePrune +-- parseurl@1.3.1
+125 silly idealTree:prePrune +-- path-to-regexp@0.1.7
+125 silly idealTree:prePrune +-- process-nextick-args@1.0.7
+125 silly idealTree:prePrune +-- proxy-addr@1.1.3
+125 silly idealTree:prePrune +-- pseudomap@1.0.2
+125 silly idealTree:prePrune +-- qs@6.2.0
+125 silly idealTree:prePrune +-- range-parser@1.2.0
+125 silly idealTree:prePrune +-- readable-stream@1.1.14
+125 silly idealTree:prePrune +-- require-all@0.0.8
+125 silly idealTree:prePrune +-- retry-as-promised@2.2.0
+125 silly idealTree:prePrune +-- semver@5.3.0
+125 silly idealTree:prePrune +-- send@0.14.2
+125 silly idealTree:prePrune | `-- ms@0.7.2
+125 silly idealTree:prePrune +-- sequelize@3.30.2
+125 silly idealTree:prePrune +-- serve-static@1.11.2
+125 silly idealTree:prePrune +-- setprototypeof@1.0.2
+125 silly idealTree:prePrune +-- shimmer@1.1.0
+125 silly idealTree:prePrune +-- socket.io-adapter@0.5.0
+125 silly idealTree:prePrune | +-- debug@2.3.3
+125 silly idealTree:prePrune | `-- ms@0.7.2
+125 silly idealTree:prePrune +-- socket.io-client@1.7.3
+125 silly idealTree:prePrune | +-- component-emitter@1.2.1
+125 silly idealTree:prePrune | +-- debug@2.3.3
+125 silly idealTree:prePrune | `-- ms@0.7.2
+125 silly idealTree:prePrune +-- socket.io-parser@2.3.1
+125 silly idealTree:prePrune +-- socket.io@1.7.3
+125 silly idealTree:prePrune | +-- debug@2.3.3
+125 silly idealTree:prePrune | `-- ms@0.7.2
+125 silly idealTree:prePrune +-- statuses@1.3.1
+125 silly idealTree:prePrune +-- string_decoder@0.10.31
+125 silly idealTree:prePrune +-- terraformer-wkt-parser@1.1.2
+125 silly idealTree:prePrune +-- terraformer@1.0.7
+125 silly idealTree:prePrune +-- to-array@0.1.4
+125 silly idealTree:prePrune +-- toposort-class@1.0.1
+125 silly idealTree:prePrune +-- type-is@1.6.14
+125 silly idealTree:prePrune +-- typedarray@0.0.6
+125 silly idealTree:prePrune +-- ultron@1.0.2
+125 silly idealTree:prePrune +-- unpipe@1.0.0
+125 silly idealTree:prePrune +-- util-deprecate@1.0.2
+125 silly idealTree:prePrune +-- utils-merge@1.0.0
+125 silly idealTree:prePrune +-- uuid@3.0.1
+125 silly idealTree:prePrune +-- validator@5.7.0
+125 silly idealTree:prePrune +-- vary@1.1.0
+125 silly idealTree:prePrune +-- wait.for@0.6.6
+125 silly idealTree:prePrune +-- wellknown@0.4.2
+125 silly idealTree:prePrune +-- which@1.2.12
+125 silly idealTree:prePrune +-- wkx@0.2.0
+125 silly idealTree:prePrune +-- ws@1.1.2
+125 silly idealTree:prePrune +-- wtf-8@1.0.0
+125 silly idealTree:prePrune +-- xmlhttprequest-ssl@1.5.3
+125 silly idealTree:prePrune +-- yallist@2.0.0
+125 silly idealTree:prePrune `-- yeast@0.1.2
+126 silly loadIdealTree Finishing
+127 silly currentTree socket-app@1.0.0
+127 silly currentTree +-- accepts@1.3.3
+127 silly currentTree +-- after@0.8.2
+127 silly currentTree +-- array-flatten@1.1.1
+127 silly currentTree +-- arraybuffer.slice@0.0.6
+127 silly currentTree +-- backo2@1.0.2
+127 silly currentTree +-- base64-arraybuffer@0.1.5
+127 silly currentTree +-- base64id@1.0.0
+127 silly currentTree +-- better-assert@1.0.2
+127 silly currentTree +-- bignumber.js@1.4.0
+127 silly currentTree +-- blob@0.0.4
+127 silly currentTree +-- bluebird@3.4.7
+127 silly currentTree +-- callsite@1.0.0
+127 silly currentTree +-- component-bind@1.0.0
+127 silly currentTree +-- component-emitter@1.1.2
+127 silly currentTree +-- component-inherit@0.0.3
+127 silly currentTree +-- concat-stream@1.5.2
+127 silly currentTree | +-- isarray@1.0.0
+127 silly currentTree | `-- readable-stream@2.0.6
+127 silly currentTree +-- content-disposition@0.5.2
+127 silly currentTree +-- content-type@1.0.2
+127 silly currentTree +-- cookie-signature@1.0.6
+127 silly currentTree +-- cookie@0.3.1
+127 silly currentTree +-- core-util-is@1.0.2
+127 silly currentTree +-- cross-env@3.1.4
+127 silly currentTree +-- cross-spawn@3.0.1
+127 silly currentTree +-- debug@2.2.0
+127 silly currentTree +-- depd@1.1.0
+127 silly currentTree +-- destroy@1.0.4
+127 silly currentTree +-- dottie@1.1.1
+127 silly currentTree +-- ee-first@1.1.1
+127 silly currentTree +-- encodeurl@1.0.1
+127 silly currentTree +-- engine.io-client@1.8.3
+127 silly currentTree | +-- component-emitter@1.2.1
+127 silly currentTree | +-- debug@2.3.3
+127 silly currentTree | `-- ms@0.7.2
+127 silly currentTree +-- engine.io-parser@1.3.2
+127 silly currentTree +-- engine.io@1.8.3
+127 silly currentTree | +-- debug@2.3.3
+127 silly currentTree | `-- ms@0.7.2
+127 silly currentTree +-- escape-html@1.0.3
+127 silly currentTree +-- etag@1.7.0
+127 silly currentTree +-- express@4.14.1
+127 silly currentTree +-- finalhandler@0.5.1
+127 silly currentTree +-- forwarded@0.1.0
+127 silly currentTree +-- fresh@0.3.0
+127 silly currentTree +-- generic-pool@2.4.2
+127 silly currentTree +-- has-binary@0.1.7
+127 silly currentTree +-- has-cors@1.1.0
+127 silly currentTree +-- http-errors@1.5.1
+127 silly currentTree +-- indexof@0.0.1
+127 silly currentTree +-- inflection@1.12.0
+127 silly currentTree +-- inherits@2.0.3
+127 silly currentTree +-- ipaddr.js@1.2.0
+127 silly currentTree +-- isarray@0.0.1
+127 silly currentTree +-- isexe@1.1.2
+127 silly currentTree +-- jquery@3.1.1
+127 silly currentTree +-- json3@3.3.2
+127 silly currentTree +-- lodash@4.12.0
+127 silly currentTree +-- lru-cache@4.0.2
+127 silly currentTree +-- media-typer@0.3.0
+127 silly currentTree +-- merge-descriptors@1.0.1
+127 silly currentTree +-- methods@1.1.2
+127 silly currentTree +-- mime-db@1.26.0
+127 silly currentTree +-- mime-types@2.1.14
+127 silly currentTree +-- mime@1.3.4
+127 silly currentTree +-- minimist@1.1.3
+127 silly currentTree +-- moment-timezone@0.5.11
+127 silly currentTree +-- moment@2.17.1
+127 silly currentTree +-- ms@0.7.1
+127 silly currentTree +-- mysql@2.3.2
+127 silly currentTree +-- negotiator@0.6.1
+127 silly currentTree +-- object-assign@4.1.0
+127 silly currentTree +-- object-component@0.0.3
+127 silly currentTree +-- on-finished@2.3.0
+127 silly currentTree +-- options@0.0.6
+127 silly currentTree +-- parsejson@0.0.3
+127 silly currentTree +-- parseqs@0.0.5
+127 silly currentTree +-- parseuri@0.0.5
+127 silly currentTree +-- parseurl@1.3.1
+127 silly currentTree +-- path-to-regexp@0.1.7
+127 silly currentTree +-- process-nextick-args@1.0.7
+127 silly currentTree +-- proxy-addr@1.1.3
+127 silly currentTree +-- pseudomap@1.0.2
+127 silly currentTree +-- qs@6.2.0
+127 silly currentTree +-- range-parser@1.2.0
+127 silly currentTree +-- readable-stream@1.1.14
+127 silly currentTree +-- require-all@0.0.8
+127 silly currentTree +-- retry-as-promised@2.2.0
+127 silly currentTree +-- semver@5.3.0
+127 silly currentTree +-- send@0.14.2
+127 silly currentTree | `-- ms@0.7.2
+127 silly currentTree +-- sequelize@3.30.2
+127 silly currentTree +-- serve-static@1.11.2
+127 silly currentTree +-- setprototypeof@1.0.2
+127 silly currentTree +-- shimmer@1.1.0
+127 silly currentTree +-- socket.io-adapter@0.5.0
+127 silly currentTree | +-- debug@2.3.3
+127 silly currentTree | `-- ms@0.7.2
+127 silly currentTree +-- socket.io-client@1.7.3
+127 silly currentTree | +-- component-emitter@1.2.1
+127 silly currentTree | +-- debug@2.3.3
+127 silly currentTree | `-- ms@0.7.2
+127 silly currentTree +-- socket.io-parser@2.3.1
+127 silly currentTree +-- socket.io@1.7.3
+127 silly currentTree | +-- debug@2.3.3
+127 silly currentTree | `-- ms@0.7.2
+127 silly currentTree +-- statuses@1.3.1
+127 silly currentTree +-- string_decoder@0.10.31
+127 silly currentTree +-- terraformer-wkt-parser@1.1.2
+127 silly currentTree +-- terraformer@1.0.7
+127 silly currentTree +-- to-array@0.1.4
+127 silly currentTree +-- toposort-class@1.0.1
+127 silly currentTree +-- type-is@1.6.14
+127 silly currentTree +-- typedarray@0.0.6
+127 silly currentTree +-- ultron@1.0.2
+127 silly currentTree +-- unpipe@1.0.0
+127 silly currentTree +-- util-deprecate@1.0.2
+127 silly currentTree +-- utils-merge@1.0.0
+127 silly currentTree +-- uuid@3.0.1
+127 silly currentTree +-- validator@5.7.0
+127 silly currentTree +-- vary@1.1.0
+127 silly currentTree +-- wellknown@0.4.2
+127 silly currentTree +-- which@1.2.12
+127 silly currentTree +-- wkx@0.2.0
+127 silly currentTree +-- ws@1.1.2
+127 silly currentTree +-- wtf-8@1.0.0
+127 silly currentTree +-- xmlhttprequest-ssl@1.5.3
+127 silly currentTree +-- yallist@2.0.0
+127 silly currentTree `-- yeast@0.1.2
+128 silly idealTree socket-app@1.0.0
+128 silly idealTree +-- accepts@1.3.3
+128 silly idealTree +-- after@0.8.2
+128 silly idealTree +-- array-flatten@1.1.1
+128 silly idealTree +-- arraybuffer.slice@0.0.6
+128 silly idealTree +-- backo2@1.0.2
+128 silly idealTree +-- base64-arraybuffer@0.1.5
+128 silly idealTree +-- base64id@1.0.0
+128 silly idealTree +-- better-assert@1.0.2
+128 silly idealTree +-- bignumber.js@1.4.0
+128 silly idealTree +-- blob@0.0.4
+128 silly idealTree +-- bluebird@3.4.7
+128 silly idealTree +-- callsite@1.0.0
+128 silly idealTree +-- component-bind@1.0.0
+128 silly idealTree +-- component-emitter@1.1.2
+128 silly idealTree +-- component-inherit@0.0.3
+128 silly idealTree +-- concat-stream@1.5.2
+128 silly idealTree | +-- isarray@1.0.0
+128 silly idealTree | `-- readable-stream@2.0.6
+128 silly idealTree +-- content-disposition@0.5.2
+128 silly idealTree +-- content-type@1.0.2
+128 silly idealTree +-- cookie-signature@1.0.6
+128 silly idealTree +-- cookie@0.3.1
+128 silly idealTree +-- core-util-is@1.0.2
+128 silly idealTree +-- cross-env@3.1.4
+128 silly idealTree +-- cross-spawn@3.0.1
+128 silly idealTree +-- debug@2.2.0
+128 silly idealTree +-- depd@1.1.0
+128 silly idealTree +-- destroy@1.0.4
+128 silly idealTree +-- dottie@1.1.1
+128 silly idealTree +-- ee-first@1.1.1
+128 silly idealTree +-- encodeurl@1.0.1
+128 silly idealTree +-- engine.io-client@1.8.3
+128 silly idealTree | +-- component-emitter@1.2.1
+128 silly idealTree | +-- debug@2.3.3
+128 silly idealTree | `-- ms@0.7.2
+128 silly idealTree +-- engine.io-parser@1.3.2
+128 silly idealTree +-- engine.io@1.8.3
+128 silly idealTree | +-- debug@2.3.3
+128 silly idealTree | `-- ms@0.7.2
+128 silly idealTree +-- escape-html@1.0.3
+128 silly idealTree +-- etag@1.7.0
+128 silly idealTree +-- express@4.14.1
+128 silly idealTree +-- fibers@1.0.15
+128 silly idealTree +-- finalhandler@0.5.1
+128 silly idealTree +-- forwarded@0.1.0
+128 silly idealTree +-- fresh@0.3.0
+128 silly idealTree +-- generic-pool@2.4.2
+128 silly idealTree +-- has-binary@0.1.7
+128 silly idealTree +-- has-cors@1.1.0
+128 silly idealTree +-- http-errors@1.5.1
+128 silly idealTree +-- indexof@0.0.1
+128 silly idealTree +-- inflection@1.12.0
+128 silly idealTree +-- inherits@2.0.3
+128 silly idealTree +-- ipaddr.js@1.2.0
+128 silly idealTree +-- isarray@0.0.1
+128 silly idealTree +-- isexe@1.1.2
+128 silly idealTree +-- jquery@3.1.1
+128 silly idealTree +-- json3@3.3.2
+128 silly idealTree +-- lodash@4.12.0
+128 silly idealTree +-- lru-cache@4.0.2
+128 silly idealTree +-- media-typer@0.3.0
+128 silly idealTree +-- merge-descriptors@1.0.1
+128 silly idealTree +-- methods@1.1.2
+128 silly idealTree +-- mime-db@1.26.0
+128 silly idealTree +-- mime-types@2.1.14
+128 silly idealTree +-- mime@1.3.4
+128 silly idealTree +-- minimist@1.1.3
+128 silly idealTree +-- moment-timezone@0.5.11
+128 silly idealTree +-- moment@2.17.1
+128 silly idealTree +-- ms@0.7.1
+128 silly idealTree +-- mysql@2.3.2
+128 silly idealTree +-- negotiator@0.6.1
+128 silly idealTree +-- object-assign@4.1.0
+128 silly idealTree +-- object-component@0.0.3
+128 silly idealTree +-- on-finished@2.3.0
+128 silly idealTree +-- options@0.0.6
+128 silly idealTree +-- parsejson@0.0.3
+128 silly idealTree +-- parseqs@0.0.5
+128 silly idealTree +-- parseuri@0.0.5
+128 silly idealTree +-- parseurl@1.3.1
+128 silly idealTree +-- path-to-regexp@0.1.7
+128 silly idealTree +-- process-nextick-args@1.0.7
+128 silly idealTree +-- proxy-addr@1.1.3
+128 silly idealTree +-- pseudomap@1.0.2
+128 silly idealTree +-- qs@6.2.0
+128 silly idealTree +-- range-parser@1.2.0
+128 silly idealTree +-- readable-stream@1.1.14
+128 silly idealTree +-- require-all@0.0.8
+128 silly idealTree +-- retry-as-promised@2.2.0
+128 silly idealTree +-- semver@5.3.0
+128 silly idealTree +-- send@0.14.2
+128 silly idealTree | `-- ms@0.7.2
+128 silly idealTree +-- sequelize@3.30.2
+128 silly idealTree +-- serve-static@1.11.2
+128 silly idealTree +-- setprototypeof@1.0.2
+128 silly idealTree +-- shimmer@1.1.0
+128 silly idealTree +-- socket.io-adapter@0.5.0
+128 silly idealTree | +-- debug@2.3.3
+128 silly idealTree | `-- ms@0.7.2
+128 silly idealTree +-- socket.io-client@1.7.3
+128 silly idealTree | +-- component-emitter@1.2.1
+128 silly idealTree | +-- debug@2.3.3
+128 silly idealTree | `-- ms@0.7.2
+128 silly idealTree +-- socket.io-parser@2.3.1
+128 silly idealTree +-- socket.io@1.7.3
+128 silly idealTree | +-- debug@2.3.3
+128 silly idealTree | `-- ms@0.7.2
+128 silly idealTree +-- statuses@1.3.1
+128 silly idealTree +-- string_decoder@0.10.31
+128 silly idealTree +-- terraformer-wkt-parser@1.1.2
+128 silly idealTree +-- terraformer@1.0.7
+128 silly idealTree +-- to-array@0.1.4
+128 silly idealTree +-- toposort-class@1.0.1
+128 silly idealTree +-- type-is@1.6.14
+128 silly idealTree +-- typedarray@0.0.6
+128 silly idealTree +-- ultron@1.0.2
+128 silly idealTree +-- unpipe@1.0.0
+128 silly idealTree +-- util-deprecate@1.0.2
+128 silly idealTree +-- utils-merge@1.0.0
+128 silly idealTree +-- uuid@3.0.1
+128 silly idealTree +-- validator@5.7.0
+128 silly idealTree +-- vary@1.1.0
+128 silly idealTree +-- wait.for@0.6.6
+128 silly idealTree +-- wellknown@0.4.2
+128 silly idealTree +-- which@1.2.12
+128 silly idealTree +-- wkx@0.2.0
+128 silly idealTree +-- ws@1.1.2
+128 silly idealTree +-- wtf-8@1.0.0
+128 silly idealTree +-- xmlhttprequest-ssl@1.5.3
+128 silly idealTree +-- yallist@2.0.0
+128 silly idealTree `-- yeast@0.1.2
+129 silly generateActionsToTake Starting
+130 silly install generateActionsToTake
+131 silly generateActionsToTake Finishing
+132 silly diffTrees action count 2
+133 silly diffTrees add fibers@1.0.15
+134 silly diffTrees add wait.for@0.6.6
+135 silly decomposeActions action count 16
+136 silly decomposeActions fetch fibers@1.0.15
+137 silly decomposeActions extract fibers@1.0.15
+138 silly decomposeActions test fibers@1.0.15
+139 silly decomposeActions preinstall fibers@1.0.15
+140 silly decomposeActions build fibers@1.0.15
+141 silly decomposeActions install fibers@1.0.15
+142 silly decomposeActions postinstall fibers@1.0.15
+143 silly decomposeActions finalize fibers@1.0.15
+144 silly decomposeActions fetch wait.for@0.6.6
+145 silly decomposeActions extract wait.for@0.6.6
+146 silly decomposeActions test wait.for@0.6.6
+147 silly decomposeActions preinstall wait.for@0.6.6
+148 silly decomposeActions build wait.for@0.6.6
+149 silly decomposeActions install wait.for@0.6.6
+150 silly decomposeActions postinstall wait.for@0.6.6
+151 silly decomposeActions finalize wait.for@0.6.6
+152 silly executeActions Starting
+153 silly install executeActions
+154 silly doSerial global-install 0
+155 silly doParallel fetch 2
+156 verbose correctMkdir C:\Users\Yair\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+157 verbose lock using C:\Users\Yair\AppData\Roaming\npm-cache\_locks\staging-b0c4e875f0adfb76.lock for C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging
+158 silly doParallel extract 2
+159 silly extract fibers@1.0.15
+160 silly extract wait.for@0.6.6
+161 verbose unbuild node_modules\.staging\fibers-9f241509
+162 verbose unbuild node_modules\.staging\wait.for-8de155b1
+163 silly gentlyRm C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\fibers-9f241509 is being purged from base C:\Users\Yair\WebstormProjects\socket-app
+164 verbose gentlyRm don't care about contents; nuking C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\fibers-9f241509
+165 silly gentlyRm C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\wait.for-8de155b1 is being purged from base C:\Users\Yair\WebstormProjects\socket-app
+166 verbose gentlyRm don't care about contents; nuking C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\wait.for-8de155b1
+167 verbose tar unpack C:\Users\Yair\AppData\Roaming\npm-cache\fibers\1.0.15\package.tgz
+168 verbose tar unpacking to C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\fibers-9f241509
+169 silly gentlyRm C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\fibers-9f241509 is being purged
+170 verbose gentlyRm don't care about contents; nuking C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\fibers-9f241509
+171 verbose tar unpack C:\Users\Yair\AppData\Roaming\npm-cache\wait.for\0.6.6\package.tgz
+172 verbose tar unpacking to C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\wait.for-8de155b1
+173 silly gentlyRm C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\wait.for-8de155b1 is being purged
+174 verbose gentlyRm don't care about contents; nuking C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\wait.for-8de155b1
+175 silly gunzTarPerm modes [ '777', '666' ]
+176 silly gunzTarPerm modes [ '777', '666' ]
+177 silly gunzTarPerm extractEntry package.json
+178 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+179 silly gunzTarPerm extractEntry package.json
+180 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+181 silly gunzTarPerm extractEntry .npmignore
+182 silly gunzTarPerm modified mode [ '.npmignore', 420, 438 ]
+183 silly gunzTarPerm extractEntry README.md
+184 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
+185 silly gunzTarPerm extractEntry .npmignore
+186 silly gunzTarPerm modified mode [ '.npmignore', 420, 438 ]
+187 silly gunzTarPerm extractEntry README.md
+188 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
+189 silly gunzTarPerm extractEntry LICENSE
+190 silly gunzTarPerm modified mode [ 'LICENSE', 420, 438 ]
+191 silly gunzTarPerm extractEntry LICENSE
+192 silly gunzTarPerm modified mode [ 'LICENSE', 420, 438 ]
+193 silly gunzTarPerm extractEntry waitfor-demo.js
+194 silly gunzTarPerm modified mode [ 'waitfor-demo.js', 420, 438 ]
+195 silly gunzTarPerm extractEntry tests.js
+196 silly gunzTarPerm modified mode [ 'tests.js', 420, 438 ]
+197 silly gunzTarPerm extractEntry quick-test.js
+198 silly gunzTarPerm modified mode [ 'quick-test.js', 420, 438 ]
+199 silly gunzTarPerm extractEntry future.js
+200 silly gunzTarPerm modified mode [ 'future.js', 420, 438 ]
+201 silly gunzTarPerm extractEntry fibers.js
+202 silly gunzTarPerm modified mode [ 'fibers.js', 420, 438 ]
+203 silly gunzTarPerm extractEntry test.js
+204 silly gunzTarPerm modified mode [ 'test.js', 493, 511 ]
+205 silly gunzTarPerm extractEntry build.js
+206 silly gunzTarPerm modified mode [ 'build.js', 493, 511 ]
+207 silly gunzTarPerm extractEntry parallel-tests.js
+208 silly gunzTarPerm modified mode [ 'parallel-tests.js', 420, 438 ]
+209 silly gunzTarPerm extractEntry waitfor.js
+210 silly gunzTarPerm modified mode [ 'waitfor.js', 420, 438 ]
+211 silly gunzTarPerm extractEntry examples/multiple-fibers-on-ReadStream-data.js
+212 silly gunzTarPerm modified mode [ 'examples/multiple-fibers-on-ReadStream-data.js', 420, 438 ]
+213 silly gunzTarPerm extractEntry bin/node
+214 silly gunzTarPerm modified mode [ 'bin/node', 493, 511 ]
+215 silly gunzTarPerm extractEntry .travis.yml
+216 silly gunzTarPerm modified mode [ '.travis.yml', 420, 438 ]
+217 silly gunzTarPerm extractEntry binding.gyp
+218 silly gunzTarPerm modified mode [ 'binding.gyp', 420, 438 ]
+219 silly gunzTarPerm extractEntry bin/.npmignore
+220 silly gunzTarPerm modified mode [ 'bin/.npmignore', 420, 438 ]
+221 silly gunzTarPerm extractEntry bin/win32-x64-48/fibers.node
+222 silly gunzTarPerm modified mode [ 'bin/win32-x64-48/fibers.node', 420, 438 ]
+223 silly gunzTarPerm extractEntry bin/darwin-ia32-48/fibers.node
+224 silly gunzTarPerm modified mode [ 'bin/darwin-ia32-48/fibers.node', 493, 511 ]
+225 silly gunzTarPerm extractEntry bin/darwin-x64-46/fibers.node
+226 silly gunzTarPerm modified mode [ 'bin/darwin-x64-46/fibers.node', 493, 511 ]
+227 silly gunzTarPerm extractEntry bin/darwin-x64-48/fibers.node
+228 silly gunzTarPerm modified mode [ 'bin/darwin-x64-48/fibers.node', 493, 511 ]
+229 silly gunzTarPerm extractEntry bin/linux-ia32-46/fibers.node
+230 silly gunzTarPerm modified mode [ 'bin/linux-ia32-46/fibers.node', 493, 511 ]
+231 silly gunzTarPerm extractEntry bin/linux-ia32-48/fibers.node
+232 silly gunzTarPerm modified mode [ 'bin/linux-ia32-48/fibers.node', 493, 511 ]
+233 silly gunzTarPerm extractEntry bin/darwin-ia32-46/fibers.node
+234 silly gunzTarPerm modified mode [ 'bin/darwin-ia32-46/fibers.node', 493, 511 ]
+235 silly gunzTarPerm extractEntry bin/linux-x64-48/fibers.node
+236 silly gunzTarPerm modified mode [ 'bin/linux-x64-48/fibers.node', 493, 511 ]
+237 silly gunzTarPerm extractEntry bin/repl
+238 silly gunzTarPerm modified mode [ 'bin/repl', 493, 511 ]
+239 silly gunzTarPerm extractEntry bin/win32-ia32-46/fibers.node
+240 silly gunzTarPerm modified mode [ 'bin/win32-ia32-46/fibers.node', 420, 438 ]
+241 silly gunzTarPerm extractEntry bin/win32-ia32-48/fibers.node
+242 silly gunzTarPerm modified mode [ 'bin/win32-ia32-48/fibers.node', 420, 438 ]
+243 silly gunzTarPerm extractEntry bin/win32-x64-46/fibers.node
+244 silly gunzTarPerm modified mode [ 'bin/win32-x64-46/fibers.node', 420, 438 ]
+245 silly gunzTarPerm extractEntry bin/linux-x64-46/fibers.node
+246 silly gunzTarPerm modified mode [ 'bin/linux-x64-46/fibers.node', 493, 511 ]
+247 silly gunzTarPerm extractEntry src/coroutine.cc
+248 silly gunzTarPerm modified mode [ 'src/coroutine.cc', 420, 438 ]
+249 silly gentlyRm C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\wait.for-8de155b1\node_modules is being purged
+250 verbose gentlyRm don't care about contents; nuking C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\wait.for-8de155b1\node_modules
+251 silly gunzTarPerm extractEntry src/coroutine.h
+252 silly gunzTarPerm modified mode [ 'src/coroutine.h', 420, 438 ]
+253 silly gunzTarPerm extractEntry src/fibers.cc
+254 silly gunzTarPerm modified mode [ 'src/fibers.cc', 420, 438 ]
+255 silly gunzTarPerm extractEntry src/libcoro/README
+256 silly gunzTarPerm modified mode [ 'src/libcoro/README', 420, 438 ]
+257 silly gunzTarPerm extractEntry src/libcoro/LICENSE
+258 silly gunzTarPerm modified mode [ 'src/libcoro/LICENSE', 420, 438 ]
+259 silly gunzTarPerm extractEntry src/libcoro/conftest.c
+260 silly gunzTarPerm modified mode [ 'src/libcoro/conftest.c', 420, 438 ]
+261 silly gunzTarPerm extractEntry src/libcoro/coro.c
+262 silly gunzTarPerm modified mode [ 'src/libcoro/coro.c', 420, 438 ]
+263 silly gunzTarPerm extractEntry src/libcoro/coro.h
+264 silly gunzTarPerm modified mode [ 'src/libcoro/coro.h', 420, 438 ]
+265 silly gunzTarPerm extractEntry src/v8-version.h
+266 silly gunzTarPerm modified mode [ 'src/v8-version.h', 420, 438 ]
+267 silly gunzTarPerm extractEntry test/already-running.js
+268 silly gunzTarPerm modified mode [ 'test/already-running.js', 420, 438 ]
+269 silly gunzTarPerm extractEntry test/exit.js
+270 silly gunzTarPerm modified mode [ 'test/exit.js', 420, 438 ]
+271 silly gunzTarPerm extractEntry test/fibonacci.js
+272 silly gunzTarPerm modified mode [ 'test/fibonacci.js', 420, 438 ]
+273 silly gunzTarPerm extractEntry test/finish-multiple.js
+274 silly gunzTarPerm modified mode [ 'test/finish-multiple.js', 420, 438 ]
+275 silly gunzTarPerm extractEntry test/exec.js
+276 silly gunzTarPerm modified mode [ 'test/exec.js', 420, 438 ]
+277 silly gunzTarPerm extractEntry test/future.js
+278 silly gunzTarPerm modified mode [ 'test/future.js', 420, 438 ]
+279 silly gunzTarPerm extractEntry test/illegal-yield.js
+280 silly gunzTarPerm modified mode [ 'test/illegal-yield.js', 420, 438 ]
+281 silly gunzTarPerm extractEntry test/pool.js
+282 silly gunzTarPerm modified mode [ 'test/pool.js', 420, 438 ]
+283 silly gunzTarPerm extractEntry test/process-title.js
+284 silly gunzTarPerm modified mode [ 'test/process-title.js', 420, 438 ]
+285 silly gunzTarPerm extractEntry test/stack-overflow.js
+286 silly gunzTarPerm modified mode [ 'test/stack-overflow.js', 420, 438 ]
+287 silly gunzTarPerm extractEntry test/current.js
+288 silly gunzTarPerm modified mode [ 'test/current.js', 420, 438 ]
+289 silly gunzTarPerm extractEntry test/stack-overflow2.js
+290 silly gunzTarPerm modified mode [ 'test/stack-overflow2.js', 493, 511 ]
+291 silly gunzTarPerm extractEntry test/child-process.js
+292 silly gunzTarPerm modified mode [ 'test/child-process.js', 420, 438 ]
+293 silly gunzTarPerm extractEntry test/started.js
+294 silly gunzTarPerm modified mode [ 'test/started.js', 420, 438 ]
+295 silly gunzTarPerm extractEntry test/bad-context.js
+296 silly gunzTarPerm modified mode [ 'test/bad-context.js', 420, 438 ]
+297 silly gunzTarPerm extractEntry test/unwind.js
+298 silly gunzTarPerm modified mode [ 'test/unwind.js', 420, 438 ]
+299 silly gunzTarPerm extractEntry test/future-exception.js
+300 silly gunzTarPerm modified mode [ 'test/future-exception.js', 420, 438 ]
+301 silly gentlyRm C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\fibers-9f241509\node_modules is being purged
+302 verbose gentlyRm don't care about contents; nuking C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\fibers-9f241509\node_modules
+303 silly doParallel preinstall 2
+304 silly preinstall fibers@1.0.15 C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\fibers-9f241509
+305 info lifecycle fibers@1.0.15~preinstall: fibers@1.0.15
+306 silly preinstall wait.for@0.6.6 C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\wait.for-8de155b1
+307 info lifecycle wait.for@0.6.6~preinstall: wait.for@0.6.6
+308 silly lifecycle fibers@1.0.15~preinstall: no script for preinstall, continuing
+309 silly lifecycle wait.for@0.6.6~preinstall: no script for preinstall, continuing
+310 silly doReverseSerial remove 0
+311 silly doSerial move 0
+312 silly doSerial finalize 2
+313 silly finalize C:\Users\Yair\WebstormProjects\socket-app\node_modules\fibers
+314 silly finalize C:\Users\Yair\WebstormProjects\socket-app\node_modules\wait.for
+315 silly doSerial build 2
+316 silly build fibers@1.0.15
+317 info linkStuff fibers@1.0.15
+318 silly linkStuff fibers@1.0.15 has C:\Users\Yair\WebstormProjects\socket-app\node_modules as its parent node_modules
+319 verbose linkBins fibers@1.0.15
+320 verbose linkMans fibers@1.0.15
+321 silly build wait.for@0.6.6
+322 info linkStuff wait.for@0.6.6
+323 silly linkStuff wait.for@0.6.6 has C:\Users\Yair\WebstormProjects\socket-app\node_modules as its parent node_modules
+324 verbose linkBins wait.for@0.6.6
+325 verbose linkMans wait.for@0.6.6
+326 silly doSerial global-link 0
+327 silly doParallel update-linked 0
+328 silly doSerial install 2
+329 silly install fibers@1.0.15 C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging\fibers-9f241509
+330 info lifecycle fibers@1.0.15~install: fibers@1.0.15
+331 verbose lifecycle fibers@1.0.15~install: unsafe-perm in lifecycle true
+332 verbose lifecycle fibers@1.0.15~install: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Users\Yair\WebstormProjects\socket-app\node_modules\fibers\node_modules\.bin;C:\Users\Yair\WebstormProjects\socket-app\node_modules\.bin;C:\Program Files\nodejs;C:\Program Files (x86)\Google\Chrome\Application;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Users\Yair\AppData\Roaming\npm;C:\Program Files (x86)\Git\bin;C:\Program Files\nodejs;C:\Program Files\Java\jdk1.8.0_77\bin;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Program Files (x86)\Windows Kits\8.0\Windows Performance Toolkit\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;C:\Users\Yair\AppData\Local\Microsoft\WindowsApps;
+333 verbose lifecycle fibers@1.0.15~install: CWD: C:\Users\Yair\WebstormProjects\socket-app\node_modules\fibers
+334 silly lifecycle fibers@1.0.15~install: Args: [ '/d /s /c', 'node build.js || nodejs build.js' ]
+335 silly lifecycle fibers@1.0.15~install: Returned: code: 1  signal: null
+336 info lifecycle fibers@1.0.15~install: Failed to exec install script
+337 verbose unlock done using C:\Users\Yair\AppData\Roaming\npm-cache\_locks\staging-b0c4e875f0adfb76.lock for C:\Users\Yair\WebstormProjects\socket-app\node_modules\.staging
+338 silly rollbackFailedOptional Starting
+339 silly rollbackFailedOptional Finishing
+340 silly runTopLevelLifecycles Starting
+341 silly runTopLevelLifecycles Finishing
+342 silly install printInstalled
+343 warn socket-app@1.0.0 No description
+344 warn socket-app@1.0.0 No repository field.
+345 verbose stack Error: fibers@1.0.15 install: `node build.js || nodejs build.js`
+345 verbose stack Exit status 1
+345 verbose stack     at EventEmitter.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\lifecycle.js:239:16)
+345 verbose stack     at emitTwo (events.js:100:13)
+345 verbose stack     at EventEmitter.emit (events.js:185:7)
+345 verbose stack     at ChildProcess.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\spawn.js:24:14)
+345 verbose stack     at emitTwo (events.js:100:13)
+345 verbose stack     at ChildProcess.emit (events.js:185:7)
+345 verbose stack     at maybeClose (internal/child_process.js:850:16)
+345 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:215:5)
+346 verbose pkgid fibers@1.0.15
+347 verbose cwd C:\Users\Yair\WebstormProjects\socket-app
+348 error Windows_NT 10.0.14393
+349 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "wait.for" "--save"
+350 error node v5.10.1
+351 error npm  v3.8.3
+352 error code ELIFECYCLE
+353 error fibers@1.0.15 install: `node build.js || nodejs build.js`
+353 error Exit status 1
+354 error Failed at the fibers@1.0.15 install script 'node build.js || nodejs build.js'.
+354 error Make sure you have the latest version of node.js and npm installed.
+354 error If you do, this is most likely a problem with the fibers package,
+354 error not with npm itself.
+354 error Tell the author that this fails on your system:
+354 error     node build.js || nodejs build.js
+354 error You can get information on how to open an issue for this project with:
+354 error     npm bugs fibers
+354 error Or if that isn't available, you can get their info via:
+354 error     npm owner ls fibers
+354 error There is likely additional logging output above.
+355 verbose exit [ 1, true ]
