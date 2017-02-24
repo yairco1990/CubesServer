@@ -9,14 +9,14 @@ app.use(express.static(__dirname + '/node_modules'));
 console.log("Server running...");
 ////////////////////end of server stuff////////////////////
 
-//Dal init
-var DBManager = require('./DBManager');
+//init DB
+var DBManager = require('./dal/DBManager');
 DBManager.getDBManager();
 
 //Logic libraries
-var UserLogic = require('./UserLogic');
-var RoomLogic = require('./RoomLogic');
-var GameLogic = require('./GameLogic');
+var UserLogic = require('./logic/UserLogic');
+var RoomLogic = require('./logic/RoomLogic');
+var GameLogic = require('./logic/GameLogic');
 
 var users = [];
 var connections = [];
@@ -28,16 +28,35 @@ io.on('connection', function (socket) {
 
     //on client disconnected
     socket.on('disconnect', function () {
+
         connections.splice(connections.indexOf(socket), 1);
         console.log("Disconnected: %s sockets connected", connections.length);
     });
 
-    //on client login
+    //client logged out
+    socket.on('logout', function () {
+
+        var userLogic = new UserLogic();
+
+        userLogic.logout(socket.id, connections).then(function(){
+
+        });
+    });
+
+    //client login
     socket.on('login', function (data, callback) {
 
         var userLogic = new UserLogic();
 
         userLogic.login(data.name, data.password, callback);
+    });
+
+    //restart room
+    socket.on('restartGame', function(data, callback){
+
+        var gameLogic = new GameLogic();
+
+        gameLogic.restartGame(data.userId, data.roomId, connections, null, callback);
     });
 
     //get rooms
@@ -46,6 +65,14 @@ io.on('connection', function (socket) {
         var roomLogic = new RoomLogic();
 
         roomLogic.getRooms(callback);
+    });
+
+    //enter to room
+    socket.on('enterRoom', function (data, callback) {
+
+        var roomLogic = new RoomLogic();
+
+        roomLogic.enterRoom(data.roomId, data.userId, connections, callback);
     });
 
     //get game
@@ -61,9 +88,14 @@ io.on('connection', function (socket) {
 
         var gameLogic = new GameLogic();
 
-        gameLogic.setGamble(data.userId, data.roomId, data.gambleTimes, data.gambleCube, data.isLying, callback, function(type){
-            io.emit(type, "this is a test");
-        });
+        gameLogic.setGamble(data.userId, data.roomId, data.gambleTimes, data.gambleCube, data.isLying, callback, connections);
+    });
+
+    socket.on('setSocketId', function(data, callback){
+
+        var userLogic = new UserLogic();
+
+        userLogic.setSocketId(data.userId, socket.id, callback);
     });
 });
 

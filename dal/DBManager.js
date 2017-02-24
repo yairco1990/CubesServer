@@ -39,7 +39,8 @@ function DBManager() {
         numOfCubes: Sequelize.INTEGER,
         lastGambleCube: Sequelize.INTEGER,
         lastGambleTimes: Sequelize.INTEGER,
-        isGameOn: Sequelize.BOOLEAN
+        isGameOn: Sequelize.BOOLEAN,
+        initialCubeNumber: Sequelize.INTEGER
     }, {
         timestamps: false
     });
@@ -60,7 +61,8 @@ function DBManager() {
         isLoggedIn: Sequelize.BOOLEAN,
         gambleCube: Sequelize.INTEGER,
         gambleTimes: Sequelize.INTEGER,
-        currentNumOfCubes: Sequelize.INTEGER
+        currentNumOfCubes: Sequelize.INTEGER,
+        socketId: Sequelize.STRING
     }, {
         timestamps: false
     });
@@ -112,6 +114,17 @@ DBManager.prototype.clearRoomCubes = function (roomId) {
     });
 };
 
+DBManager.prototype.clearUserCubes = function (userId) {
+
+    var self = this;
+
+    return self.Cube.destroy({
+        where: {
+            userId: userId
+        }
+    });
+};
+
 DBManager.prototype.getRoomById = function (roomId) {
 
     var self = this;
@@ -147,6 +160,19 @@ DBManager.prototype.getUserById = function (userId) {
     });
 };
 
+DBManager.prototype.getUserBySocketId = function (socketId) {
+
+    var self = this;
+
+    return self.User.find({
+        where: {
+            socketId: socketId
+        }
+    }).then(function (user) {
+        return setResult(user);
+    });
+};
+
 DBManager.prototype.getUsersByRoomId = function (roomId) {
 
     var self = this;
@@ -155,9 +181,13 @@ DBManager.prototype.getUsersByRoomId = function (roomId) {
         where: {
             roomId: roomId
         },
-        include: [
-            self.Cube
-        ]
+        include: [{
+            model: self.Cube,
+            where: {
+                roomId: roomId
+            },
+            required: false
+        }]
     }).then(function (users) {
         return setResult(users);
     });
@@ -181,7 +211,8 @@ DBManager.prototype.saveRoom = function (room) {
         lastGambleCube: room.lastGambleCube,
         lastGambleTimes: room.lastGambleTimes,
         lastUserTurnId: room.lastUserTurnId,
-        currentUserTurnId: room.currentUserTurnId
+        currentUserTurnId: room.currentUserTurnId,
+        nextUserTurnId: room.nextUserTurnId
     }, {
         where: {
             id: room.id
@@ -196,12 +227,29 @@ DBManager.prototype.saveUser = function (user) {
     return self.User.update({
         currentNumOfCubes: user.currentNumOfCubes,
         gambleCube: user.gambleCube,
-        gambleTimes: user.gambleTimes
+        gambleTimes: user.gambleTimes,
+        roomId: user.roomId,
+        socketId: user.socketId,
+        nextUserTurnId: user.nextUserTurnId,
+        isLoggedIn: user.isLoggedIn
     }, {
         where: {
             id: user.id
         }
     });
+};
+
+DBManager.prototype.saveUsers = function (users) {
+
+    var self = this;
+
+    var usersPromises = [];
+
+    users.forEach(function (user) {
+        usersPromises.push(self.saveUser(user));
+    });
+
+    return Promise.all(usersPromises);
 };
 
 /**
@@ -233,5 +281,26 @@ function getDataValuesFromArray(array) {
     });
     return newArray;
 }
+
+/**
+ * send push for room's sockets
+ * @param roomSockets
+ * @param type
+ * @param roomId
+ */
+DBManager.prototype.pushForRoomUsers = function (roomSockets, type, roomId) {
+
+    var self = this;
+
+    self.getUsersByRoomId(roomId).then(function (users) {
+        users.forEach(function (user) {
+            roomSockets.forEach(function (socket) {
+                if (user.socketId == socket.id) {
+                    socket.emit(type, "no data");
+                }
+            });
+        });
+    });
+};
 
 module.exports = DBManager;
