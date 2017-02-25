@@ -40,7 +40,8 @@ UserLogic.prototype.login = function (username, password, callback) {
 /**
  * on user disconnected
  * @param socketId
- * @param callback
+ * @param sockets
+ * @returns {*}
  */
 UserLogic.prototype.logout = function (socketId, sockets) {
     var self = this;
@@ -50,20 +51,18 @@ UserLogic.prototype.logout = function (socketId, sockets) {
         //save current room id
         var currentRoomId = user.roomId;
 
-        self.DBManager.getRoomById(currentRoomId).then(function(room){
+        self.DBManager.getRoomById(currentRoomId).then(function (room) {
 
             //clear user cubes
             self.DBManager.clearUserCubes(user.id).then(function () {
 
-                room.currentUserTurnId = user.nextUserTurnId;
+                //check if user playing
+                if (user.isLoggedIn) {
+                    room.currentUserTurnId = user.nextUserTurnId;
 
-                //TODO fix turns
-                self.DBManager.getUsersByRoomId(currentRoomId).then(function(users){
-
-                    self.DBManager.saveRoom(room).then(function(){
+                    self.DBManager.saveRoom(room).then(function () {
                         //set room to null
                         user.roomId = null;
-
                         //set user logout details
                         user.nextUserTurnId = null;
                         user.currentNumOfCubes = null;
@@ -72,11 +71,38 @@ UserLogic.prototype.logout = function (socketId, sockets) {
 
                         //save user
                         self.DBManager.saveUser(user).then(function () {
-                            //TODO change the push type!!!
-                            self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.PLAYER_GAMBLED, currentRoomId);
+
+                            //get room's users
+                            self.DBManager.getUsersByRoomId(currentRoomId).then(function (users) {
+
+                                //create gameLogic instance
+                                var GameLogic = require('./GameLogic');
+                                var gameLogic = new GameLogic();
+
+                                //save users turns
+                                self.DBManager.saveUsers(gameLogic.setTurnsOrder(users)).then(function () {
+
+                                    gameLogic.restartRound(room.id, sockets);
+                                });
+                            });
                         });
                     });
-                });
+                } else {
+                    //set room to null
+                    user.roomId = null;
+                    //set user logout details
+                    user.nextUserTurnId = null;
+                    user.currentNumOfCubes = null;
+                    user.gambleCube = null;
+                    user.gambleTimes = null;
+
+                    //save user
+                    self.DBManager.saveUser(user).then(function () {
+
+                        //update the other users
+                        self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.UPDATE_GAME, room.id);
+                    });
+                }
             });
         });
     });

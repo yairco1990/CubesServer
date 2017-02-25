@@ -12,6 +12,8 @@ function GameLogic() {
  * @param winnerId
  * @param roomId
  * @param sockets
+ * @param pushType
+ * @param callback
  */
 GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType, callback) {
 
@@ -47,7 +49,7 @@ GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType,
                         Promise.all(usersPromises).then(function () {
 
                             //set room details
-                            room.currentUserTurnId = winnerId ? winnerId : users[0];
+                            room.currentUserTurnId = winnerId ? winnerId : users[0].id;
 
                             self.DBManager.saveRoom(room).then(function () {
                                 console.log("FINISH TO RESTART THE ROOM!");
@@ -67,7 +69,8 @@ GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType,
                 });
             } else {
                 callback({
-                    response: Utils.serverResponse.ERROR
+                    response: Utils.serverResponse.ERROR,
+                    result: "there is just one user or less in the room"
                 })
             }
         });
@@ -128,6 +131,33 @@ GameLogic.prototype.getGame = function (roomId, callback) {
     });
 };
 
+/**
+ * restart the round
+ * @param roomId
+ * @param sockets
+ */
+GameLogic.prototype.restartRound = function (roomId, sockets) {
+
+    var self = this;
+
+    //get room
+    self.DBManager.getRoomById(roomId).then(function (room) {
+
+        //clear cubes
+        self.DBManager.clearRoomCubes(roomId).then(function () {
+
+            //get users
+            self.DBManager.getUsersByRoomId(roomId).then(function (users) {
+
+                //set cubes for users in room
+                Promise.all(self.setCubesForUsersInRoom(users, null)).then(function () {
+
+                    self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id);
+                });
+            });
+        });
+    });
+};
 
 GameLogic.prototype.setGamble = function (userId, roomId, gambleTimes, gambleCube, isLying, callback, sockets) {
 
@@ -372,7 +402,7 @@ GameLogic.prototype.setCubesForUser = function (user, callback) {
 /**
  * set turns order
  * @param users
- * @returns {*}
+ * @returns list of users with fixed nextUserTurnId property
  */
 GameLogic.prototype.setTurnsOrder = function (users) {
     //set array of user ids
@@ -397,8 +427,8 @@ GameLogic.prototype.getPlayingUsers = function (users) {
 
     var playingUsers = [];
 
-    users.forEach(function(user){
-        if(user.isLoggedIn){
+    users.forEach(function (user) {
+        if (user.isLoggedIn) {
             playingUsers.push(user);
         }
     });

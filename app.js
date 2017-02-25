@@ -38,7 +38,7 @@ io.on('connection', function (socket) {
 
         var userLogic = new UserLogic();
 
-        userLogic.logout(socket.id, connections).then(function(){
+        userLogic.logout(socket.id, connections).then(function () {
 
         });
     });
@@ -52,7 +52,7 @@ io.on('connection', function (socket) {
     });
 
     //restart room
-    socket.on('restartGame', function(data, callback){
+    socket.on('restartGame', function (data, callback) {
 
         var gameLogic = new GameLogic();
 
@@ -91,11 +91,23 @@ io.on('connection', function (socket) {
         gameLogic.setGamble(data.userId, data.roomId, data.gambleTimes, data.gambleCube, data.isLying, callback, connections);
     });
 
-    socket.on('setSocketId', function(data, callback){
+    socket.on('setSocketId', function (data, callback) {
 
         var userLogic = new UserLogic();
 
         userLogic.setSocketId(data.userId, socket.id, callback);
+    });
+});
+
+/**
+ * restart room game by http request
+ */
+app.get('/restartRoom', function (req, res) {
+
+    var gameLogic = new GameLogic();
+
+    gameLogic.restartGame(req.query.userId, req.query.roomId, connections, null, function (data) {
+        res.send(data.response);
     });
 });
 
