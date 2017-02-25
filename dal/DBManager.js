@@ -13,9 +13,27 @@ DBManager.getDBManager = function () {
 
 function DBManager() {
 
+    var ENVIRONMENTS = {
+        LOCAL: {
+            host: 'localhost',
+            schema: 'dice_db',
+            username: 'root',
+            password: 'q1w2e3'
+        },
+        DEVELOPMENT: {
+            host: 'eu-cdbr-west-01.cleardb.com',
+            schema: 'heroku_2c330247a016a0d',
+            username: 'bbaac9bf6d1131',
+            password: 'e3a4e852'
+        }
+    };
+
+    //TODO SELECTED ENVIRONMENT!!!!!
+    var selectedEnvironment = ENVIRONMENTS.DEVELOPMENT;
+
     //define DB connection
-    var connection = new Sequelize('dice_db', 'root', 'q1w2e3', {
-        host: 'localhost',
+    var connection = new Sequelize(selectedEnvironment.schema, selectedEnvironment.username, selectedEnvironment.password, {
+        host: selectedEnvironment.host,
         dialect: 'mysql',
         pool: {
             max: 5,
