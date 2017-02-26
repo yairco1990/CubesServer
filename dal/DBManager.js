@@ -143,15 +143,23 @@ DBManager.prototype.clearUserCubes = function (userId) {
     });
 };
 
-DBManager.prototype.getRoomById = function (roomId) {
+DBManager.prototype.getRoomById = function (roomId, withUsers) {
 
     var self = this;
 
-    return self.Room.find({
+    var request = {
         where: {
             id: roomId
         }
-    }).then(function (room) {
+    };
+
+    if (withUsers) {
+        request.include = [
+            self.User,
+        ];
+    }
+
+    return self.Room.find(request).then(function (room) {
         return setResult(room);
     });
 };

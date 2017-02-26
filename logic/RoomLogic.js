@@ -47,16 +47,34 @@ RoomLogic.prototype.enterRoom = function (roomId, userId, sockets, callback) {
 
         //by default not play when entering
         user.isLoggedIn = false;
-        self.DBManager.saveUser(user).then(function (rooms) {
-            callback({
-                response: Utils.serverResponse.SUCCESS,
-                result: user
-            });
 
-            //send push for all the room's users
-            self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.UPDATE_GAME, roomId);
+        //save the user
+        self.DBManager.saveUser(user).then(function () {
+
+            //get the room
+            self.DBManager.getRoomById(roomId, true).then(function (room) {
+
+                //create gameLogic instance
+                var GameLogic = require('./GameLogic');
+                var gameLogic = new GameLogic();
+
+                //get users in the room
+                var usersInRoom = room.users;
+
+                //if it was only one in the room and its 2 - restart the game
+                if (usersInRoom.length == 2) {
+                    gameLogic.restartGame(usersInRoom[0].id, roomId, sockets, Utils.pushCase.GAME_RESTARTED, callback);
+                } else { //game already played before
+                    callback({
+                        response: Utils.serverResponse.SUCCESS,
+                        result: user
+                    });
+
+                    //send push for all the room's users
+                    self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.UPDATE_GAME, roomId);
+                }
+            });
         });
-        // });
     });
 };
 

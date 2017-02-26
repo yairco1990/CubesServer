@@ -42,14 +42,15 @@ GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType,
                         users.forEach(function (user) {
                             user.currentNumOfCubes = room.initialCubeNumber;
                             user.isLoggedIn = true;
-                            usersPromises.push(self.DBManager.saveUser(user));
                         });
 
                         //save the users
-                        Promise.all(usersPromises).then(function () {
+                        self.DBManager.saveUsers(users).then(function () {
 
                             //set room details
                             room.currentUserTurnId = winnerId ? winnerId : users[0].id;
+                            room.lastGambleCube = null;
+                            room.lastGambleTimes = null;
 
                             self.DBManager.saveRoom(room).then(function () {
                                 console.log("FINISH TO RESTART THE ROOM!");
@@ -135,8 +136,9 @@ GameLogic.prototype.getGame = function (roomId, callback) {
  * restart the round
  * @param roomId
  * @param sockets
+ * @param numOfUsersInRoom
  */
-GameLogic.prototype.restartRound = function (roomId, sockets) {
+GameLogic.prototype.restartRound = function (roomId, sockets, numOfUsersInRoom) {
 
     var self = this;
 
@@ -149,11 +151,17 @@ GameLogic.prototype.restartRound = function (roomId, sockets) {
             //get users
             self.DBManager.getUsersByRoomId(roomId).then(function (users) {
 
-                //set cubes for users in room
-                Promise.all(self.setCubesForUsersInRoom(users, null)).then(function () {
+                //set cubes only if two or more playing
+                if (numOfUsersInRoom > 1) {
+                    //set cubes for users in room
+                    Promise.all(self.setCubesForUsersInRoom(users, null)).then(function () {
 
+                        //update the users
+                        self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id);
+                    });
+                } else {
                     self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id);
-                });
+                }
             });
         });
     });
@@ -234,61 +242,60 @@ GameLogic.prototype.setGamble = function (userId, roomId, gambleTimes, gambleCub
                             room.currentUserTurnId = wrongGambler.nextUserTurnId;
 
                             users = self.setTurnsOrder(users);
-
-                            //TODO
-                            self.DBManager.saveUsers(users).then(function () {
-                                console.log("SAVE ALL THE USERS!!!!!!!");
-                            });
                         }
 
-                        //save the room
-                        self.DBManager.saveRoom(room).then(function () {
+                        //save users
+                        self.DBManager.saveUsers(users).then(function () {
 
-                            //save the gambler
-                            self.DBManager.saveUser(wrongGambler).then(function () {
+                            //save the room
+                            self.DBManager.saveRoom(room).then(function () {
 
-                                //get the updated room
-                                self.DBManager.getUsersByRoomId(roomId).then(function (updatedUsers) {
+                                //save the gambler
+                                self.DBManager.saveUser(wrongGambler).then(function () {
 
-                                    //clear room's cubes
-                                    self.DBManager.clearRoomCubes(roomId).then(function () {
-                                        var userCounter = 0;
-                                        //set gambles to null
-                                        updatedUsers.forEach(function (updatedUser) {
-                                            updatedUser.gambleCube = null;
-                                            updatedUser.gambleTimes = null;
+                                    //get the updated room
+                                    self.DBManager.getUsersByRoomId(roomId).then(function (updatedUsers) {
 
-                                            //save user
-                                            self.DBManager.saveUser(updatedUser).then(function () {
+                                        //clear room's cubes
+                                        self.DBManager.clearRoomCubes(roomId).then(function () {
+                                            var userCounter = 0;
+                                            //set gambles to null
+                                            updatedUsers.forEach(function (updatedUser) {
+                                                updatedUser.gambleCube = null;
+                                                updatedUser.gambleTimes = null;
 
-                                                //set user cubes if still playing
-                                                if (updatedUser.isLoggedIn) {
-                                                    Promise.all(self.setCubesForUser(updatedUser)).then(function () {
-                                                        console.log("set cubes for user - ", updatedUser.name);
-                                                        userCounter++;
-                                                        if (userCounter == self.getPlayingUsers(updatedUsers).length) {
+                                                //save user
+                                                self.DBManager.saveUser(updatedUser).then(function () {
 
-                                                            //get the winner
-                                                            var winner = self.isGameOver(updatedUsers);
+                                                    //set user cubes if still playing
+                                                    if (updatedUser.isLoggedIn) {
+                                                        Promise.all(self.setCubesForUser(updatedUser)).then(function () {
+                                                            console.log("set cubes for user - ", updatedUser.name);
+                                                            userCounter++;
+                                                            if (userCounter == self.getPlayingUsers(updatedUsers).length) {
 
-                                                            if (winner != null) {
-                                                                //init the room
-                                                                self.restartGame(winner.id, roomId, sockets, Utils.pushCase.GAME_OVER);
-                                                            } else {
-                                                                self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, roomId);
+                                                                //get the winner
+                                                                var winner = self.isGameOver(updatedUsers);
+
+                                                                if (winner != null) {
+                                                                    //init the room
+                                                                    self.restartGame(winner.id, roomId, sockets, Utils.pushCase.GAME_OVER);
+                                                                } else {
+                                                                    self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, roomId);
+                                                                }
+                                                                callback({
+                                                                    response: Utils.serverResponse.SUCCESS,
+                                                                    result: result
+                                                                });
                                                             }
-                                                            callback({
-                                                                response: Utils.serverResponse.SUCCESS,
-                                                                result: result
-                                                            });
-                                                        }
-                                                    });
-                                                }
-                                            });
-                                        })
+                                                        });
+                                                    }
+                                                });
+                                            })
+                                        });
                                     });
-                                });
-                            })
+                                })
+                            });
                         });
                     });
                 } else {

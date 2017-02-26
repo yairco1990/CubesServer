@@ -82,7 +82,7 @@ UserLogic.prototype.logout = function (socketId, sockets) {
                                 //save users turns
                                 self.DBManager.saveUsers(gameLogic.setTurnsOrder(users)).then(function () {
 
-                                    gameLogic.restartRound(room.id, sockets);
+                                    gameLogic.restartRound(room.id, sockets, users.length);
                                 });
                             });
                         });
