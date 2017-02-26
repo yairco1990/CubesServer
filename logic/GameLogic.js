@@ -454,15 +454,18 @@ GameLogic.prototype.setCubesForUser = function (user, callback) {
  * @returns list of users with fixed nextUserTurnId property
  */
 GameLogic.prototype.setTurnsOrder = function (users) {
-    //set array of user ids
-    var idsArray = Utils.generateArrayOfUsersIds(users);
 
-    //set next user turn for all except from the last one
-    for (var i = 1; i < idsArray.length; i++) {
-        Utils.getUserById(users, idsArray[i - 1]).nextUserTurnId = idsArray[i];
+    if (users.length > 0) {
+        //set array of user ids
+        var idsArray = Utils.generateArrayOfUsersIds(users);
+
+        //set next user turn for all except from the last one
+        for (var i = 1; i < idsArray.length; i++) {
+            Utils.getUserById(users, idsArray[i - 1]).nextUserTurnId = idsArray[i];
+        }
+        //set next user turn for the last one
+        Utils.getUserById(users, idsArray[idsArray.length - 1]).nextUserTurnId = idsArray[0];
     }
-    //set next user turn for the last one
-    Utils.getUserById(users, idsArray[idsArray.length - 1]).nextUserTurnId = idsArray[0];
 
     return users;
 };

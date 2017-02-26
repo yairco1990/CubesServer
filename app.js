@@ -34,7 +34,7 @@ io.on('connection', function (socket) {
     });
 
     //client logged out
-    socket.on('logout', function (callback) {
+    socket.on('logout', function (data, callback) {
 
         var userLogic = new UserLogic();
 
