@@ -43,7 +43,7 @@ UserLogic.prototype.login = function (username, password, callback) {
  * @param sockets
  * @returns {*}
  */
-UserLogic.prototype.logout = function (socketId, sockets) {
+UserLogic.prototype.logout = function (socketId, sockets, callback) {
     var self = this;
 
     return self.DBManager.getUserBySocketId(socketId).then(function (user) {
@@ -85,6 +85,11 @@ UserLogic.prototype.logout = function (socketId, sockets) {
                                 self.DBManager.saveUsers(gameLogic.setTurnsOrder(users)).then(function () {
 
                                     gameLogic.restartRound(room.id, sockets, users.length, data);
+
+                                    callback({
+                                        response: Utils.serverResponse.SUCCESS,
+                                        result: "no data"
+                                    });
                                 });
                             });
                         });
@@ -103,6 +108,11 @@ UserLogic.prototype.logout = function (socketId, sockets) {
 
                         //update the other users
                         self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.UPDATE_GAME, room.id);
+
+                        callback({
+                            response: Utils.serverResponse.SUCCESS,
+                            result: "no data"
+                        });
                     });
                 }
             });

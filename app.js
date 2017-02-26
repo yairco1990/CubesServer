@@ -34,11 +34,11 @@ io.on('connection', function (socket) {
     });
 
     //client logged out
-    socket.on('logout', function () {
+    socket.on('logout', function (callback) {
 
         var userLogic = new UserLogic();
 
-        userLogic.logout(socket.id, connections).then(function () {
+        userLogic.logout(socket.id, connections, callback).then(function () {
 
         });
     });
