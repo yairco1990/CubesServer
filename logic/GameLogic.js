@@ -378,6 +378,31 @@ GameLogic.prototype.initRoom = function (winner, room, users) {
 
 };
 
+
+/**
+ * send message to room's users
+ */
+GameLogic.prototype.sendMessage = function (userId, content, sockets, callback) {
+    var self = this;
+
+    self.DBManager.getUserById(userId).then(function (user) {
+        self.DBManager.getRoomById(user.roomId).then(function (room) {
+            var message = {
+                userId: userId,
+                name: user.name,
+                content: content
+            };
+
+            callback({
+                response: Utils.serverResponse.SUCCESS,
+                result: message
+            });
+
+            self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.NEW_MESSAGE, room.id, message);
+        });
+    });
+};
+
 /**
  * check if the game is over
  * @param users

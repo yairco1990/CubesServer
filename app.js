@@ -91,6 +91,13 @@ io.on('connection', function (socket) {
         gameLogic.setGamble(data.userId, data.roomId, data.gambleTimes, data.gambleCube, data.isLying, callback, connections);
     });
 
+    socket.on('sendMessage', function (data, callback) {
+
+        var gameLogic = new GameLogic();
+
+        gameLogic.sendMessage(data.userId, data.content, connections, callback);
+    });
+
     socket.on('setSocketId', function (data, callback) {
 
         var userLogic = new UserLogic();
