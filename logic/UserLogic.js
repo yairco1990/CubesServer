@@ -51,7 +51,9 @@ UserLogic.prototype.logout = function (socketId, sockets) {
         //save current room id
         var currentRoomId = user.roomId;
 
-        self.DBManager.getRoomById(currentRoomId).then(function (room) {
+        self.DBManager.getRoomById(currentRoomId, true).then(function (room) {
+
+            var data = {users: room.users, isUserLeft: true};
 
             //clear user cubes
             self.DBManager.clearUserCubes(user.id).then(function () {
@@ -82,7 +84,7 @@ UserLogic.prototype.logout = function (socketId, sockets) {
                                 //save users turns
                                 self.DBManager.saveUsers(gameLogic.setTurnsOrder(users)).then(function () {
 
-                                    gameLogic.restartRound(room.id, sockets, users.length);
+                                    gameLogic.restartRound(room.id, sockets, users.length, data);
                                 });
                             });
                         });

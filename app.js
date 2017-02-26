@@ -56,7 +56,7 @@ io.on('connection', function (socket) {
 
         var gameLogic = new GameLogic();
 
-        gameLogic.restartGame(data.userId, data.roomId, connections, null, callback);
+        gameLogic.restartGame(data.userId, data.roomId, connections, null, null, callback);
     });
 
     //get rooms
@@ -80,7 +80,7 @@ io.on('connection', function (socket) {
 
         var gameLogic = new GameLogic();
 
-        gameLogic.getGame(data.roomId, callback);
+        gameLogic.getGame(data.roomId, data.userId, callback);
     });
 
     //set gamble
@@ -106,7 +106,7 @@ app.get('/restartRoom', function (req, res) {
 
     var gameLogic = new GameLogic();
 
-    gameLogic.restartGame(req.query.userId, req.query.roomId, connections, null, function (data) {
+    gameLogic.restartGame(req.query.userId, req.query.roomId, connections, null, null, function (data) {
         res.send(data.response);
     });
 });

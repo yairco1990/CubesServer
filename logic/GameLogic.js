@@ -15,7 +15,7 @@ function GameLogic() {
  * @param pushType
  * @param callback
  */
-GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType, callback) {
+GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType, endRoundResult, callback) {
 
     var self = this;
 
@@ -58,7 +58,7 @@ GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType,
                                 pushType = pushType ? pushType : Utils.pushCase.GAME_RESTARTED;
 
                                 //send push for all the room's users
-                                self.DBManager.pushForRoomUsers(sockets, pushType, roomId);
+                                self.DBManager.pushForRoomUsers(sockets, pushType, roomId, endRoundResult);
 
                                 callback({
                                     response: Utils.serverResponse.SUCCESS,
@@ -105,14 +105,15 @@ GameLogic.prototype.setCubesForUsersInRoom = function (users, numOfCubes) {
  * login function
  * @param roomId
  * @param callback
+ * @param userId
  */
-GameLogic.prototype.getGame = function (roomId, callback) {
+GameLogic.prototype.getGame = function (roomId, userId, callback) {
 
     var self = this;
 
     self.DBManager.getRoomById(roomId).then(function (room) {
 
-        self.DBManager.getUsersByRoomId(roomId).then(function (users) {
+        self.DBManager.getUsersByRoomId(roomId, userId).then(function (users) {
 
             if (users != "NO_ROWS_FOUND" && room != "NO_ROWS_FOUND") {
                 callback({
@@ -138,7 +139,7 @@ GameLogic.prototype.getGame = function (roomId, callback) {
  * @param sockets
  * @param numOfUsersInRoom
  */
-GameLogic.prototype.restartRound = function (roomId, sockets, numOfUsersInRoom) {
+GameLogic.prototype.restartRound = function (roomId, sockets, numOfUsersInRoom, data) {
 
     var self = this;
 
@@ -157,10 +158,10 @@ GameLogic.prototype.restartRound = function (roomId, sockets, numOfUsersInRoom) 
                     Promise.all(self.setCubesForUsersInRoom(users, null)).then(function () {
 
                         //update the users
-                        self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id);
+                        self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
                     });
                 } else {
-                    self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id);
+                    self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
                 }
             });
         });
@@ -180,13 +181,20 @@ GameLogic.prototype.setGamble = function (userId, roomId, gambleTimes, gambleCub
             //get users in room
             self.DBManager.getUsersByRoomId(roomId).then(function (users) {
 
-                var eventType = null;
+                //set original users for sending all user's cubes to all the users
+                var originalUsers = JSON.parse(JSON.stringify(users));
 
                 //if the current user set lie - check last gamble
                 if (isLying) {
                     //get the last gamble
                     var lastGambleTimes = room.lastGambleTimes;
                     var lastGambleCube = room.lastGambleCube;
+
+                    var endRoundResult = {
+                        sayLying: user.name,
+                        gambleCube: lastGambleCube,
+                        gambleTimes: lastGambleTimes
+                    };
 
                     var correctCubesCounter = 0;
 
@@ -211,11 +219,15 @@ GameLogic.prototype.setGamble = function (userId, roomId, gambleTimes, gambleCub
 
                     //check if the gamble correct or not
                     if (lastGambleTimes > correctCubesCounter) {
+                        endRoundResult.isRight = true;
+
                         //if wrong gamble - minus cube to last user
                         wrongGamblerId = room.lastUserTurnId;
 
                         result = "WRONG_GAMBLE";
                     } else {
+                        endRoundResult.isRight = false;
+
                         //if good gamble - minus cube to current user
                         wrongGamblerId = room.currentUserTurnId;
 
@@ -277,11 +289,16 @@ GameLogic.prototype.setGamble = function (userId, roomId, gambleTimes, gambleCub
                                                                 //get the winner
                                                                 var winner = self.isGameOver(updatedUsers);
 
+                                                                var usersData = {
+                                                                    users: originalUsers,
+                                                                    endRoundResult: endRoundResult
+                                                                };
+
                                                                 if (winner != null) {
                                                                     //init the room
-                                                                    self.restartGame(winner.id, roomId, sockets, Utils.pushCase.GAME_OVER);
+                                                                    self.restartGame(winner.id, roomId, sockets, Utils.pushCase.GAME_OVER, usersData);
                                                                 } else {
-                                                                    self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, roomId);
+                                                                    self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, roomId, usersData);
                                                                 }
                                                                 callback({
                                                                     response: Utils.serverResponse.SUCCESS,

@@ -155,7 +155,7 @@ DBManager.prototype.getRoomById = function (roomId, withUsers) {
 
     if (withUsers) {
         request.include = [
-            self.User,
+            self.User
         ];
     }
 
@@ -199,9 +199,18 @@ DBManager.prototype.getUserBySocketId = function (socketId) {
     });
 };
 
-DBManager.prototype.getUsersByRoomId = function (roomId) {
+DBManager.prototype.getUsersByRoomId = function (roomId, userId) {
 
     var self = this;
+
+    var cubesWhere = {
+        roomId: roomId
+    };
+
+    //restrict by userId
+    if (userId) {
+        cubesWhere.userId = userId;
+    }
 
     return self.User.findAll({
         where: {
@@ -209,9 +218,7 @@ DBManager.prototype.getUsersByRoomId = function (roomId) {
         },
         include: [{
             model: self.Cube,
-            where: {
-                roomId: roomId
-            },
+            where: cubesWhere,
             required: false
         }]
     }).then(function (users) {
@@ -313,8 +320,9 @@ function getDataValuesFromArray(array) {
  * @param roomSockets
  * @param type
  * @param roomId
+ * @param data
  */
-DBManager.prototype.pushForRoomUsers = function (roomSockets, type, roomId) {
+DBManager.prototype.pushForRoomUsers = function (roomSockets, type, roomId, data) {
 
     var self = this;
 
@@ -322,7 +330,10 @@ DBManager.prototype.pushForRoomUsers = function (roomSockets, type, roomId) {
         users.forEach(function (user) {
             roomSockets.forEach(function (socket) {
                 if (user.socketId == socket.id) {
-                    socket.emit(type, "no data");
+                    if (data == null) {
+                        data = "no data";
+                    }
+                    socket.emit(type, data);
                 }
             });
         });

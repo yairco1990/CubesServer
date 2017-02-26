@@ -63,7 +63,7 @@ RoomLogic.prototype.enterRoom = function (roomId, userId, sockets, callback) {
 
                 //if it was only one in the room and its 2 - restart the game
                 if (usersInRoom.length == 2) {
-                    gameLogic.restartGame(usersInRoom[0].id, roomId, sockets, Utils.pushCase.GAME_RESTARTED, callback);
+                    gameLogic.restartGame(usersInRoom[0].id, roomId, sockets, Utils.pushCase.GAME_RESTARTED, null, callback);
                 } else { //game already played before
                     callback({
                         response: Utils.serverResponse.SUCCESS,
