@@ -42,6 +42,8 @@ GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType,
                         users.forEach(function (user) {
                             user.currentNumOfCubes = room.initialCubeNumber;
                             user.isLoggedIn = true;
+                            user.gambleCube = null;
+                            user.gambleTimes = null;
                         });
 
                         //save the users
