@@ -28,6 +28,32 @@ RoomLogic.prototype.getRooms = function (callback) {
     });
 };
 
+/**
+ * create room
+ * @param callback
+ */
+RoomLogic.prototype.createRoom = function (roomName, initialCubeNumber, ownerId, callback) {
+
+    var self = this;
+
+    self.DBManager.getRoomByName(roomName).then(function (room) {
+        //check if room exist
+        if (room.id == null) {
+            self.DBManager.createRoom(roomName, initialCubeNumber, ownerId).then(function (room) {
+                callback({
+                    response: Utils.serverResponse.SUCCESS,
+                    result: room
+                });
+            });
+        } else {
+            callback({
+                response: Utils.serverResponse.ERROR,
+                result: "ALREADY_EXIST"
+            });
+        }
+    });
+};
+
 
 /**
  * enter to room

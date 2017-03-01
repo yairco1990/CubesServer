@@ -33,7 +33,7 @@ io.on('connection', function (socket) {
         console.log("Disconnected: %s sockets connected", connections.length);
     });
 
-    //client logged out
+    //client logged out from room
     socket.on('logout', function (data, callback) {
 
         var userLogic = new UserLogic();
@@ -51,6 +51,14 @@ io.on('connection', function (socket) {
         userLogic.login(data.name, data.password, callback);
     });
 
+    //client login
+    socket.on('register', function (data, callback) {
+
+        var userLogic = new UserLogic();
+
+        userLogic.register(data.username, data.password, callback);
+    });
+
     //restart room
     socket.on('restartGame', function (data, callback) {
 
@@ -65,6 +73,14 @@ io.on('connection', function (socket) {
         var roomLogic = new RoomLogic();
 
         roomLogic.getRooms(callback);
+    });
+
+    //create room
+    socket.on('createRoom', function (data, callback) {
+
+        var roomLogic = new RoomLogic();
+
+        roomLogic.createRoom(data.roomName, data.initialCubeNumber, data.userId, callback);
     });
 
     //enter to room

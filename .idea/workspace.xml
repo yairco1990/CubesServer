@@ -23,8 +23,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="40" column="8" lean-forward="false" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+            <state relative-caret-position="267">
+              <caret line="40" column="20" lean-forward="false" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -33,7 +33,7 @@
       <file leaf-file-name="DBManager.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dal/DBManager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
+            <state relative-caret-position="454">
               <caret line="31" column="54" lean-forward="false" selection-start-line="31" selection-start-column="54" selection-end-line="31" selection-end-column="54" />
               <folding />
             </state>
@@ -43,8 +43,8 @@
       <file leaf-file-name="GameLogic.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logic/GameLogic.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="456" column="0" lean-forward="false" selection-start-line="456" selection-start-column="0" selection-end-line="456" selection-end-column="0" />
+            <state relative-caret-position="160">
+              <caret line="146" column="61" lean-forward="true" selection-start-line="146" selection-start-column="61" selection-end-line="146" selection-end-column="61" />
               <folding />
             </state>
           </provider>
@@ -53,8 +53,8 @@
       <file leaf-file-name="RoomLogic.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logic/RoomLogic.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="511">
-              <caret line="65" column="114" lean-forward="false" selection-start-line="65" selection-start-column="114" selection-end-line="65" selection-end-column="114" />
+            <state relative-caret-position="367">
+              <caret line="45" column="19" lean-forward="true" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -63,8 +63,8 @@
       <file leaf-file-name="UserLogic.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logic/UserLogic.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="111" column="23" lean-forward="false" selection-start-line="111" selection-start-column="23" selection-end-line="111" selection-end-column="23" />
+            <state relative-caret-position="386">
+              <caret line="115" column="51" lean-forward="false" selection-start-line="115" selection-start-column="51" selection-end-line="115" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -82,22 +82,10 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>pushType</find>
-      <find>getC</find>
-      <find>request</find>
-      <find>gameLog</find>
-      <find>user.get</find>
-      <find>enterRoom</find>
-      <find>room</find>
-      <find>enterRoo</find>
-      <find>getUsersByRoomId</find>
-      <find>SESSION_ENDED</find>
-      <find>pushCase.GAME_OVER</find>
       <find>GAME_OVER</find>
       <find>SESSION_E</find>
       <find>callback</find>
       <find>GAME_OV</find>
-      <find>restartGame</find>
       <find>eventType</find>
       <find>result</find>
       <find>sayLying</find>
@@ -109,15 +97,30 @@
       <find>getGame</find>
       <find>restartRound</find>
       <find>ENVI</find>
-      <find>sessio</find>
       <find>LOCAL</find>
+      <find>sessio</find>
+      <find>getRoomB</find>
+      <find>createUser</find>
+      <find>initialCubeNumber</find>
+      <find>restartRoom</find>
+      <find>restartGame</find>
+      <find>User</find>
+      <find>createRoom</find>
+      <find>ownerId</find>
+      <find>currentUserTurn</find>
+      <find>owner</find>
+      <find>logo</find>
       <find>logout</find>
+      <find>ownerIdId</find>
     </findStrings>
     <replaceStrings>
       <replace>).then(function</replace>
       <replace>self.DBManager.pushForRoomUsers</replace>
       <replace>Utils.pushCase</replace>
     </replaceStrings>
+    <dirStrings>
+      <dir>C:\Users\Yair\CubesProject\CubesServer</dir>
+    </dirStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -134,10 +137,10 @@
         <option value="$PROJECT_DIR$/dal/RoomDBManager.js" />
         <option value="$PROJECT_DIR$/dal/GameDBManager.js" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/logic/RoomLogic.js" />
         <option value="$PROJECT_DIR$/utils/utils.js" />
-        <option value="$PROJECT_DIR$/logic/UserLogic.js" />
         <option value="$PROJECT_DIR$/logic/GameLogic.js" />
+        <option value="$PROJECT_DIR$/logic/UserLogic.js" />
+        <option value="$PROJECT_DIR$/logic/RoomLogic.js" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/dal/DBManager.js" />
       </list>
@@ -340,15 +343,15 @@
       <updated>1487528943707</updated>
       <workItem from="1487610312710" duration="30979000" />
       <workItem from="1487778537069" duration="1906000" />
-      <workItem from="1487781065789" duration="49312000" />
+      <workItem from="1487781065789" duration="56987000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82197000" />
+    <option name="totallyTimeSpent" value="89872000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15068494" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -387,7 +390,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="198" />
+      <option name="time" value="206" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="NodeJSConfigurationType">
@@ -551,14 +554,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/sequelize/lib/dialects/mysql/query.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="174" column="13" lean-forward="false" selection-start-line="174" selection-start-column="13" selection-end-line="174" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/sequelize/lib/instance.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -599,41 +594,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logic/RoomLogic.js">
+    <entry file="file://$PROJECT_DIR$/node_modules/sequelize/lib/instance-validator.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="511">
-          <caret line="65" column="114" lean-forward="false" selection-start-line="65" selection-start-column="114" selection-end-line="65" selection-end-column="114" />
+        <state relative-caret-position="209">
+          <caret line="73" column="13" lean-forward="false" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logic/GameLogic.js">
+    <entry file="file://$PROJECT_DIR$/node_modules/sequelize/lib/dialects/mysql/query.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="456" column="0" lean-forward="false" selection-start-line="456" selection-start-column="0" selection-end-line="456" selection-end-column="0" />
+        <state relative-caret-position="209">
+          <caret line="174" column="13" lean-forward="false" selection-start-line="174" selection-start-column="13" selection-end-line="174" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logic/RoomLogic.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="45" column="19" lean-forward="true" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="40" column="8" lean-forward="false" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+        <state relative-caret-position="267">
+          <caret line="40" column="20" lean-forward="false" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/logic/UserLogic.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="111" column="23" lean-forward="false" selection-start-line="111" selection-start-column="23" selection-end-line="111" selection-end-column="23" />
+        <state relative-caret-position="386">
+          <caret line="115" column="51" lean-forward="false" selection-start-line="115" selection-start-column="51" selection-end-line="115" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logic/GameLogic.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="146" column="61" lean-forward="true" selection-start-line="146" selection-start-column="61" selection-end-line="146" selection-end-column="61" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dal/DBManager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
+        <state relative-caret-position="454">
           <caret line="31" column="54" lean-forward="false" selection-start-line="31" selection-start-column="54" selection-end-line="31" selection-end-column="54" />
           <folding />
         </state>

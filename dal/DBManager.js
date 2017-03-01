@@ -104,6 +104,7 @@ function DBManager() {
 
     Room.belongsTo(User, {as: "currentUserTurn", constraints: false});
     Room.belongsTo(User, {as: "lastUserTurn", constraints: false});
+    Room.belongsTo(User, {as: "owner", constraints: false});
     Room.hasMany(User);
     Room.hasMany(Cube);
 
@@ -143,6 +144,17 @@ DBManager.prototype.clearUserCubes = function (userId) {
     });
 };
 
+DBManager.prototype.createUser = function (username, password) {
+
+    var self = this;
+
+    return self.User.create({
+        name: username,
+        password: password
+    });
+};
+
+
 DBManager.prototype.getRoomById = function (roomId, withUsers) {
 
     var self = this;
@@ -160,6 +172,35 @@ DBManager.prototype.getRoomById = function (roomId, withUsers) {
     }
 
     return self.Room.find(request).then(function (room) {
+        return setResult(room);
+    });
+};
+
+DBManager.prototype.getRoomByName = function (roomName) {
+
+    var self = this;
+
+    var request = {
+        where: {
+            name: roomName
+        }
+    };
+
+    return self.Room.find(request).then(function (room) {
+        return setResult(room);
+    });
+};
+
+
+DBManager.prototype.createRoom = function (roomName, initialCubeNumber, ownerId) {
+
+    var self = this;
+
+    return self.Room.create({
+        name: roomName,
+        initialCubeNumber: initialCubeNumber,
+        ownerId: ownerId
+    }).then(function (room) {
         return setResult(room);
     });
 };

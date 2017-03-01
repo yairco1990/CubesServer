@@ -37,6 +37,35 @@ UserLogic.prototype.login = function (username, password, callback) {
     });
 };
 
+
+/**
+ * register for new user
+ * @param username
+ * @param password
+ * @param callback
+ */
+UserLogic.prototype.register = function (username, password, callback) {
+
+    var self = this;
+
+    self.DBManager.getUserByName(username).then(function (user) {
+        if (user.id == null) {
+            //create user
+            self.DBManager.createUser(username, password).then(function(newUser){
+                callback({
+                    response: Utils.serverResponse.SUCCESS,
+                    result: newUser
+                });
+            });
+        } else {
+            callback({
+                response: Utils.serverResponse.ERROR,
+                result: "ALREADY_EXIST"
+            });
+        }
+    });
+};
+
 /**
  * on user disconnected
  * @param socketId
