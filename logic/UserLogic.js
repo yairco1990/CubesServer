@@ -1,5 +1,6 @@
 //utils library
 var Utils = require('../utils/utils');
+var bcrypt = require('../node_modules/bcrypt-nodejs');
 
 var DBManager = require('../dal/DBManager');
 
@@ -16,8 +17,8 @@ function UserLogic() {
 UserLogic.prototype.login = function (username, password, callback) {
 
     this.DBManager.getUserByName(username).then(function (user) {
-        if (user != "NO_ROWS_FOUND") {
-            if (user.password == password) {
+        if (user.id) {
+            if (bcrypt.compareSync(password, user.password)) {
                 callback({
                     response: Utils.serverResponse.SUCCESS,
                     result: user
@@ -50,8 +51,12 @@ UserLogic.prototype.register = function (username, password, callback) {
 
     self.DBManager.getUserByName(username).then(function (user) {
         if (user.id == null) {
+
+            //encrypt password
+            var hashPassword = bcrypt.hashSync(password);
+
             //create user
-            self.DBManager.createUser(username, password).then(function (newUser) {
+            self.DBManager.createUser(username, hashPassword).then(function (newUser) {
                 callback({
                     response: Utils.serverResponse.SUCCESS,
                     result: newUser

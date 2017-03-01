@@ -136,7 +136,7 @@ setInterval(function () {
     var roomLogic = new RoomLogic();
 
     roomLogic.cleanInActiveRooms(connections);
-}, 1000 * 60 * 5);
+}, 1000 * 60 * 3);
 
 
 // catch 404 and forward to error handler
