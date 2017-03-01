@@ -80,7 +80,9 @@ io.on('connection', function (socket) {
 
         var roomLogic = new RoomLogic();
 
-        roomLogic.createRoom(data.roomName, data.initialCubeNumber, data.userId, callback);
+        roomLogic.createRoom(data.roomName, data.initialCubeNumber, data.password, data.userId, function (type, data) {
+            io.emit(type, data);
+        }, callback);
     });
 
     //enter to room
@@ -122,17 +124,19 @@ io.on('connection', function (socket) {
     });
 });
 
-/**
- * restart room game by http request
- */
-app.get('/restartRoom', function (req, res) {
+//every five minutes - clean inactive players and rooms
+setInterval(function () {
 
-    var gameLogic = new GameLogic();
+    console.log("start cleaning the inactive models");
 
-    gameLogic.restartGame(req.query.userId, req.query.roomId, connections, null, null, function (data) {
-        res.send(data.response);
-    });
-});
+    var userLogic = new UserLogic();
+
+    userLogic.cleanInActiveUsers(connections);
+
+    var roomLogic = new RoomLogic();
+
+    roomLogic.cleanInActiveRooms(connections);
+}, 1000 * 60 * 0.5);
 
 
 // catch 404 and forward to error handler

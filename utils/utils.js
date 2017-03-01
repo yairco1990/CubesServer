@@ -14,7 +14,8 @@ var Utils = {
         GAME_OVER: "gameOver",
         GAME_RESTARTED: "gameRestarted",
         UPDATE_GAME: "updateGame",
-        NEW_MESSAGE: "newMessage"
+        NEW_MESSAGE: "newMessage",
+        NEW_ROOM_CREATED: "newRoomCreated"
     },
 
     /**

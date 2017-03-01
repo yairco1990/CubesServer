@@ -30,20 +30,21 @@ RoomLogic.prototype.getRooms = function (callback) {
 
 /**
  * create room
- * @param callback
  */
-RoomLogic.prototype.createRoom = function (roomName, initialCubeNumber, ownerId, callback) {
+RoomLogic.prototype.createRoom = function (roomName, initialCubeNumber, password, ownerId, updateUsers, callback) {
 
     var self = this;
 
     self.DBManager.getRoomByName(roomName).then(function (room) {
         //check if room exist
         if (room.id == null) {
-            self.DBManager.createRoom(roomName, initialCubeNumber, ownerId).then(function (room) {
+            self.DBManager.createRoom(roomName, initialCubeNumber, password, ownerId).then(function (room) {
                 callback({
                     response: Utils.serverResponse.SUCCESS,
                     result: room
                 });
+
+                updateUsers && updateUsers(Utils.pushCase.NEW_ROOM_CREATED, "no data");
             });
         } else {
             callback({
@@ -100,6 +101,37 @@ RoomLogic.prototype.enterRoom = function (roomId, userId, sockets, callback) {
                     self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.UPDATE_GAME, roomId);
                 }
             });
+        });
+    });
+};
+
+/**
+ * clean inactive rooms
+ * @param sockets
+ */
+RoomLogic.prototype.cleanInActiveRooms = function (sockets) {
+    var self = this;
+
+    self.DBManager.getRooms().then(function (rooms) {
+
+        //iterate the rooms
+        rooms.forEach(function (room) {
+
+            var inActiveTimeToDelete = 1000 * 60 * 60 * 24 * 3;
+            // var inActiveTimeToDelete = 1000 * 60;
+
+            //if inactive for X days
+            if ((room.updatedAt.valueOf() + inActiveTimeToDelete) < new Date().valueOf()) {
+
+                //clean room cubes
+                self.DBManager.clearRoomCubes(room.id).then(function () {
+
+                    //delete the room
+                    self.DBManager.deleteRoom(room.id).then(function () {
+                        self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.NEW_ROOM_CREATED, null, "no data");
+                    });
+                });
+            }
         });
     });
 };

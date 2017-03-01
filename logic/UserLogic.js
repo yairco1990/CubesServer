@@ -51,7 +51,7 @@ UserLogic.prototype.register = function (username, password, callback) {
     self.DBManager.getUserByName(username).then(function (user) {
         if (user.id == null) {
             //create user
-            self.DBManager.createUser(username, password).then(function(newUser){
+            self.DBManager.createUser(username, password).then(function (newUser) {
                 callback({
                     response: Utils.serverResponse.SUCCESS,
                     result: newUser
@@ -168,6 +168,50 @@ UserLogic.prototype.setSocketId = function (userId, socketId, callback) {
             callback({
                 response: Utils.serverResponse.SUCCESS,
                 result: "no data"
+            });
+        });
+    });
+};
+
+/**
+ * clean inactive users
+ * @param sockets
+ */
+UserLogic.prototype.cleanInActiveUsers = function (sockets) {
+
+    var self = this;
+
+    self.DBManager.getRooms().then(function (rooms) {
+
+        //iterate the rooms
+        rooms.forEach(function (room) {
+
+            //iterate the users
+            self.DBManager.getUsersByRoomId(room.id).then(function (users) {
+                users.forEach(function (user) {
+
+                    // var inActiveTimeToDelete = 1000 * 60 * 5;
+                    var inActiveTimeToDelete = 1000 * 60 * 5;
+
+                    //if the user is inactive for X minutes
+                    if (user.isLoggedIn && (user.updatedAt.valueOf() + inActiveTimeToDelete < new Date().valueOf())) {
+
+                        //clean user's cubes
+                        self.DBManager.clearUserCubes(user.id).then(function () {
+
+                            user.roomId = null;
+                            user.isLoggedIn = false;
+                            user.currentNumOfCubes = null;
+                            user.gambleTimes = null;
+                            user.gambleCube = null;
+                            user.nextUserTurnId = null;
+
+                            self.DBManager.saveUser(user).then(function () {
+                                self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.UPDATE_GAME, room.id, "user left");
+                            });
+                        });
+                    }
+                });
             });
         });
     });

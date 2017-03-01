@@ -54,13 +54,12 @@ function DBManager() {
             type: Sequelize.STRING,
             allowNull: false
         },
+        password: Sequelize.STRING,
         numOfCubes: Sequelize.INTEGER,
         lastGambleCube: Sequelize.INTEGER,
         lastGambleTimes: Sequelize.INTEGER,
         isGameOn: Sequelize.BOOLEAN,
         initialCubeNumber: Sequelize.INTEGER
-    }, {
-        timestamps: false
     });
 
     //define user
@@ -81,8 +80,6 @@ function DBManager() {
         gambleTimes: Sequelize.INTEGER,
         currentNumOfCubes: Sequelize.INTEGER,
         socketId: Sequelize.STRING
-    }, {
-        timestamps: false
     });
 
     //define cube
@@ -192,16 +189,27 @@ DBManager.prototype.getRoomByName = function (roomName) {
 };
 
 
-DBManager.prototype.createRoom = function (roomName, initialCubeNumber, ownerId) {
+DBManager.prototype.createRoom = function (roomName, initialCubeNumber, password, ownerId) {
 
     var self = this;
 
     return self.Room.create({
         name: roomName,
         initialCubeNumber: initialCubeNumber,
-        ownerId: ownerId
+        ownerId: ownerId,
+        password: password
     }).then(function (room) {
         return setResult(room);
+    });
+};
+
+DBManager.prototype.deleteRoom = function (roomId) {
+    var self = this;
+
+    return self.Room.destroy({
+        where: {
+            id: roomId
+        }
     });
 };
 
@@ -367,18 +375,24 @@ DBManager.prototype.pushForRoomUsers = function (roomSockets, type, roomId, data
 
     var self = this;
 
-    self.getUsersByRoomId(roomId).then(function (users) {
-        users.forEach(function (user) {
-            roomSockets.forEach(function (socket) {
-                if (user.socketId == socket.id) {
-                    if (data == null) {
-                        data = "no data";
+    if (roomId) { //send to room's users
+        self.getUsersByRoomId(roomId).then(function (users) {
+            users.forEach(function (user) {
+                roomSockets.forEach(function (socket) {
+                    if (user.socketId == socket.id) {
+                        if (data == null) {
+                            data = "no data";
+                        }
+                        socket.emit(type, data);
                     }
-                    socket.emit(type, data);
-                }
+                });
             });
         });
-    });
+    } else {//send to all the users
+        roomSockets.forEach(function (socket) {
+            socket.emit(type, data);
+        });
+    }
 };
 
 module.exports = DBManager;
