@@ -25,7 +25,7 @@ GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType,
         //get the users of the room
         self.DBManager.getUsersByRoomId(roomId).then(function (users) {
 
-            if (users.length > 1) {
+            if (users.length >= 2) {
 
                 //clear the room cubes
                 self.DBManager.clearRoomCubes(roomId).then(function () {
@@ -62,7 +62,7 @@ GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType,
                                 //send push for all the room's users
                                 self.DBManager.pushForRoomUsers(sockets, pushType, roomId, endRoundResult);
 
-                                callback({
+                                callback && callback({
                                     response: Utils.serverResponse.SUCCESS,
                                     result: "no data"
                                 })
@@ -71,7 +71,7 @@ GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType,
                     });
                 });
             } else {
-                callback({
+                callback && callback({
                     response: Utils.serverResponse.ERROR,
                     result: "there is just one user or less in the room"
                 })
@@ -155,7 +155,7 @@ GameLogic.prototype.restartRound = function (roomId, sockets, numOfUsersInRoom, 
             self.DBManager.getUsersByRoomId(roomId).then(function (users) {
 
                 //set cubes only if two or more playing
-                if (numOfUsersInRoom > 1) {
+                if (numOfUsersInRoom >= 2) {
                     //set cubes for users in room
                     Promise.all(self.setCubesForUsersInRoom(users, null)).then(function () {
 
