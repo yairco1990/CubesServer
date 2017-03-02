@@ -37,13 +37,11 @@ io.on('connection', function (socket) {
     });
 
     //client logged out from room
-    socket.on('logout', function (data, callback) {
+    socket.on('exitRoom', function (data, callback) {
 
         var userLogic = new UserLogic();
 
-        userLogic.logout(socket.id, connections, callback).then(function () {
-
-        });
+        userLogic.exitRoom(data.userId, connections, callback);
     });
 
     //client login

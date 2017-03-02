@@ -163,7 +163,15 @@ GameLogic.prototype.restartRound = function (roomId, sockets, numOfUsersInRoom, 
                         self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
                     });
                 } else {
-                    self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
+
+                    room.lastGambleCube = null;
+                    room.lastGambleTimes = null;
+                    room.currentUserTurnId = null;
+                    room.lastUserTurnId = null;
+
+                    self.DBManager.saveRoom(room).then(function () {
+                        self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
+                    });
                 }
             });
         });

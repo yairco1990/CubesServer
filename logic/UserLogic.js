@@ -72,15 +72,12 @@ UserLogic.prototype.register = function (username, password, callback) {
 };
 
 /**
- * on user disconnected
- * @param socketId
- * @param sockets
- * @returns {*}
+ * on user disconnected from room
  */
-UserLogic.prototype.logout = function (socketId, sockets, callback) {
+UserLogic.prototype.exitRoom = function (userId, sockets, callback) {
     var self = this;
 
-    return self.DBManager.getUserBySocketId(socketId).then(function (user) {
+    self.DBManager.getUserById(userId).then(function (user) {
 
         //save current room id
         var currentRoomId = user.roomId;
