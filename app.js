@@ -13,6 +13,9 @@ console.log("Server running...");
 var DBManager = require('./dal/DBManager');
 DBManager.getDBManager();
 
+//utils
+var Utils = require('./utils/utils');
+
 //Logic libraries
 var UserLogic = require('./logic/UserLogic');
 var RoomLogic = require('./logic/RoomLogic');
@@ -128,8 +131,8 @@ io.on('connection', function (socket) {
         socket.userId = data.userId;
 
         callback && callback({
-            result: "success",
-            response: "no data"
+            response: Utils.serverResponse.SUCCESS,
+            result: "no data"
         });
     });
 });
