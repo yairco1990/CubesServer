@@ -116,11 +116,20 @@ io.on('connection', function (socket) {
         gameLogic.sendMessage(data.userId, data.content, connections, callback);
     });
 
-    socket.on('setSocketId', function (data, callback) {
+    // socket.on('setSocketId', function (data, callback) {
+    //
+    //     var userLogic = new UserLogic();
+    //
+    //     userLogic.setSocketId(data.userId, socket.id, callback);
+    // });
 
-        var userLogic = new UserLogic();
+    socket.on('setRoomIdForSocket', function (data, callback) {
+        socket.roomId = data.roomId;
 
-        userLogic.setSocketId(data.userId, socket.id, callback);
+        callback && callback({
+            result: "success",
+            response: "no data"
+        });
     });
 });
 

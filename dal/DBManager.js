@@ -376,18 +376,15 @@ DBManager.prototype.pushForRoomUsers = function (roomSockets, type, roomId, data
     var self = this;
 
     if (roomId) { //send to room's users
-        self.getUsersByRoomId(roomId).then(function (users) {
-            users.forEach(function (user) {
-                roomSockets.forEach(function (socket) {
-                    if (user.socketId == socket.id) {
-                        if (data == null) {
-                            data = "no data";
-                        }
-                        socket.emit(type, data);
-                    }
-                });
-            });
+        // self.getUsersByRoomId(roomId).then(function (users) {
+        //     users.forEach(function (user) {
+        roomSockets.forEach(function (socket) {
+            if (socket.roomId == roomId) {
+                socket.emit(type, data);
+            }
         });
+        //     });
+        // });
     } else {//send to all the users
         roomSockets.forEach(function (socket) {
             socket.emit(type, data);
