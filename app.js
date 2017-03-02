@@ -123,8 +123,9 @@ io.on('connection', function (socket) {
     //     userLogic.setSocketId(data.userId, socket.id, callback);
     // });
 
-    socket.on('setRoomIdForSocket', function (data, callback) {
+    socket.on('setSocketDetails', function (data, callback) {
         socket.roomId = data.roomId;
+        socket.userId = data.userId;
 
         callback && callback({
             result: "success",
