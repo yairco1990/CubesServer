@@ -34,11 +34,13 @@ var Utils = {
         return array;
     },
 
-    generateArrayOfUsersIds: function (users) {
+    generateArrayOfUsersIds: function (users, onlyLoggedIn) {
         var array = [];
 
         users.forEach(function (user) {
-            array.push(user.id);
+            if(!onlyLoggedIn || (onlyLoggedIn && user.isLoggedIn)) {
+                array.push(user.id);
+            }
         });
 
         return array;

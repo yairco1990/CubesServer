@@ -35,9 +35,6 @@ GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType,
 
                         var usersPromises = [];
 
-                        //set users turns
-                        users = self.setTurnsOrder(users);
-
                         //update num of cubes for each user
                         users.forEach(function (user) {
                             user.currentNumOfCubes = room.initialCubeNumber;
@@ -45,6 +42,9 @@ GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType,
                             user.gambleCube = null;
                             user.gambleTimes = null;
                         });
+
+                        //set users turns
+                        users = self.setTurnsOrder(users);
 
                         //save the users
                         self.DBManager.saveUsers(users).then(function () {
@@ -467,7 +467,7 @@ GameLogic.prototype.setTurnsOrder = function (users) {
 
     if (users.length > 0) {
         //set array of user ids
-        var idsArray = Utils.generateArrayOfUsersIds(users);
+        var idsArray = Utils.generateArrayOfUsersIds(users, true);
 
         //set next user turn for all except from the last one
         for (var i = 1; i < idsArray.length; i++) {
