@@ -21,10 +21,10 @@ function DBManager() {
             password: 'q1w2e3'
         },
         DEVELOPMENT: {
-            host: 'eu-cdbr-west-01.cleardb.com',
-            schema: 'heroku_2c330247a016a0d',
-            username: 'bbaac9bf6d1131',
-            password: 'e3a4e852'
+            host: 'localhost',
+            schema: 'dicelies_db',
+            username: 'root',
+            password: 'q1w2e3r4'
         }
     };
 
