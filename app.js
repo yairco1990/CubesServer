@@ -156,8 +156,6 @@ io.on('connection', function (socket) {
 //every five minutes - clean inactive players and rooms
 setInterval(function () {
 
-    console.log("start cleaning the inactive models");
-
     var userLogic = new UserLogic();
 
     userLogic.cleanInActiveUsers(connections);

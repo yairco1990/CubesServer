@@ -198,6 +198,8 @@ UserLogic.prototype.cleanInActiveUsers = function (sockets) {
                     //if the user is inactive for X minutes
                     if (user.isLoggedIn && (user.updatedAt.valueOf() + inActiveTimeToDelete < new Date().valueOf())) {
 
+                        setLog("clean userId = " + user.id + " for inactive");
+
                         //clean user's cubes
                         self.DBManager.clearUserCubes(user.id).then(function () {
 
@@ -207,6 +209,7 @@ UserLogic.prototype.cleanInActiveUsers = function (sockets) {
                             user.gambleTimes = null;
                             user.gambleCube = null;
                             user.nextUserTurnId = null;
+                            user.socketId = null;
 
                             self.DBManager.saveUser(user).then(function () {
                                 self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.UPDATE_GAME, room.id, "user left");
@@ -218,5 +221,9 @@ UserLogic.prototype.cleanInActiveUsers = function (sockets) {
         });
     });
 };
+
+function setLog(log) {
+    console.log(new Date().toDateString() + ": " + log);
+}
 
 module.exports = UserLogic;

@@ -117,11 +117,13 @@ RoomLogic.prototype.cleanInActiveRooms = function (sockets) {
         //iterate the rooms
         rooms.forEach(function (room) {
 
-            var inActiveTimeToDelete = 1000 * 60 * 60 * 24 * 3;
+            var inActiveTimeToDelete = 1000 * 60 * 60 * 24 * 20;
             // var inActiveTimeToDelete = 1000 * 60;
 
             //if inactive for X days
             if ((room.updatedAt.valueOf() + inActiveTimeToDelete) < new Date().valueOf()) {
+
+                setLog("clean roomId = " + room.id + " for inactive");
 
                 //clean room cubes
                 self.DBManager.clearRoomCubes(room.id).then(function () {
@@ -135,5 +137,9 @@ RoomLogic.prototype.cleanInActiveRooms = function (sockets) {
         });
     });
 };
+
+function setLog(log) {
+    console.log(new Date().toDateString() + ": " + log);
+}
 
 module.exports = RoomLogic;
