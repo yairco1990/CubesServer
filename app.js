@@ -27,17 +27,19 @@ var connections = [];
 //web sockets manager
 io.on('connection', function (socket) {
     connections.push(socket);
-    console.log("Connected: %s sockets connected", connections.length);
+    setLog("Connected: %s sockets connected", connections.length);
 
     //on client disconnected
     socket.on('disconnect', function () {
 
         connections.splice(connections.indexOf(socket), 1);
-        console.log("Disconnected: %s sockets connected", connections.length);
+        setLog("Disconnected: %s sockets connected", connections.length);
     });
 
     //client logged out from room
     socket.on('exitRoom', function (data, callback) {
+
+        setLog(data.userId + " left his room");
 
         var userLogic = new UserLogic();
 
@@ -47,6 +49,8 @@ io.on('connection', function (socket) {
     //client login
     socket.on('login', function (data, callback) {
 
+        setLog(data.name + " try to login");
+
         var userLogic = new UserLogic();
 
         userLogic.login(data.name, data.password, callback);
@@ -54,6 +58,8 @@ io.on('connection', function (socket) {
 
     //client login
     socket.on('register', function (data, callback) {
+
+        setLog(data.username + " try to register");
 
         var userLogic = new UserLogic();
 
@@ -63,6 +69,8 @@ io.on('connection', function (socket) {
     //restart room
     socket.on('restartGame', function (data, callback) {
 
+        setLog(data.roomId + " restarted by userId = " + data.userId);
+
         var gameLogic = new GameLogic();
 
         gameLogic.restartGame(data.userId, data.roomId, connections, null, null, callback);
@@ -71,6 +79,8 @@ io.on('connection', function (socket) {
     //get rooms
     socket.on('getRooms', function (data, callback) {
 
+        setLog("user asked for rooms");
+
         var roomLogic = new RoomLogic();
 
         roomLogic.getRooms(callback);
@@ -78,6 +88,8 @@ io.on('connection', function (socket) {
 
     //create room
     socket.on('createRoom', function (data, callback) {
+
+        setLog("room created with name " + data.roomName + " by userId = " + data.userId);
 
         var roomLogic = new RoomLogic();
 
@@ -88,6 +100,8 @@ io.on('connection', function (socket) {
 
     //enter to room
     socket.on('enterRoom', function (data, callback) {
+
+        setLog("userId = " + data.userId + " entered to roomId = " + data.roomId);
 
         var roomLogic = new RoomLogic();
 
@@ -105,12 +119,16 @@ io.on('connection', function (socket) {
     //set gamble
     socket.on('setGamble', function (data, callback) {
 
+        setLog("setGamble -> userId = " + data.userId + ", roomId " + data.roomId + " gambleTimes = " + gambleTimes + ", gambleCube = " + data.gambleCube + ", isLying = " + data.isLying);
+
         var gameLogic = new GameLogic();
 
         gameLogic.setGamble(data.userId, data.roomId, data.gambleTimes, data.gambleCube, data.isLying, callback, connections);
     });
 
     socket.on('sendMessage', function (data, callback) {
+
+        setLog("sendMessage -> userId = " + data.userId + " content = " + data.content);
 
         var gameLogic = new GameLogic();
 
@@ -167,3 +185,7 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+function setLog(log) {
+    console.log(new Date().toDateString() + ": " + log);
+}
