@@ -27,13 +27,13 @@ var connections = [];
 //web sockets manager
 io.on('connection', function (socket) {
     connections.push(socket);
-    setLog("Connected: %s sockets connected", connections.length);
+    setLog("Connected -> " + connections.length + " sockets connected");
 
     //on client disconnected
     socket.on('disconnect', function () {
 
         connections.splice(connections.indexOf(socket), 1);
-        setLog("Disconnected: %s sockets connected", connections.length);
+        setLog("Disconnected -> " + connections.length + " sockets connected");
     });
 
     //client logged out from room
@@ -185,5 +185,5 @@ app.use(function (err, req, res, next) {
 });
 
 function setLog(log) {
-    console.log(new Date().toDateString() + ": " + log);
+    console.log(new Date().toDateString() + " " + new Date().toTimeString().substring(0, 8) + ": " + log);
 }
