@@ -119,7 +119,7 @@ io.on('connection', function (socket) {
     //set gamble
     socket.on('setGamble', function (data, callback) {
 
-        setLog("setGamble -> userId = " + data.userId + ", roomId " + data.roomId + " gambleTimes = " + gambleTimes + ", gambleCube = " + data.gambleCube + ", isLying = " + data.isLying);
+        setLog("setGamble -> userId = " + data.userId + ", roomId " + data.roomId + " gambleTimes = " + data.gambleTimes + ", gambleCube = " + data.gambleCube + ", isLying = " + data.isLying);
 
         var gameLogic = new GameLogic();
 
