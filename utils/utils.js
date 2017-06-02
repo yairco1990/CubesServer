@@ -5,7 +5,8 @@
 var Utils = {
     serverResponse: {
         SUCCESS: "success",
-        ERROR: "error"
+        ERROR: "error",
+        SERVER_ERROR: "server_error"
     },
 
     pushCase: {

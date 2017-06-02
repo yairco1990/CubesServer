@@ -1,11 +1,10 @@
 //utils library
 var Utils = require('../utils/utils');
-var bcrypt = require('../node_modules/bcrypt-nodejs');
-
-var DBManager = require('../dal/DBManager');
+var bcrypt = require('bcrypt-nodejs');
+var Util = require('util');
 
 function UserLogic() {
-    this.DBManager = DBManager.getDBManager();
+    this.DBManager = require('../dal/DBManager');
 }
 
 /**
@@ -198,7 +197,7 @@ UserLogic.prototype.cleanInActiveUsers = function (sockets) {
                     //if the user is inactive for X minutes
                     if (user.isLoggedIn && (user.updatedAt.valueOf() + inActiveTimeToDelete < new Date().valueOf())) {
 
-                        setLog("clean userId = " + user.id + " for inactive");
+                        Util.log("clean userId = " + user.id + " for inactive");
 
                         //clean user's cubes
                         self.DBManager.clearUserCubes(user.id).then(function () {
@@ -221,9 +220,5 @@ UserLogic.prototype.cleanInActiveUsers = function (sockets) {
         });
     });
 };
-
-function setLog(log) {
-    console.log(new Date().toDateString() + ": " + log);
-}
 
 module.exports = UserLogic;

@@ -1,10 +1,11 @@
 //utils library
 var Utils = require('../utils/utils');
-
-var DBManager = require('../dal/DBManager');
+var Util = require('util');
+var async = require('async');
+var ServerResponse = require('../utils/ServerResponse');
 
 function GameLogic() {
-    this.DBManager = DBManager.getDBManager();
+    this.DBManager = require('../dal/DBManager');
 }
 
 /**
@@ -13,70 +14,105 @@ function GameLogic() {
  * @param roomId
  * @param sockets
  * @param pushType
+ * @param endRoundResult
  * @param callback
  */
 GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType, endRoundResult, callback) {
 
     var self = this;
 
-    //get the room
-    self.DBManager.getRoomById(roomId).then(function (room) {
+    async.parallel({
+        room: function (callback) {
+	  //get the room
+	  self.DBManager.getRoomById(roomId).then(function (room) {
+	      return callback(null, room);
+	  });
+        },
 
-        //get the users of the room
-        self.DBManager.getUsersByRoomId(roomId).then(function (users) {
+        users: function (callback) {
+	  self.DBManager.getUsersByRoomId(roomId).then(function (users) {
+	      return callback(null, users)
+	  });
+        }
+    }, function (err, result) {
+        if (err) {
+	  Util.error(err);
+	  callback && callback({
+	      response: Utils.serverResponse.SERVER_ERROR
+	  });
+	  return;
+        }
 
-            if (users.length >= 2) {
+        var room = result.room;
+        var users = result.users;
 
-                //clear the room cubes
-                self.DBManager.clearRoomCubes(roomId).then(function () {
+        if (users.length >= 2) {
 
-                    //set 5 cubes for all users in room
-                    Promise.all(self.setCubesForUsersInRoom(users, room.initialCubeNumber)).then(function () {
+	  async.series({
+	      //clear the room cubes
+	      clearRoomCubes: function (callback) {
+		self.DBManager.clearRoomCubes(roomId).then(function () {
+		    callback(null, "success");
+		});
+	      },
 
-                        var usersPromises = [];
+	      //set cubes for all users in room
+	      setCubesForUsers: function (callback) {
+		Promise.all(self.setCubesForUsersInRoom(users, room.initialCubeNumber)).then(function () {
 
-                        //update num of cubes for each user
-                        users.forEach(function (user) {
-                            user.currentNumOfCubes = room.initialCubeNumber;
-                            user.isLoggedIn = true;
-                            user.gambleCube = null;
-                            user.gambleTimes = null;
-                        });
+		    //update num of cubes for each user
+		    users.forEach(function (user) {
+		        user.currentNumOfCubes = room.initialCubeNumber;
+		        user.isLoggedIn = true;
+		        user.gambleCube = null;
+		        user.gambleTimes = null;
+		    });
 
-                        //set users turns
-                        users = self.setTurnsOrder(users);
+		    //set users turns
+		    users = self.setTurnsOrder(users);
 
-                        //save the users
-                        self.DBManager.saveUsers(users).then(function () {
+		    //save the users
+		    self.DBManager.saveUsers(users).then(function () {
+		        callback(null, "success");
+		    });
+		})
+	      },
 
-                            //set room details
-                            room.currentUserTurnId = winnerId ? winnerId : users[0].id;
-                            room.lastGambleCube = null;
-                            room.lastGambleTimes = null;
+	      //set room details
+	      setRoomDetails: function (callback) {
+		room.currentUserTurnId = winnerId ? winnerId : users[0].id;
+		room.lastGambleCube = null;
+		room.lastGambleTimes = null;
 
-                            self.DBManager.saveRoom(room).then(function () {
-                                console.log("FINISH TO RESTART THE ROOM!");
+		callback(null, self.DBManager.saveRoom(room));
+	      },
 
-                                pushType = pushType ? pushType : Utils.pushCase.GAME_RESTARTED;
+	      sendPush: function (callback) {
+		console.log("FINISH TO RESTART THE ROOM!");
 
-                                //send push for all the room's users
-                                self.DBManager.pushForRoomUsers(sockets, pushType, roomId, endRoundResult);
+		pushType = pushType ? pushType : Utils.pushCase.GAME_RESTARTED;
 
-                                callback && callback({
-                                    response: Utils.serverResponse.SUCCESS,
-                                    result: "no data"
-                                })
-                            });
-                        });
-                    });
-                });
-            } else {
-                callback && callback({
-                    response: Utils.serverResponse.ERROR,
-                    result: "there is just one user or less in the room"
-                })
-            }
-        });
+		//send push for all the room's users
+		callback(null, self.DBManager.pushForRoomUsers(sockets, pushType, roomId, endRoundResult));
+	      }
+	  }, function (err, result) {
+	      if (err) {
+		Util.error(err);
+		callback({response: Utils.serverResponse.SERVER_ERROR});
+		return;
+	      }
+
+	      callback && callback({
+		response: Utils.serverResponse.SUCCESS,
+		result: "no data"
+	      })
+	  });
+        } else {
+	  callback && callback({
+	      response: Utils.serverResponse.ERROR,
+	      result: "there is just one user or less in the room"
+	  })
+        }
     });
 };
 
@@ -88,15 +124,15 @@ GameLogic.prototype.setCubesForUsersInRoom = function (users, numOfCubes) {
 
     users.forEach(function (user) {
 
-        numOfCubes = numOfCubes ? numOfCubes : user.currentNumOfCubes;
-        for (var i = 0; i < numOfCubes; i++) {
-            var cube = {
-                cubeNum: Math.floor((Math.random() * 6) + 1),
-                roomId: user.roomId,
-                userId: user.id
-            };
+        var numOfCubesForUser = numOfCubes ? numOfCubes : user.currentNumOfCubes;
+        for (var i = 0; i < numOfCubesForUser; i++) {
+	  var cube = {
+	      cubeNum: Math.floor((Math.random() * 6) + 1),
+	      roomId: user.roomId,
+	      userId: user.id
+	  };
 
-            promises.push(self.DBManager.Cube.create(cube));
+	  promises.push(self.DBManager.Cube.create(cube));
         }
     });
 
@@ -113,30 +149,48 @@ GameLogic.prototype.getGame = function (roomId, userId, callback) {
 
     var self = this;
 
-    self.DBManager.getRoomById(roomId).then(function (room) {
+    async.parallel({
+	  room: function (callback) {
+	      self.DBManager.getRoomById(roomId).then(function (room) {
+		return callback(null, room);
+	      });
+	  },
+	  users: function (callback) {
+	      self.DBManager.getUsersByRoomId(roomId, userId).then(function (users) {
+		return callback(null, users);
+	      });
+	  }
+        },
+        function (err, result) {
+	  if (err) {
+	      Util.error(err);
+	      callback({
+		response: Utils.serverResponse.ERROR,
+		result: "SERVER_ERROR"
+	      });
+	      return;
+	  }
 
-        self.DBManager.getUsersByRoomId(roomId, userId).then(function (users) {
-
-            if (users != "NO_ROWS_FOUND" && room != "NO_ROWS_FOUND") {
-                callback({
-                    response: Utils.serverResponse.SUCCESS,
-                    result: {
-                        users: users,
-                        room: room
-                    }
-                });
-            } else {
-                callback({
-                    response: Utils.serverResponse.ERROR,
-                    result: "NO_USERS_OR_ROOM"
-                });
-            }
-        });
-    });
+	  if (result.users != "NO_ROWS_FOUND" && result.room != "NO_ROWS_FOUND") {
+	      callback({
+		response: Utils.serverResponse.SUCCESS,
+		result: {
+		    users: result.users,
+		    room: result.room
+		}
+	      });
+	  } else {
+	      callback({
+		response: Utils.serverResponse.ERROR,
+		result: "NO_USERS_OR_ROOM"
+	      });
+	  }
+        }
+    );
 };
 
 /**
- * restart the round
+ * restart the round - if some player left the room for example.
  * @param roomId
  * @param sockets
  * @param numOfUsersInRoom
@@ -145,247 +199,303 @@ GameLogic.prototype.restartRound = function (roomId, sockets, numOfUsersInRoom, 
 
     var self = this;
 
-    //get room
-    self.DBManager.getRoomById(roomId).then(function (room) {
+    async.parallel({
+        room: function (callback) {
+	  //get the room
+	  self.DBManager.getRoomById(roomId).then(function (room) {
+	      return callback(null, room);
+	  });
+        },
 
-        //clear cubes
-        self.DBManager.clearRoomCubes(roomId).then(function () {
+        clearCubes: function (callback) {
+	  self.DBManager.clearRoomCubes(roomId).then(function () {
+	      callback(null);
+	  })
+        },
 
-            //get users
-            self.DBManager.getUsersByRoomId(roomId).then(function (users) {
+        users: function (callback) {
+	  self.DBManager.getUsersByRoomId(roomId).then(function (users) {
+	      return callback(null, users)
+	  });
+        }
 
-                //set cubes only if two or more playing
-                if (numOfUsersInRoom >= 2) {
-                    //set cubes for users in room
-                    Promise.all(self.setCubesForUsersInRoom(users, null)).then(function () {
+    }, function (err, result) {
 
-                        //update the users
-                        self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
-                    });
-                } else {
+        if (err) {
+	  Util.log(err);
+	  return;
+        }
 
-                    room.lastGambleCube = null;
-                    room.lastGambleTimes = null;
-                    room.currentUserTurnId = null;
-                    room.lastUserTurnId = null;
+        var room = result.room;
+        var users = result.users;
 
-                    self.DBManager.saveRoom(room).then(function () {
-                        self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
-                    });
-                }
-            });
-        });
+        //set cubes only if two or more playing
+        if (numOfUsersInRoom >= 2) {
+	  //set cubes for users in room
+	  Promise.all(self.setCubesForUsersInRoom(users, null))
+	      .then(function () {
+
+		//update the users
+		self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
+	      });
+
+        } else { // 1 player or less - clean the room
+
+	  room.lastGambleCube = null;
+	  room.lastGambleTimes = null;
+	  room.currentUserTurnId = null;
+	  room.lastUserTurnId = null;
+
+	  self.DBManager.saveRoom(room).then(function () {
+	      self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
+	  });
+        }
     });
 };
 
+/**
+ * set gamble to room
+ * @param userId
+ * @param roomId
+ * @param gambleTimes
+ * @param gambleCube
+ * @param isLying
+ * @param callback
+ * @param sockets
+ */
 GameLogic.prototype.setGamble = function (userId, roomId, gambleTimes, gambleCube, isLying, callback, sockets) {
 
     var self = this;
 
     var result;
 
-    //get current user
-    self.DBManager.getUserById(userId).then(function (user) {
-        //get room
-        self.DBManager.getRoomById(roomId).then(function (room) {
-            //get users in room
-            self.DBManager.getUsersByRoomId(roomId).then(function (users) {
+    async.parallel({
+        user: function (callback) {
+	  self.DBManager.getUserById(userId).then(function (user) {
+	      callback(null, user);
+	  });
+        },
 
-                //set original users for sending all user's cubes to all the users
-                var originalUsers = JSON.parse(JSON.stringify(users));
+        room: function (callback) {
+	  self.DBManager.getRoomById(roomId).then(function (room) {
+	      callback(null, room);
+	  });
+        },
 
-                //if the current user set lie - check last gamble
-                if (isLying) {
-                    //get the last gamble
-                    var lastGambleTimes = room.lastGambleTimes;
-                    var lastGambleCube = room.lastGambleCube;
+        users: function (callback) {
+	  self.DBManager.getUsersByRoomId(roomId).then(function (users) {
+	      callback(null, users);
+	  });
+        }
+    }, function (err, result) {
 
-                    var endRoundResult = {
-                        sayLying: user.name,
-                        gambleCube: lastGambleCube,
-                        gambleTimes: lastGambleTimes
-                    };
+        //case of error
+        if (err) {
+	  Util.log(err);
+	  callback(new ServerResponse(Utils.serverResponse.ERROR, err.toString()));
+	  return;
+        }
 
-                    var correctCubesCounter = 0;
+        var user = result.user;
+        var room = result.room;
+        var users = result.users;
 
-                    //start from -1, because someone need to drop cube
-                    var allCubesCounter = -1;
+        //set original users for sending all user's cubes to all the users(deep copy)
+        var originalUsers = JSON.parse(JSON.stringify(users));
 
-                    users.forEach(function (userInRoom) {
+        //if the current user set lie - check last gamble
+        if (isLying) {
+	  //get the last gamble
+	  var lastGambleTimes = room.lastGambleTimes;
+	  var lastGambleCube = room.lastGambleCube;
 
-                        //iterate over the users cubes
-                        userInRoom.cubes.forEach(function (cube) {
+	  var endRoundResult = {
+	      sayLying: user.name,
+	      gambleCube: lastGambleCube,
+	      gambleTimes: lastGambleTimes
+	  };
 
-                            allCubesCounter++;
+	  var correctCubesCounter = 0;
 
-                            //if the cube num equals to the gamble or equals to 1 - add to counter
-                            if (cube.cubeNum == lastGambleCube || cube.cubeNum == 1) {
-                                correctCubesCounter++;
-                            }
-                        });
-                    });
+	  //start from -1, because someone need to drop cube
+	  var allCubesCounter = -1;
 
-                    var wrongGamblerId = null;
+	  users.forEach(function (userInRoom) {
 
-                    //check if the gamble correct or not
-                    if (lastGambleTimes > correctCubesCounter) {
-                        endRoundResult.isRight = true;
+	      //iterate over the users cubes
+	      userInRoom.cubes.forEach(function (cube) {
 
-                        //if wrong gamble - minus cube to last user
-                        wrongGamblerId = room.lastUserTurnId;
+		allCubesCounter++;
 
-                        result = "WRONG_GAMBLE";
-                    } else {
-                        endRoundResult.isRight = false;
+		//if the cube num equals to the gamble or equals to 1 - add to counter
+		if (cube.cubeNum == lastGambleCube || cube.cubeNum == 1) {
+		    correctCubesCounter++;
+		}
+	      });
+	  });
 
-                        //if good gamble - minus cube to current user
-                        wrongGamblerId = room.currentUserTurnId;
+	  var wrongGamblerId = null;
 
-                        result = "CORRECT_GAMBLE";
-                    }
+	  //check if the gamble correct or not
+	  if (lastGambleTimes > correctCubesCounter) {
+	      endRoundResult.isRight = true;
 
-                    //set room details
-                    room.numOfCubes = allCubesCounter;
-                    room.lastGambleCube = null;
-                    room.lastGambleTimes = null;
-                    room.lastUserTurnId = null;
-                    room.currentUserTurnId = wrongGamblerId;
+	      //if wrong gamble - minus cube to last user
+	      wrongGamblerId = room.lastUserTurnId;
 
-                    //get the loser
-                    self.DBManager.getUserById(wrongGamblerId).then(function (wrongGambler) {
+	      result = "WRONG_GAMBLE";
+	  } else {
+	      endRoundResult.isRight = false;
 
-                        //minus cube for the loser
-                        wrongGambler.currentNumOfCubes--;
+	      //if good gamble - minus cube to current user
+	      wrongGamblerId = room.currentUserTurnId;
 
-                        //check game over for this user
-                        if (wrongGambler.currentNumOfCubes < 1) {
-                            wrongGambler.isLoggedIn = false;
-                            users = Utils.removeFromArray(users, wrongGambler);
-                            room.currentUserTurnId = wrongGambler.nextUserTurnId;
+	      result = "CORRECT_GAMBLE";
+	  }
 
-                            users = self.setTurnsOrder(users);
-                        }
+	  //set room details
+	  room.numOfCubes = allCubesCounter;
+	  room.lastGambleCube = null;
+	  room.lastGambleTimes = null;
+	  room.lastUserTurnId = null;
+	  room.currentUserTurnId = wrongGamblerId;
 
-                        //save users
-                        self.DBManager.saveUsers(users).then(function () {
+	  //
+	  async.waterfall([
+	      function getLoser(callback) {
+		//get the loser
+		self.DBManager.getUserById(wrongGamblerId).then(function (wrongGambler) {
+		    //minus cube for the loser
+		    wrongGambler.currentNumOfCubes--;
 
-                            //save the room
-                            self.DBManager.saveRoom(room).then(function () {
+		    //check game over for this user
+		    if (wrongGambler.currentNumOfCubes < 1) {
+		        wrongGambler.isLoggedIn = false;
+		        users = Utils.removeFromArray(users, wrongGambler);
+		        room.currentUserTurnId = wrongGambler.nextUserTurnId;
 
-                                //save the gambler
-                                self.DBManager.saveUser(wrongGambler).then(function () {
+		        users = self.setTurnsOrder(users);
+		    }
 
-                                    //get the updated room
-                                    self.DBManager.getUsersByRoomId(roomId).then(function (updatedUsers) {
+		    callback(null, wrongGambler);
+		});
+	      },
 
-                                        //clear room's cubes
-                                        self.DBManager.clearRoomCubes(roomId).then(function () {
-                                            var userCounter = 0;
-                                            //set gambles to null
-                                            updatedUsers.forEach(function (updatedUser) {
-                                                updatedUser.gambleCube = null;
-                                                updatedUser.gambleTimes = null;
+	      function saveUsers(wrongGambler, callback) {
+		//save users
+		self.DBManager.saveUsers(users).then(function () {
+		    callback(null, wrongGambler);
+		});
+	      },
 
-                                                //save user
-                                                self.DBManager.saveUser(updatedUser).then(function () {
+	      function saveRoom(wrongGambler, callback) {
+		//save the room
+		self.DBManager.saveRoom(room).then(function () {
+		    callback(null, wrongGambler);
+		});
+	      },
 
-                                                    //set user cubes if still playing
-                                                    if (updatedUser.isLoggedIn) {
-                                                        Promise.all(self.setCubesForUser(updatedUser)).then(function () {
-                                                            console.log("set cubes for user - ", updatedUser.name);
-                                                            userCounter++;
-                                                            if (userCounter == self.getPlayingUsers(updatedUsers).length) {
+	      function saveWrongGambler(wrongGambler, callback) {
+		//save the gambler
+		self.DBManager.saveUser(wrongGambler).then(function () {
+		    callback(null, wrongGambler);
+		});
+	      },
 
-                                                                //get the winner
-                                                                var winner = self.isGameOver(updatedUsers);
+	      function getUpdatedRoom(wrongGambler, callback) {
+		//get the updated room
+		self.DBManager.getUsersByRoomId(roomId).then(function (updatedUsers) {
+		    callback(null, updatedUsers);
+		});
+	      },
 
-                                                                var usersData = {
-                                                                    users: originalUsers,
-                                                                    endRoundResult: endRoundResult
-                                                                };
+	      function clearRoomCubes(updatedUsers, callback) {
+		//clear the room cubes
+		self.DBManager.clearRoomCubes(roomId).then(function () {
 
-                                                                if (winner != null) {
-                                                                    //init the room
-                                                                    self.restartGame(winner.id, roomId, sockets, Utils.pushCase.GAME_OVER, usersData);
-                                                                } else {
-                                                                    self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, roomId, usersData);
-                                                                }
-                                                                callback({
-                                                                    response: Utils.serverResponse.SUCCESS,
-                                                                    result: result
-                                                                });
-                                                            }
-                                                        });
-                                                    }
-                                                });
-                                            })
-                                        });
-                                    });
-                                })
-                            });
-                        });
-                    });
-                } else {
-                    user.gambleCube = gambleCube;
-                    user.gambleTimes = gambleTimes;
+		    var userCounter = 0;
 
-                    //save the user
-                    self.DBManager.saveUser(user).then(function () {
-                        room.lastGambleCube = gambleCube;
-                        room.lastGambleTimes = gambleTimes;
-                        room.lastUserTurnId = user.id;
-                        room.currentUserTurnId = user.nextUserTurnId;
+		    //set gambles to null for each user
+		    updatedUsers.forEach(function (updatedUser) {
+		        updatedUser.gambleCube = null;
+		        updatedUser.gambleTimes = null;
 
-                        //save the room
-                        self.DBManager.saveRoom(room).then(function () {
-                            self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.PLAYER_GAMBLED, roomId);
-                            callback({
-                                response: Utils.serverResponse.SUCCESS,
-                                result: {}
-                            });
-                        });
-                    })
-                }
-            });
-        });
+		        //save user
+		        self.DBManager.saveUser(updatedUser).then(function () {
+
+			  //set user cubes if still playing
+			  if (updatedUser.isLoggedIn) {
+			      Promise.all(self.setCubesForUser(updatedUser)).then(function () {
+				Util.log("set cubes for userId - ", updatedUser.name);
+				userCounter++;
+				if (userCounter == self.getPlayingUsers(updatedUsers).length) {
+
+				    //get the winner
+				    var winner = self.isGameOver(updatedUsers);
+
+				    var usersData = {
+				        users: originalUsers,
+				        endRoundResult: endRoundResult
+				    };
+
+				    if (winner != null) {
+				        //init the room
+				        self.restartGame(winner.id, roomId, sockets, Utils.pushCase.GAME_OVER, usersData);
+				    } else {
+				        self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, roomId, usersData);
+				    }
+				    callback(null, result);
+				}
+			      });
+			  }
+		        });
+		    })
+		});
+	      }
+
+	  ], function (err, result) {
+	      //case of error
+	      if (err) {
+		Util.log(err);
+		callback(new ServerResponse(Utils.serverResponse.ERROR, err.toString()));
+		return;
+	      }
+
+	      callback(new ServerResponse(Utils.serverResponse.SUCCESS, result));
+	  });
+        } else {//case of regular gamble(no one said lye)
+
+	  user.gambleCube = gambleCube;
+	  user.gambleTimes = gambleTimes;
+
+	  //save the user
+	  self.DBManager.saveUser(user)
+	      .then(function () {
+		room.lastGambleCube = gambleCube;
+		room.lastGambleTimes = gambleTimes;
+		room.lastUserTurnId = user.id;
+		room.currentUserTurnId = user.nextUserTurnId;
+
+		return room;
+	      })
+	      .then(function (room) {
+		return self.DBManager.saveRoom(room);
+	      })
+	      .then(function () {
+		//send push
+		self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.PLAYER_GAMBLED, roomId);
+
+		//return success
+		callback(new ServerResponse(Utils.serverResponse.SUCCESS, {}));
+	      })
+	      //error case
+	      .catch(function (err) {
+		Util.log(err);
+		callback(new ServerResponse(Utils.serverResponse.ERROR, err.toString()));
+		return;
+	      });
+        }
     });
-};
-
-/**
- * check if the game is over
- */
-GameLogic.prototype.initRoom = function (winner, room, users) {
-    var self = this;
-
-    room.currentUserTurnId = winner.id;
-    room.numOfCubes = 10;
-
-    //clear room cubes
-    self.DBManager.clearRoomCubes(room.id).then(function () {
-        //save the updated room
-        self.DBManager.saveRoom(room).then(function () {
-
-            var usersToSave = [];
-
-            users.forEach(function (user) {
-                user.gambleCube = null;
-                user.gambleTimes = null;
-                user.currentNumOfCubes = room.initialCubeNumber;
-
-                usersToSave.push(self.DBManager.saveUser(user));
-
-                Promise.all(self.setCubesForUser(user)).then(function () {
-
-                });
-            });
-
-            //save users
-            Promise.all(usersToSave).then(function () {
-                console.log("users saved successfully");
-            });
-        });
-    });
-
 };
 
 
@@ -395,21 +505,39 @@ GameLogic.prototype.initRoom = function (winner, room, users) {
 GameLogic.prototype.sendMessage = function (userId, content, sockets, callback) {
     var self = this;
 
-    self.DBManager.getUserById(userId).then(function (user) {
-        self.DBManager.getRoomById(user.roomId).then(function (room) {
-            var message = {
-                userId: userId,
-                name: user.name,
-                content: content
-            };
+    async.waterfall([
+        function (callback) {
+	  self.DBManager.getUserById(userId).then(function (user) {
+	      callback(null, user);
+	  });
+        },
+        function (user, callback) {
+	  self.DBManager.getRoomById(user.roomId).then(function (room) {
+	      callback(null, {room: room, user: user});
+	  });
+        }
+    ], function (err, result) {
 
-            callback({
-                response: Utils.serverResponse.SUCCESS,
-                result: message
-            });
+        if (err) {
+	  Util.log(err);
+	  return;
+        }
 
-            self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.NEW_MESSAGE, room.id, message);
+        var room = result.room;
+        var user = result.user;
+
+        var message = {
+	  userId: userId,
+	  name: user.name,
+	  content: content
+        };
+
+        callback({
+	  response: Utils.serverResponse.SUCCESS,
+	  result: message
         });
+
+        self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.NEW_MESSAGE, room.id, message);
     });
 };
 
@@ -423,12 +551,12 @@ GameLogic.prototype.isGameOver = function (users) {
     var winner = null;
     users.forEach(function (user) {
         if (user.currentNumOfCubes > 0) {
-            numOfUserPlaying++;
-            winner = user;
+	  numOfUserPlaying++;
+	  winner = user;
         }
 
         if (numOfUserPlaying > 1) {
-            winner = null;
+	  winner = null;
         }
     });
     return winner;
@@ -448,9 +576,9 @@ GameLogic.prototype.setCubesForUser = function (user, callback) {
 
     for (var i = 0; i < user.currentNumOfCubes; i++) {
         var cube = {
-            cubeNum: Math.floor((Math.random() * 6) + 1),
-            roomId: user.roomId,
-            userId: user.id
+	  cubeNum: Math.floor((Math.random() * 6) + 1),
+	  roomId: user.roomId,
+	  userId: user.id
         };
         promises.push(self.DBManager.Cube.create(cube));
     }
@@ -471,7 +599,7 @@ GameLogic.prototype.setTurnsOrder = function (users) {
 
         //set next user turn for all except from the last one
         for (var i = 1; i < idsArray.length; i++) {
-            Utils.getUserById(users, idsArray[i - 1]).nextUserTurnId = idsArray[i];
+	  Utils.getUserById(users, idsArray[i - 1]).nextUserTurnId = idsArray[i];
         }
         //set next user turn for the last one
         Utils.getUserById(users, idsArray[idsArray.length - 1]).nextUserTurnId = idsArray[0];
@@ -491,7 +619,7 @@ GameLogic.prototype.getPlayingUsers = function (users) {
 
     users.forEach(function (user) {
         if (user.isLoggedIn) {
-            playingUsers.push(user);
+	  playingUsers.push(user);
         }
     });
 

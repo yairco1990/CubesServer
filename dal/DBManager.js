@@ -1,15 +1,6 @@
-/**
- * Created by Yair on 2/5/2017.
- */
 var Sequelize = require('sequelize');
-
-var dbManager = null;
-DBManager.getDBManager = function () {
-    if (dbManager == null) {
-        dbManager = new DBManager();
-    }
-    return dbManager;
-};
+var modules = require('./modules');
+var Util = require('util');
 
 function DBManager() {
 
@@ -33,6 +24,7 @@ function DBManager() {
 
     //define DB connection
     var connection = new Sequelize(selectedEnvironment.schema, selectedEnvironment.username, selectedEnvironment.password, {
+        logging: false,
         host: selectedEnvironment.host,
         dialect: 'mysql',
         pool: {
@@ -43,57 +35,11 @@ function DBManager() {
     });
 
     //define room
-    var Room = connection.define('room', {
-        id: {
-            type: Sequelize.INTEGER,
-            primaryKey: true,
-            unique: true,
-            autoIncrement: true
-        },
-        name: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
-        password: Sequelize.STRING,
-        numOfCubes: Sequelize.INTEGER,
-        lastGambleCube: Sequelize.INTEGER,
-        lastGambleTimes: Sequelize.INTEGER,
-        isGameOn: Sequelize.BOOLEAN,
-        initialCubeNumber: Sequelize.INTEGER
-    });
-
+    var Room = connection.define('room', modules.room);
     //define user
-    var User = connection.define('user', {
-        id: {
-            type: Sequelize.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
-            unique: true
-        },
-        name: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
-        password: Sequelize.STRING,
-        isLoggedIn: Sequelize.BOOLEAN,
-        gambleCube: Sequelize.INTEGER,
-        gambleTimes: Sequelize.INTEGER,
-        currentNumOfCubes: Sequelize.INTEGER,
-        socketId: Sequelize.STRING
-    });
-
+    var User = connection.define('user', modules.user);
     //define cube
-    var Cube = connection.define('cube', {
-        id: {
-            type: Sequelize.INTEGER,
-            primaryKey: true,
-            autoIncrement: true,
-            unique: true
-        },
-        cubeNum: Sequelize.INTEGER
-    }, {
-        timestamps: false
-    });
+    var Cube = connection.define('cube', modules.cube, {timestamps: false});
 
     //define relationships
     Cube.belongsTo(User, {as: "user"});
@@ -111,7 +57,7 @@ function DBManager() {
 
     //sync DB
     connection.sync().then(function () {
-        console.log("set db successfully");
+        Util.log("set db successfully");
     });
 
     this.Room = Room;
@@ -376,15 +322,11 @@ DBManager.prototype.pushForRoomUsers = function (roomSockets, type, roomId, data
     var self = this;
 
     if (roomId) { //send to room's users
-        // self.getUsersByRoomId(roomId).then(function (users) {
-        //     users.forEach(function (user) {
         roomSockets.forEach(function (socket) {
             if (socket.roomId == roomId) {
                 socket.emit(type, data);
             }
         });
-        //     });
-        // });
     } else {//send to all the users
         roomSockets.forEach(function (socket) {
             socket.emit(type, data);
@@ -392,4 +334,4 @@ DBManager.prototype.pushForRoomUsers = function (roomSockets, type, roomId, data
     }
 };
 
-module.exports = DBManager;
+module.exports = new DBManager();

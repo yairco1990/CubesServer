@@ -1,10 +1,10 @@
 //utils library
 var Utils = require('../utils/utils');
-
-var DBManager = require('../dal/DBManager');
+var Util = require('util');
+var ServerResponse = require('../utils/ServerResponse');
 
 function RoomLogic() {
-    this.DBManager = DBManager.getDBManager();
+    this.DBManager = require('../dal/DBManager');
 }
 
 /**
@@ -15,15 +15,9 @@ RoomLogic.prototype.getRooms = function (callback) {
 
     this.DBManager.getRooms().then(function (rooms) {
         if (rooms != "NO_ROWS_FOUND") {
-            callback({
-                response: Utils.serverResponse.SUCCESS,
-                result: rooms
-            });
+            callback(new ServerResponse(Utils.serverResponse.SUCCESS, rooms));
         } else {
-            callback({
-                response: Utils.serverResponse.ERROR,
-                result: "NO_ROOMS"
-            });
+            callback(new ServerResponse(Utils.serverResponse.ERROR, "NO_ROOMS"));
         }
     });
 };
@@ -39,18 +33,13 @@ RoomLogic.prototype.createRoom = function (roomName, initialCubeNumber, password
         //check if room exist
         if (room.id == null) {
             self.DBManager.createRoom(roomName, initialCubeNumber, password, ownerId).then(function (room) {
-                callback({
-                    response: Utils.serverResponse.SUCCESS,
-                    result: room
-                });
+                callback(new ServerResponse(Utils.serverResponse.SUCCESS, room));
 
                 updateUsers && updateUsers(Utils.pushCase.NEW_ROOM_CREATED, "no data");
             });
         } else {
-            callback({
-                response: Utils.serverResponse.ERROR,
-                result: "ALREADY_EXIST"
-            });
+            
+            callback(new ServerResponse(Utils.serverResponse.ERROR, "ALREADY_EXIST"));
         }
     });
 };
@@ -123,7 +112,7 @@ RoomLogic.prototype.cleanInActiveRooms = function (sockets) {
             //if inactive for X days
             if ((room.updatedAt.valueOf() + inActiveTimeToDelete) < new Date().valueOf()) {
 
-                setLog("clean roomId = " + room.id + " for inactive");
+                Util.log("clean roomId = " + room.id + " for inactive");
 
                 //clean room cubes
                 self.DBManager.clearRoomCubes(room.id).then(function () {
@@ -137,9 +126,5 @@ RoomLogic.prototype.cleanInActiveRooms = function (sockets) {
         });
     });
 };
-
-function setLog(log) {
-    console.log(new Date().toDateString() + ": " + log);
-}
 
 module.exports = RoomLogic;
