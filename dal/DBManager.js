@@ -225,7 +225,14 @@ DBManager.prototype.getRooms = function () {
 
     var self = this;
 
-    return self.Room.findAll().then(function (rooms) {
+    return self.Room.findAll({
+        include: [
+	  {
+	      model: self.User,
+	      attributes: ['id']
+	  }
+        ]
+    }).then(function (rooms) {
         return setResult(rooms);
     });
 };
