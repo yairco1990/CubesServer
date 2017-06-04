@@ -197,8 +197,8 @@ UserLogic.prototype.cleanInActiveUsers = function (sockets) {
 	  self.DBManager.getUsersByRoomId(room.id).then(function (users) {
 	      users.forEach(function (user) {
 
-		// var inActiveTimeToDelete = 1000 * 60 * 5;
-		var inActiveTimeToDelete = 1000 * 60 * 10;
+		var inActiveTimeToDelete = 1000 * 60 * 5;
+		// var inActiveTimeToDelete = 1000 * 60 * 10;
 
 		//if the user is inactive for X minutes
 		if (user.isLoggedIn && (user.updatedAt.valueOf() + inActiveTimeToDelete < new Date().valueOf())) {
