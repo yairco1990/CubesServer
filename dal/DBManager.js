@@ -11,7 +11,7 @@ function DBManager() {
             username: 'root',
             password: 'q1w2e3'
         },
-        DEVELOPMENT: {
+        PRODUCTION: {
             host: 'localhost',
             schema: 'dicelies_db',
             username: 'root',
@@ -20,7 +20,7 @@ function DBManager() {
     };
 
     //TODO SELECTED ENVIRONMENT!!!!!
-    var selectedEnvironment = ENVIRONMENTS.DEVELOPMENT;
+    var selectedEnvironment = ENVIRONMENTS.PRODUCTION;
 
     //define DB connection
     var connection = new Sequelize(selectedEnvironment.schema, selectedEnvironment.username, selectedEnvironment.password, {

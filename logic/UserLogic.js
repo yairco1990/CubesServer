@@ -17,22 +17,22 @@ UserLogic.prototype.login = function (username, password, callback) {
 
     this.DBManager.getUserByName(username).then(function (user) {
         if (user.id) {
-            if (bcrypt.compareSync(password, user.password)) {
-                callback({
-                    response: Utils.serverResponse.SUCCESS,
-                    result: user
-                });
-            } else {
-                callback({
-                    response: Utils.serverResponse.ERROR,
-                    result: "WRONG_PASSWORD"
-                });
-            }
+	  if (bcrypt.compareSync(password, user.password)) {
+	      callback({
+		response: Utils.serverResponse.SUCCESS,
+		result: user
+	      });
+	  } else {
+	      callback({
+		response: Utils.serverResponse.ERROR,
+		result: "WRONG_PASSWORD"
+	      });
+	  }
         } else {
-            callback({
-                response: Utils.serverResponse.ERROR,
-                result: "NO_SUCH_USER"
-            });
+	  callback({
+	      response: Utils.serverResponse.ERROR,
+	      result: "NO_SUCH_USER"
+	  });
         }
     });
 };
@@ -51,21 +51,27 @@ UserLogic.prototype.register = function (username, password, callback) {
     self.DBManager.getUserByName(username).then(function (user) {
         if (user.id == null) {
 
-            //encrypt password
-            var hashPassword = bcrypt.hashSync(password);
+	  //encrypt password
+	  var hashPassword = bcrypt.hashSync(password);
 
-            //create user
-            self.DBManager.createUser(username, hashPassword).then(function (newUser) {
-                callback({
-                    response: Utils.serverResponse.SUCCESS,
-                    result: newUser
-                });
-            });
+	  //create user
+	  self.DBManager.createUser(username, hashPassword).then(function (newUser) {
+	      callback({
+		response: Utils.serverResponse.SUCCESS,
+		result: newUser
+	      });
+	  }).catch(function (err) {
+	      callback({
+		response: Utils.serverResponse.ERROR,
+		result: "ALREADY_EXIST"
+	      });
+	      Util.log(err);
+	  });
         } else {
-            callback({
-                response: Utils.serverResponse.ERROR,
-                result: "ALREADY_EXIST"
-            });
+	  callback({
+	      response: Utils.serverResponse.ERROR,
+	      result: "ALREADY_EXIST"
+	  });
         }
     });
 };
@@ -83,69 +89,69 @@ UserLogic.prototype.exitRoom = function (userId, sockets, callback) {
 
         self.DBManager.getRoomById(currentRoomId, true).then(function (room) {
 
-            var data = {users: room.users, isUserLeft: true};
+	  var data = {users: room.users, isUserLeft: true};
 
-            //clear user cubes
-            self.DBManager.clearUserCubes(user.id).then(function () {
+	  //clear user cubes
+	  self.DBManager.clearUserCubes(user.id).then(function () {
 
-                //check if user playing
-                if (user.isLoggedIn) {
-                    room.currentUserTurnId = user.nextUserTurnId;
+	      //check if user playing
+	      if (user.isLoggedIn) {
+		room.currentUserTurnId = user.nextUserTurnId;
 
-                    self.DBManager.saveRoom(room).then(function () {
-                        //set room to null
-                        user.roomId = null;
-                        //set user logout details
-                        user.nextUserTurnId = null;
-                        user.currentNumOfCubes = null;
-                        user.gambleCube = null;
-                        user.gambleTimes = null;
+		self.DBManager.saveRoom(room).then(function () {
+		    //set room to null
+		    user.roomId = null;
+		    //set user logout details
+		    user.nextUserTurnId = null;
+		    user.currentNumOfCubes = null;
+		    user.gambleCube = null;
+		    user.gambleTimes = null;
 
-                        //save user
-                        self.DBManager.saveUser(user).then(function () {
+		    //save user
+		    self.DBManager.saveUser(user).then(function () {
 
-                            //get room's users
-                            self.DBManager.getUsersByRoomId(currentRoomId).then(function (users) {
+		        //get room's users
+		        self.DBManager.getUsersByRoomId(currentRoomId).then(function (users) {
 
-                                //create gameLogic instance
-                                var GameLogic = require('./GameLogic');
-                                var gameLogic = new GameLogic();
+			  //create gameLogic instance
+			  var GameLogic = require('./GameLogic');
+			  var gameLogic = new GameLogic();
 
-                                //save users turns
-                                self.DBManager.saveUsers(gameLogic.setTurnsOrder(users)).then(function () {
+			  //save users turns
+			  self.DBManager.saveUsers(gameLogic.setTurnsOrder(users)).then(function () {
 
-                                    gameLogic.restartRound(room.id, sockets, users.length, data);
+			      gameLogic.restartRound(room.id, sockets, users.length, data);
 
-                                    callback({
-                                        response: Utils.serverResponse.SUCCESS,
-                                        result: "no data"
-                                    });
-                                });
-                            });
-                        });
-                    });
-                } else {
-                    //set room to null
-                    user.roomId = null;
-                    //set user logout details
-                    user.nextUserTurnId = null;
-                    user.currentNumOfCubes = null;
-                    user.gambleCube = null;
-                    user.gambleTimes = null;
+			      callback({
+				response: Utils.serverResponse.SUCCESS,
+				result: "no data"
+			      });
+			  });
+		        });
+		    });
+		});
+	      } else {
+		//set room to null
+		user.roomId = null;
+		//set user logout details
+		user.nextUserTurnId = null;
+		user.currentNumOfCubes = null;
+		user.gambleCube = null;
+		user.gambleTimes = null;
 
-                    //save user
-                    self.DBManager.saveUser(user).then(function () {
+		//save user
+		self.DBManager.saveUser(user).then(function () {
 
-                        //update the other users
-                        self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.UPDATE_GAME, room.id);
+		    //update the other users
+		    self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.UPDATE_GAME, room.id);
 
-                        callback({
-                            response: Utils.serverResponse.SUCCESS,
-                            result: "no data"
-                        });
-                    });
-                }
-            });
+		    callback({
+		        response: Utils.serverResponse.SUCCESS,
+		        result: "no data"
+		    });
+		});
+	      }
+	  });
         });
     });
 };
@@ -165,11 +171,11 @@ UserLogic.prototype.setSocketId = function (userId, socketId, callback) {
         user.socketId = socketId;
         self.DBManager.saveUser(user).then(function () {
 
-            console.log("successfully set socketId for user = " + user.name);
-            callback({
-                response: Utils.serverResponse.SUCCESS,
-                result: "no data"
-            });
+	  console.log("successfully set socketId for user = " + user.name);
+	  callback({
+	      response: Utils.serverResponse.SUCCESS,
+	      result: "no data"
+	  });
         });
     });
 };
@@ -187,36 +193,36 @@ UserLogic.prototype.cleanInActiveUsers = function (sockets) {
         //iterate the rooms
         rooms.forEach(function (room) {
 
-            //iterate the users
-            self.DBManager.getUsersByRoomId(room.id).then(function (users) {
-                users.forEach(function (user) {
+	  //iterate the users
+	  self.DBManager.getUsersByRoomId(room.id).then(function (users) {
+	      users.forEach(function (user) {
 
-                    // var inActiveTimeToDelete = 1000 * 60 * 5;
-                    var inActiveTimeToDelete = 1000 * 60 * 10;
+		// var inActiveTimeToDelete = 1000 * 60 * 5;
+		var inActiveTimeToDelete = 1000 * 60 * 10;
 
-                    //if the user is inactive for X minutes
-                    if (user.isLoggedIn && (user.updatedAt.valueOf() + inActiveTimeToDelete < new Date().valueOf())) {
+		//if the user is inactive for X minutes
+		if (user.isLoggedIn && (user.updatedAt.valueOf() + inActiveTimeToDelete < new Date().valueOf())) {
 
-                        Util.log("clean userId = " + user.id + " for inactive");
+		    Util.log("clean userId = " + user.id + " for inactive");
 
-                        //clean user's cubes
-                        self.DBManager.clearUserCubes(user.id).then(function () {
+		    //clean user's cubes
+		    self.DBManager.clearUserCubes(user.id).then(function () {
 
-                            user.roomId = null;
-                            user.isLoggedIn = false;
-                            user.currentNumOfCubes = null;
-                            user.gambleTimes = null;
-                            user.gambleCube = null;
-                            user.nextUserTurnId = null;
-                            user.socketId = null;
+		        user.roomId = null;
+		        user.isLoggedIn = false;
+		        user.currentNumOfCubes = null;
+		        user.gambleTimes = null;
+		        user.gambleCube = null;
+		        user.nextUserTurnId = null;
+		        user.socketId = null;
 
-                            self.DBManager.saveUser(user).then(function () {
-                                self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.UPDATE_GAME, room.id, "user left");
-                            });
-                        });
-                    }
-                });
-            });
+		        self.DBManager.saveUser(user).then(function () {
+			  self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.UPDATE_GAME, room.id, "user left");
+		        });
+		    });
+		}
+	      });
+	  });
         });
     });
 };
