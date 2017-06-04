@@ -1,4 +1,7 @@
+
 module.exports = function cleanServer(connections) {
+
+    var Util = require('util');
 
     //Logic libraries
     var UserLogic = require('./logic/UserLogic');
@@ -6,6 +9,8 @@ module.exports = function cleanServer(connections) {
 
     //every five minutes - clean inactive players and rooms
     setInterval(function () {
+
+        Util.log("start cleaning. connection = " + connections.length);
 
         var userLogic = new UserLogic();
 
