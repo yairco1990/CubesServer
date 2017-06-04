@@ -20,7 +20,7 @@ function DBManager() {
     };
 
     //TODO SELECTED ENVIRONMENT!!!!!
-    var selectedEnvironment = ENVIRONMENTS.LOCAL;
+    var selectedEnvironment = ENVIRONMENTS.PRODUCTION;
 
     //define DB connection
     var connection = new Sequelize(selectedEnvironment.schema, selectedEnvironment.username, selectedEnvironment.password, {
