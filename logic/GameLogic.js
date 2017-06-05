@@ -267,24 +267,28 @@ GameLogic.prototype.setGamble = function (userId, roomId, gambleTimes, gambleCub
 
     var self = this;
 
-    var result;
-
     async.parallel({
         user: function (callback) {
 	  self.DBManager.getUserById(userId).then(function (user) {
 	      callback(null, user);
+	  }).catch(function(err){
+	      callback(err);
 	  });
         },
 
         room: function (callback) {
 	  self.DBManager.getRoomById(roomId).then(function (room) {
 	      callback(null, room);
+	  }).catch(function(err){
+	      callback(err);
 	  });
         },
 
         users: function (callback) {
 	  self.DBManager.getUsersByRoomId(roomId).then(function (users) {
 	      callback(null, users);
+	  }).catch(function(err){
+	      callback(err);
 	  });
         }
     }, function (err, result) {
@@ -378,6 +382,8 @@ GameLogic.prototype.setGamble = function (userId, roomId, gambleTimes, gambleCub
 		    }
 
 		    callback(null, wrongGambler);
+		}).catch(function(err){
+		    callback(err);
 		});
 	      },
 
@@ -385,6 +391,8 @@ GameLogic.prototype.setGamble = function (userId, roomId, gambleTimes, gambleCub
 		//save users
 		self.DBManager.saveUsers(users).then(function () {
 		    callback(null, wrongGambler);
+		}).catch(function(err){
+		    callback(err);
 		});
 	      },
 
@@ -392,6 +400,8 @@ GameLogic.prototype.setGamble = function (userId, roomId, gambleTimes, gambleCub
 		//save the room
 		self.DBManager.saveRoom(room).then(function () {
 		    callback(null, wrongGambler);
+		}).catch(function(err){
+		    callback(err);
 		});
 	      },
 
@@ -399,6 +409,8 @@ GameLogic.prototype.setGamble = function (userId, roomId, gambleTimes, gambleCub
 		//save the gambler
 		self.DBManager.saveUser(wrongGambler).then(function () {
 		    callback(null, wrongGambler);
+		}).catch(function(err){
+		    callback(err);
 		});
 	      },
 
@@ -406,6 +418,8 @@ GameLogic.prototype.setGamble = function (userId, roomId, gambleTimes, gambleCub
 		//get the updated room
 		self.DBManager.getUsersByRoomId(roomId).then(function (updatedUsers) {
 		    callback(null, updatedUsers);
+		}).catch(function(err){
+		    callback(err);
 		});
 	      },
 
@@ -446,10 +460,16 @@ GameLogic.prototype.setGamble = function (userId, roomId, gambleTimes, gambleCub
 				    }
 				    callback(null, result);
 				}
+			      }).catch(function(err){
+				callback(err);
 			      });
 			  }
+		        }).catch(function(err){
+			  callback(err);
 		        });
 		    })
+		}).catch(function(err){
+		    callback(err);
 		});
 	      }
 
@@ -492,7 +512,6 @@ GameLogic.prototype.setGamble = function (userId, roomId, gambleTimes, gambleCub
 	      .catch(function (err) {
 		Util.log(err);
 		callback(new ServerResponse(Utils.serverResponse.ERROR, err.toString()));
-		return;
 	      });
         }
     });
