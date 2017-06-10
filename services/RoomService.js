@@ -18,9 +18,7 @@ module.exports = function (socket, connections) {
 
         Util.log("room created with name " + data.roomName + " by userId = " + data.userId);
 
-        roomLogic.createRoom(data.roomName, data.initialCubeNumber, data.password, data.userId, function (type, data) {
-            io.emit(type, data);
-        }, callback);
+        roomLogic.createRoom(data.roomName, data.initialCubeNumber, data.password, data.userId, callback);
     });
 
     //enter to room

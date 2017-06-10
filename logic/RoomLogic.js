@@ -25,7 +25,7 @@ RoomLogic.prototype.getRooms = function (callback) {
 /**
  * create room
  */
-RoomLogic.prototype.createRoom = function (roomName, initialCubeNumber, password, ownerId, updateUsers, callback) {
+RoomLogic.prototype.createRoom = function (roomName, initialCubeNumber, password, ownerId, callback) {
 
     var self = this;
 
@@ -34,8 +34,6 @@ RoomLogic.prototype.createRoom = function (roomName, initialCubeNumber, password
         if (room.id == null) {
             self.DBManager.createRoom(roomName, initialCubeNumber, password, ownerId).then(function (room) {
                 callback(new ServerResponse(Utils.serverResponse.SUCCESS, room));
-
-                updateUsers && updateUsers(Utils.pushCase.NEW_ROOM_CREATED, "no data");
             });
         } else {
             

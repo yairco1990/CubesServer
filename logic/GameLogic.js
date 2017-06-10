@@ -366,7 +366,7 @@ GameLogic.prototype.setGamble = function (userId, roomId, gambleTimes, gambleCub
 
 	  //
 	  async.waterfall([
-	      function getLoser(callback) {
+	      function getLooser(callback) {
 		//get the loser
 		self.DBManager.getUserById(wrongGamblerId).then(function (wrongGambler) {
 		    //minus cube for the loser
