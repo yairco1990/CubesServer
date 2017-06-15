@@ -28,4 +28,20 @@ module.exports = function (socket, connections) {
 
         userLogic.register(data.username, data.password, callback);
     });
+
+    //get score results
+    socket.on('getScores', function (data, callback) {
+
+        Util.log(data.username + " ask for scores");
+
+        userLogic.getScores(callback);
+    });
+
+    //get user
+    socket.on('getUser', function (data, callback) {
+
+        Util.log("get user - " + data.userId);
+
+        userLogic.getUser(data.userId, callback);
+    });
 };

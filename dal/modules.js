@@ -17,7 +17,8 @@ module.exports = {
         lastGambleCube: Sequelize.INTEGER,
         lastGambleTimes: Sequelize.INTEGER,
         isGameOn: Sequelize.BOOLEAN,
-        initialCubeNumber: Sequelize.INTEGER
+        initialCubeNumber: Sequelize.INTEGER,
+        firstRound: Sequelize.BOOLEAN
     },
 
     user: {
@@ -36,7 +37,10 @@ module.exports = {
         gambleCube: Sequelize.INTEGER,
         gambleTimes: Sequelize.INTEGER,
         currentNumOfCubes: Sequelize.INTEGER,
-        socketId: Sequelize.STRING
+        socketId: Sequelize.STRING,
+        wins: Sequelize.INTEGER,
+        score: Sequelize.INTEGER,
+        games: Sequelize.INTEGER
     },
 
     cube: {

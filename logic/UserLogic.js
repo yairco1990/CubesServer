@@ -2,9 +2,11 @@
 var Utils = require('../utils/utils');
 var bcrypt = require('bcrypt-nodejs');
 var Util = require('util');
+var MyUtils = require('../utils/utils');
 
 function UserLogic() {
     this.DBManager = require('../dal/DBManager');
+    this.SharedLogic = new (require('./SharedLogic'));
 }
 
 /**
@@ -34,7 +36,24 @@ UserLogic.prototype.login = function (username, password, callback) {
 	      result: "NO_SUCH_USER"
 	  });
         }
-    });
+    }).catch(MyUtils.getErrorFunction("failed to login", callback));
+};
+
+UserLogic.prototype.getUser = function (userId, callback) {
+
+    this.DBManager.getUserById(userId).then(function (user) {
+        if (user.id) {
+	  callback({
+	      response: Utils.serverResponse.SUCCESS,
+	      result: user
+	  });
+        } else {
+	  callback({
+	      response: Utils.serverResponse.ERROR,
+	      result: "NO_SUCH_USER"
+	  });
+        }
+    }).catch(MyUtils.getErrorFunction("failed to get user by id", callback));
 };
 
 
@@ -60,20 +79,31 @@ UserLogic.prototype.register = function (username, password, callback) {
 		response: Utils.serverResponse.SUCCESS,
 		result: newUser
 	      });
-	  }).catch(function (err) {
-	      callback({
-		response: Utils.serverResponse.ERROR,
-		result: "ALREADY_EXIST"
-	      });
-	      Util.log(err);
-	  });
+	  }).catch(MyUtils.getErrorFunction("failed to get user by id", callback, Utils.serverResponse.ERROR, "ALREADY_EXIST"));
         } else {
 	  callback({
 	      response: Utils.serverResponse.ERROR,
 	      result: "ALREADY_EXIST"
 	  });
         }
-    });
+    }).catch(MyUtils.getErrorFunction("failed to get user by id", callback));
+};
+
+
+/**
+ * get scores
+ * @param callback
+ */
+UserLogic.prototype.getScores = function (callback) {
+
+    var self = this;
+
+    self.DBManager.getUsersByScore(10).then(function (users) {
+        callback({
+	  response: Utils.serverResponse.SUCCESS,
+	  result: users
+        });
+    }).catch(MyUtils.getErrorFunction("failed to get scores", callback));
 };
 
 /**
@@ -106,6 +136,9 @@ UserLogic.prototype.exitRoom = function (userId, sockets, callback) {
 		    user.currentNumOfCubes = null;
 		    user.gambleCube = null;
 		    user.gambleTimes = null;
+
+		    //set left player score
+		    self.SharedLogic.setLeftPlayerScore(room, user);
 
 		    //save user
 		    self.DBManager.saveUser(user).then(function () {
@@ -151,30 +184,6 @@ UserLogic.prototype.exitRoom = function (userId, sockets, callback) {
 		    });
 		});
 	      }
-	  });
-        });
-    });
-};
-
-/**
- * set socket id for user
- * @param userId
- * @param socketId
- * @param callback
- */
-UserLogic.prototype.setSocketId = function (userId, socketId, callback) {
-
-    var self = this;
-
-    self.DBManager.getUserById(userId).then(function (user) {
-
-        user.socketId = socketId;
-        self.DBManager.saveUser(user).then(function () {
-
-	  console.log("successfully set socketId for user = " + user.name);
-	  callback({
-	      response: Utils.serverResponse.SUCCESS,
-	      result: "no data"
 	  });
         });
     });

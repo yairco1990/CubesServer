@@ -6,40 +6,40 @@ function DBManager() {
 
     var ENVIRONMENTS = {
         LOCAL: {
-            host: 'localhost',
-            schema: 'dice_db',
-            username: 'root',
-            password: 'q1w2e3'
+	  host: 'localhost',
+	  schema: 'dice_db',
+	  username: 'root',
+	  password: 'q1w2e3'
         },
         PRODUCTION: {
-            host: 'localhost',
-            schema: 'dicelies_db',
-            username: 'root',
-            password: 'q1w2e3r4'
+	  host: 'localhost',
+	  schema: 'dicelies_db',
+	  username: 'root',
+	  password: 'q1w2e3r4'
         }
     };
 
     //TODO SELECTED ENVIRONMENT!!!!!
-    var selectedEnvironment = ENVIRONMENTS.PRODUCTION;
+    var selectedEnvironment = ENVIRONMENTS.LOCAL;
 
     //define DB connection
-    var connection = new Sequelize(selectedEnvironment.schema, selectedEnvironment.username, selectedEnvironment.password, {
+    var sequelize = new Sequelize(selectedEnvironment.schema, selectedEnvironment.username, selectedEnvironment.password, {
         logging: false,
         host: selectedEnvironment.host,
         dialect: 'mysql',
         pool: {
-            max: 5,
-            min: 0,
-            idle: 10000
+	  max: 5,
+	  min: 0,
+	  idle: 10000
         }
     });
 
     //define room
-    var Room = connection.define('room', modules.room);
+    var Room = sequelize.define('room', modules.room);
     //define user
-    var User = connection.define('user', modules.user);
+    var User = sequelize.define('user', modules.user);
     //define cube
-    var Cube = connection.define('cube', modules.cube, {timestamps: false});
+    var Cube = sequelize.define('cube', modules.cube, {timestamps: false});
 
     //define relationships
     Cube.belongsTo(User, {as: "user"});
@@ -56,9 +56,11 @@ function DBManager() {
     User.hasMany(Cube);
 
     //sync DB
-    connection.sync().then(function () {
+    sequelize.sync().then(function () {
         Util.log("set db successfully");
     });
+
+    this.sequelize = sequelize;
 
     this.Room = Room;
     this.User = User;
@@ -71,7 +73,7 @@ DBManager.prototype.clearRoomCubes = function (roomId) {
 
     return self.Cube.destroy({
         where: {
-            roomId: roomId
+	  roomId: roomId
         }
     });
 };
@@ -82,7 +84,7 @@ DBManager.prototype.clearUserCubes = function (userId) {
 
     return self.Cube.destroy({
         where: {
-            userId: userId
+	  userId: userId
         }
     });
 };
@@ -104,13 +106,13 @@ DBManager.prototype.getRoomById = function (roomId, withUsers) {
 
     var request = {
         where: {
-            id: roomId
+	  id: roomId
         }
     };
 
     if (withUsers) {
         request.include = [
-            self.User
+	  self.User
         ];
     }
 
@@ -125,7 +127,7 @@ DBManager.prototype.getRoomByName = function (roomName) {
 
     var request = {
         where: {
-            name: roomName
+	  name: roomName
         }
     };
 
@@ -154,7 +156,7 @@ DBManager.prototype.deleteRoom = function (roomId) {
 
     return self.Room.destroy({
         where: {
-            id: roomId
+	  id: roomId
         }
     });
 };
@@ -165,10 +167,21 @@ DBManager.prototype.getUserByName = function (username) {
 
     return self.User.findOne({
         where: {
-            name: username
+	  name: username
         }
     }).then(function (user) {
         return setResult(user);
+    });
+};
+
+DBManager.prototype.getUsersByScore = function (numOfResult) {
+
+    var self = this;
+
+    var query = "SELECT name,wins,score,games FROM dice_db.users ORDER BY score DESC LIMIT " + numOfResult;
+
+    return self.sequelize.query(query).spread(function (results, metadata) {
+        return results;
     });
 };
 
@@ -187,7 +200,7 @@ DBManager.prototype.getUserBySocketId = function (socketId) {
 
     return self.User.find({
         where: {
-            socketId: socketId
+	  socketId: socketId
         }
     }).then(function (user) {
         return setResult(user);
@@ -209,12 +222,12 @@ DBManager.prototype.getUsersByRoomId = function (roomId, userId) {
 
     return self.User.findAll({
         where: {
-            roomId: roomId
+	  roomId: roomId
         },
         include: [{
-            model: self.Cube,
-            where: cubesWhere,
-            required: false
+	  model: self.Cube,
+	  where: cubesWhere,
+	  required: false
         }]
     }).then(function (users) {
         return setResult(users);
@@ -247,10 +260,11 @@ DBManager.prototype.saveRoom = function (room) {
         lastGambleTimes: room.lastGambleTimes,
         lastUserTurnId: room.lastUserTurnId,
         currentUserTurnId: room.currentUserTurnId,
-        nextUserTurnId: room.nextUserTurnId
+        nextUserTurnId: room.nextUserTurnId,
+        firstRound: room.firstRound
     }, {
         where: {
-            id: room.id
+	  id: room.id
         }
     });
 };
@@ -266,10 +280,13 @@ DBManager.prototype.saveUser = function (user) {
         roomId: user.roomId,
         socketId: user.socketId,
         nextUserTurnId: user.nextUserTurnId,
-        isLoggedIn: user.isLoggedIn
+        isLoggedIn: user.isLoggedIn,
+        wins: user.wins,
+        games: user.games,
+        score: user.score
     }, {
         where: {
-            id: user.id
+	  id: user.id
         }
     });
 };
@@ -330,13 +347,13 @@ DBManager.prototype.pushForRoomUsers = function (roomSockets, type, roomId, data
 
     if (roomId) { //send to room's users
         roomSockets.forEach(function (socket) {
-            if (socket.roomId == roomId) {
-                socket.emit(type, data);
-            }
+	  if (socket.roomId == roomId) {
+	      socket.emit(type, data);
+	  }
         });
     } else {//send to all the users
         roomSockets.forEach(function (socket) {
-            socket.emit(type, data);
+	  socket.emit(type, data);
         });
     }
 };
