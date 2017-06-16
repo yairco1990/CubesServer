@@ -542,7 +542,7 @@ GameLogic.prototype.setLyingGamble = function (user, room, users, sockets, callb
 
 				    //if the one that said bluff right - set score for him
 				    if(result == "WRONG_GAMBLE"){
-				        self.sharedLogic.setBluffingScore();
+				        self.sharedLogic.setBluffingScore(winnerGamblerId);
 				    }
 				}
 
