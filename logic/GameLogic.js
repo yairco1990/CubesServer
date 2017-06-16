@@ -6,7 +6,7 @@ var ServerResponse = require('../utils/ServerResponse');
 
 function GameLogic() {
     this.DBManager = require('../dal/DBManager');
-    this.SharedLogic = new (require('./SharedLogic'));
+    this.sharedLogic = new (require('./SharedLogic'));
 }
 
 /**
@@ -514,7 +514,7 @@ GameLogic.prototype.setLyingGamble = function (user, room, users, sockets, callb
 			  userCounter++;
 			  if (userCounter == self.getPlayingUsers(updatedUsers).length) {
 
-			      //get the winner
+			      //get the winner if exist
 			      var winner = self.isGameOver(updatedUsers);
 
 			      var usersData = {
@@ -533,17 +533,21 @@ GameLogic.prototype.setLyingGamble = function (user, room, users, sockets, callb
 
 				    //init the room
 				    self.restartGame(winner.id, room.id, sockets, Utils.pushCase.GAME_OVER, usersData, null, function (users) {
-				        self.SharedLogic.setWinnerScore(users, winner);
+				        self.sharedLogic.setWinnerScore(users, winner);
 				    });
 
 				} else {
 
 				    self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, usersData);
 
+				    //if the one that said bluff right - set score for him
+				    if(result == "WRONG_GAMBLE"){
+				        self.sharedLogic.setBluffingScore();
+				    }
 				}
 
 				callback(null, result);
-			      }, 2000);
+			      }, 2200);
 			  }
 		        }).catch(function (err) {
 			  callback(err);
@@ -570,7 +574,7 @@ GameLogic.prototype.setLyingGamble = function (user, room, users, sockets, callb
 
         //if perfect gamble - set score
         if (isPerfectGamble) {
-	  self.SharedLogic.setPerfectScore(winnerGamblerId);
+	  self.sharedLogic.setPerfectScore(winnerGamblerId);
         }
     });
 };

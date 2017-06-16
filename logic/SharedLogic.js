@@ -5,7 +5,6 @@ function SharedLogic() {
     this.DBManager = require('../dal/DBManager');
 }
 
-
 /**
  * set winner score when the game ended
  * @param players - list of the players in the room
@@ -85,6 +84,28 @@ SharedLogic.prototype.setLeftPlayerScore = function (room, player) {
     if (player.score < 0) {
         player.score = 0;
     }
+};
+
+/**
+ * set score for the user that expose the bluffer
+ * @param playerId - the player id of the one that exposed the bluff
+ */
+SharedLogic.prototype.setBluffingScore = function (playerId) {
+
+    var self = this;
+
+    self.DBManager.getUserById(playerId).then(function (player) {
+
+        player.score += 2;
+        return player;
+
+    }).then(function (player) {
+
+        return self.DBManager.saveUser(player);
+    }).catch(function () {
+
+        Util.log("Error during update the exposer score");
+    });
 };
 
 module.exports = SharedLogic;
