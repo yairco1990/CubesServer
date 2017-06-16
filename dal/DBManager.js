@@ -178,7 +178,7 @@ DBManager.prototype.getUsersByScore = function (numOfResult) {
 
     var self = this;
 
-    var query = "SELECT name,wins,score,games FROM dice_db.users ORDER BY score DESC LIMIT " + numOfResult;
+    var query = "SELECT name,wins,score,games FROM users ORDER BY score DESC LIMIT " + numOfResult;
 
     return self.sequelize.query(query).spread(function (results, metadata) {
         return results;
