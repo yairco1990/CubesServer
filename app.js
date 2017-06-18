@@ -43,6 +43,9 @@ io.on('connection', function (socket) {
         if (data.user) {
 	  socket.roomId = data.user.roomId;
 	  socket.user = data.user;
+        }else{
+            socket.roomId = data.roomId;
+            socket.userId = data.userId;
         }
 
         callback && callback(new ServerResponse(Utils.serverResponse.SUCCESS, "no data"));
