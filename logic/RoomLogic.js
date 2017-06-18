@@ -11,8 +11,11 @@ function RoomLogic() {
 /**
  * get rooms function
  * @param callback
+ * @param socket
  */
-RoomLogic.prototype.getRooms = function (callback) {
+RoomLogic.prototype.getRooms = function (socket, callback) {
+
+    Util.log(socket.name + " asked for rooms");
 
     this.DBManager.getRooms().then(function (rooms) {
         if (rooms != "NO_ROWS_FOUND") {
@@ -26,9 +29,11 @@ RoomLogic.prototype.getRooms = function (callback) {
 /**
  * create room
  */
-RoomLogic.prototype.createRoom = function (roomName, initialCubeNumber, password, ownerId, callback) {
+RoomLogic.prototype.createRoom = function (socket, roomName, initialCubeNumber, password, ownerId, callback) {
 
     var self = this;
+
+    Util.log("room created with name " + roomName + " by user = " + socket.user.name);
 
     self.DBManager.getRoomByName(roomName).then(function (room) {
         //check if room exist
@@ -50,8 +55,10 @@ RoomLogic.prototype.createRoom = function (roomName, initialCubeNumber, password
  * @param userId
  * @param callback
  */
-RoomLogic.prototype.enterRoom = function (roomId, userId, sockets, callback) {
+RoomLogic.prototype.enterRoom = function (socket, roomId, userId, sockets, callback) {
     var self = this;
+
+    Util.log("user = " + socket.user.name + " entered to roomId = " + roomId);
 
     self.DBManager.getUserById(userId).then(function (user) {
         //set room id
@@ -102,7 +109,7 @@ RoomLogic.prototype.cleanInActiveRooms = function (sockets) {
     self.DBManager.getRooms().then(function (rooms) {
         return rooms;
     }).then(function (rooms) {
-        //iterate the rooms
+        //iterate rooms
         rooms.forEach(function (room) {
 
 	  var inActiveTimeToDelete = 1000 * 60 * 60 * 24 * 20;

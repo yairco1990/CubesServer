@@ -11,16 +11,18 @@ function GameLogic() {
 
 /**
  * restart room
- * @param winnerId
+ * @param userId
  * @param roomId
  * @param sockets
  * @param pushType
  * @param endRoundResult
  * @param callback
  */
-GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType, endRoundResult, callback, onFinish) {
+GameLogic.prototype.restartGame = function (userId, roomId, sockets, pushType, endRoundResult, callback, onFinish) {
 
     var self = this;
+
+    Util.log(roomId + " restarted with starting user user = " + userId);
 
     async.parallel({
         room: function (callback) {
@@ -81,7 +83,7 @@ GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType,
 
 	      //set room details
 	      setRoomDetails: function (callback) {
-		room.currentUserTurnId = winnerId ? winnerId : users[0].id;
+		room.currentUserTurnId = userId ? userId : users[0].id;
 		room.lastGambleCube = null;
 		room.lastGambleTimes = null;
 		room.firstRound = true;
@@ -95,7 +97,9 @@ GameLogic.prototype.restartGame = function (winnerId, roomId, sockets, pushType,
 		pushType = pushType ? pushType : Utils.pushCase.GAME_RESTARTED;
 
 		//send push for all the room's users
-		callback(null, self.DBManager.pushForRoomUsers(sockets, pushType, roomId, endRoundResult));
+		self.DBManager.pushForRoomUsers(sockets, pushType, roomId, endRoundResult);
+
+		callback(null);
 	      }
 	  }, function (err, result) {
 	      if (err) {
@@ -199,10 +203,13 @@ GameLogic.prototype.getGame = function (roomId, userId, callback) {
  * @param roomId
  * @param sockets
  * @param numOfUsersInRoom
+ * @param data
  */
 GameLogic.prototype.restartRound = function (roomId, sockets, numOfUsersInRoom, data) {
 
     var self = this;
+
+    Util.log("restart the round. roomId -> " + roomId);
 
     async.parallel({
         room: function (callback) {
@@ -260,6 +267,7 @@ GameLogic.prototype.restartRound = function (roomId, sockets, numOfUsersInRoom, 
 
 /**
  * set gamble to room
+ * @param socket
  * @param userId
  * @param roomId
  * @param gambleTimes
@@ -268,9 +276,11 @@ GameLogic.prototype.restartRound = function (roomId, sockets, numOfUsersInRoom, 
  * @param callback
  * @param sockets
  */
-GameLogic.prototype.setGamble = function (userId, roomId, gambleTimes, gambleCube, isLying, callback, sockets) {
+GameLogic.prototype.setGamble = function (socket, userId, roomId, gambleTimes, gambleCube, isLying, callback, sockets) {
 
     var self = this;
+
+    Util.log("setGamble -> user = " + socket.user.name + ", roomId " + roomId + " gambleTimes = " + gambleTimes + ", gambleCube = " + gambleCube + ", isLying = " + isLying);
 
     async.parallel({
         user: function (cb) {
@@ -541,7 +551,7 @@ GameLogic.prototype.setLyingGamble = function (user, room, users, sockets, callb
 				    self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, usersData);
 
 				    //if the one that said bluff right - set score for him
-				    if(result == "WRONG_GAMBLE"){
+				    if (result == "WRONG_GAMBLE") {
 				        self.sharedLogic.setBluffingScore(winnerGamblerId);
 				    }
 				}
@@ -582,43 +592,25 @@ GameLogic.prototype.setLyingGamble = function (user, room, users, sockets, callb
 /**
  * send message to room's users
  */
-GameLogic.prototype.sendMessage = function (userId, content, sockets, callback) {
+GameLogic.prototype.sendMessage = function (socket, content, sockets, callback) {
     var self = this;
 
-    async.waterfall([
-        function (callback) {
-	  self.DBManager.getUserById(userId).then(function (user) {
-	      callback(null, user);
-	  });
-        },
-        function (user, callback) {
-	  self.DBManager.getRoomById(user.roomId).then(function (room) {
-	      callback(null, {room: room, user: user});
-	  });
-        }
-    ], function (err, result) {
+    Util.log("sendMessage -> user = " + socket.user.name + " content = " + content);
 
-        if (err) {
-	  Util.log(err);
-	  return;
-        }
+    var user = socket.user;
 
-        var room = result.room;
-        var user = result.user;
+    var message = {
+        userId: socket.user.id,
+        name: user.name,
+        content: content
+    };
 
-        var message = {
-	  userId: userId,
-	  name: user.name,
-	  content: content
-        };
-
-        callback({
-	  response: Utils.serverResponse.SUCCESS,
-	  result: message
-        });
-
-        self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.NEW_MESSAGE, room.id, message);
+    callback({
+        response: Utils.serverResponse.SUCCESS,
+        result: message
     });
+
+    self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.NEW_MESSAGE, socket.roomId, message);
 };
 
 /**

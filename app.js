@@ -10,12 +10,13 @@ app.use(express.static(__dirname + '/node_modules'));
 Util.log("Server running...");
 ////////////////////end of server stuff////////////////////
 
-//init DB
-var DBManager = require('./dal/DBManager');
-
 //utils
 var Utils = require('./utils/utils');
 
+//init DB
+var DBManager = require('./dal/DBManager');
+
+//holds the connected sockets
 var connections = [];
 
 //Logic libraries
@@ -26,25 +27,28 @@ var GameServices = require('./services/GameService');
 //web sockets manager
 io.on('connection', function (socket) {
 
+    //set empty object of user to the socket
+    socket.user = {};
+
     connections.push(socket);
-    Util.log("Connected -> " + connections.length + " sockets connected");
 
     //on client disconnected
     socket.on('disconnect', function () {
-
         connections.splice(connections.indexOf(socket), 1);
-        Util.log("Disconnected -> " + connections.length + " sockets connected");
     });
 
+    //on client entered to room
     socket.on('setSocketDetails', function (data, callback) {
-
-        socket.roomId = data.roomId;
-        socket.userId = data.userId;
+        //add room and user to the socket
+        if (data.user) {
+	  socket.roomId = data.user.roomId;
+	  socket.user = data.user;
+        }
 
         callback && callback(new ServerResponse(Utils.serverResponse.SUCCESS, "no data"));
     });
 
-    //create services objects for every sockets that connected to the server
+    //create services objects for every socket that connects to the server
     UserServices(socket, connections);
     RoomServices(socket, connections);
     GameServices(socket, connections);

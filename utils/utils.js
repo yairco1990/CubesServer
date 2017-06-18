@@ -76,6 +76,21 @@ var Utils = {
 	      cb(new ServerResponse(response, result));
 	  }
         };
+    },
+
+    getNumberOfLivePlayers: function (users) {
+        var self = this;
+
+        if (users && users.length) {
+	  var count = 0;
+	  users.forEach(function (user) {
+	      if (user.isLoggedIn) {
+		count++;
+	      }
+	  });
+	  return count
+        }
+        return 0;
     }
 };
 
