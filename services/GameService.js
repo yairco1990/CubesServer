@@ -22,6 +22,6 @@ module.exports = function (socket, connections) {
 
     //send message
     socket.on('sendMessage', function (data, callback) {
-        gameLogic.sendMessage(socket, data.content, connections, callback);
+        gameLogic.sendMessage(socket, data.userId, data.content, connections, callback);
     });
 };

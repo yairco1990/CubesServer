@@ -66,7 +66,7 @@ var Utils = {
         var self = this;
 
         return function (err) {
-	  Util.log(errorMessage);
+	  Util.log("ERROR: " + errorMessage);
 	  Util.log(err);
 
 	  if (cb) {

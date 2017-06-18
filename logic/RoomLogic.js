@@ -70,7 +70,7 @@ RoomLogic.prototype.enterRoom = function (socket, roomId, userId, sockets, callb
         //save the user
         return self.DBManager.saveUser(user).then(function () {
 	  return user;
-        }).catch(MyUtils.getErrorFunction("Failed to clean inactive rooms", callback));
+        }).catch(MyUtils.getErrorFunction("Failed to enter rooms", callback));
     }).then(function (user) {
 
         //get the room

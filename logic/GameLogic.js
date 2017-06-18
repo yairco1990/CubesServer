@@ -592,25 +592,43 @@ GameLogic.prototype.setLyingGamble = function (user, room, users, sockets, callb
 /**
  * send message to room's users
  */
-GameLogic.prototype.sendMessage = function (socket, content, sockets, callback) {
+GameLogic.prototype.sendMessage = function (socket, userId, content, sockets, callback) {
     var self = this;
 
-    Util.log("sendMessage -> user = " + socket.user.name + " content = " + content);
+    async.waterfall([
+        function (callback) {
+	  self.DBManager.getUserById(userId).then(function (user) {
+	      callback(null, user);
+	  });
+        },
+        function (user, callback) {
+	  self.DBManager.getRoomById(user.roomId).then(function (room) {
+	      callback(null, {room: room, user: user});
+	  });
+        }
+    ], function (err, result) {
 
-    var user = socket.user;
+        if (err) {
+	  Util.log(err);
+	  return;
+        }
 
-    var message = {
-        userId: socket.user.id,
-        name: user.name,
-        content: content
-    };
+        var room = result.room;
+        var user = result.user;
 
-    callback({
-        response: Utils.serverResponse.SUCCESS,
-        result: message
+        var message = {
+	  userId: userId,
+	  name: user.name,
+	  content: content
+        };
+
+        callback({
+	  response: Utils.serverResponse.SUCCESS,
+	  result: message
+        });
+
+        self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.NEW_MESSAGE, room.id, message);
     });
-
-    self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.NEW_MESSAGE, socket.roomId, message);
 };
 
 /**
