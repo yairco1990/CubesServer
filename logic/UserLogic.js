@@ -20,7 +20,7 @@ UserLogic.prototype.login = function (username, password, callback) {
     Util.log(username + " is trying to login");
 
     this.DBManager.getUserByName(username).then(function (user) {
-        if (user.id) {
+        if (user) {
 	  if (bcrypt.compareSync(password, user.password)) {
 	      callback({
 		response: Utils.serverResponse.SUCCESS,
@@ -46,7 +46,7 @@ UserLogic.prototype.getUser = function (userId, callback) {
     Util.log("get user with id -> " + userId);
 
     this.DBManager.getUserById(userId).then(function (user) {
-        if (user.id) {
+        if (user) {
 	  callback({
 	      response: Utils.serverResponse.SUCCESS,
 	      result: user
@@ -74,7 +74,7 @@ UserLogic.prototype.register = function (username, password, callback) {
     Util.log(username + " try to register");
 
     self.DBManager.getUserByName(username).then(function (user) {
-        if (user.id == null) {
+        if (user == null) {
 
 	  //encrypt password
 	  var hashPassword = bcrypt.hashSync(password);

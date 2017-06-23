@@ -37,7 +37,7 @@ RoomLogic.prototype.createRoom = function (socket, roomName, initialCubeNumber, 
 
     self.DBManager.getRoomByName(roomName).then(function (room) {
         //check if room exist
-        if (room.id == null) {
+        if (room == null) {
 	  self.DBManager.createRoom(roomName, initialCubeNumber, password, ownerId).then(function (room) {
 	      callback(new ServerResponse(MyUtils.serverResponse.SUCCESS, room));
 	  }).catch(MyUtils.getErrorFunction("Failed to clean inactive rooms"));
