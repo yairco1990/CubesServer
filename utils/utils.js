@@ -19,6 +19,7 @@ var Utils = {
         UPDATE_GAME: "updateGame",
         NEW_MESSAGE: "newMessage",
         NEW_ROOM_CREATED: "newRoomCreated",
+        SET_AUTO_LYE: "setAutoLye",
         SAID_BLUFF: "saidBluff",
         PLAYER_WON: "playerWon"
     },

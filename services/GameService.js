@@ -20,6 +20,11 @@ module.exports = function (socket, connections) {
         gameLogic.setGamble(socket, data.userId, data.roomId, data.gambleTimes, data.gambleCube, data.isLying, callback, connections);
     });
 
+    //set auto lye
+    socket.on('setAutoLye', function (data, callback) {
+        gameLogic.setAutoLye(socket, data.autoLye, connections, callback);
+    });
+
     //send message
     socket.on('sendMessage', function (data, callback) {
         gameLogic.sendMessage(socket, data.userId, data.content, connections, callback);

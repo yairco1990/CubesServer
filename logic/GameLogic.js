@@ -97,7 +97,7 @@ GameLogic.prototype.restartGame = function (userId, roomId, sockets, pushType, e
 		pushType = pushType ? pushType : Utils.pushCase.GAME_RESTARTED;
 
 		//send push for all the room's users
-		self.DBManager.pushForRoomUsers(sockets, pushType, roomId, endRoundResult);
+		self.sharedLogic.pushForRoomUsers(sockets, pushType, roomId, endRoundResult);
 
 		callback(null);
 	      }
@@ -248,7 +248,7 @@ GameLogic.prototype.restartRound = function (roomId, sockets, numOfUsersInRoom, 
 	      .then(function () {
 
 		//update the users
-		self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
+		self.sharedLogic.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
 	      });
 
         } else { // 1 player or less - clean the room
@@ -259,7 +259,7 @@ GameLogic.prototype.restartRound = function (roomId, sockets, numOfUsersInRoom, 
 	  room.lastUserTurnId = null;
 
 	  self.DBManager.saveRoom(room).then(function () {
-	      self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
+	      self.sharedLogic.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
 	  });
         }
     });
@@ -323,7 +323,7 @@ GameLogic.prototype.setGamble = function (socket, userId, roomId, gambleTimes, g
         if (isLying) {
 
 	  //notify user that the player said bluff
-	  self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SAID_BLUFF, roomId, user);
+	  self.sharedLogic.pushForRoomUsers(sockets, Utils.pushCase.SAID_BLUFF, roomId, user);
 	  self.setLyingGamble(user, room, users, sockets, callback);
 
         } else {//case of regular gamble(no one said lye)
@@ -357,7 +357,7 @@ GameLogic.prototype.setRaiseGamble = function (user, gambleCube, gambleTimes, ro
         })
         .then(function () {
 	  //send push
-	  self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.PLAYER_GAMBLED, room.id);
+	  self.sharedLogic.pushForRoomUsers(sockets, Utils.pushCase.PLAYER_GAMBLED, room.id);
 
 	  //return success
 	  callback(new ServerResponse(Utils.serverResponse.SUCCESS, {}));
@@ -527,6 +527,9 @@ GameLogic.prototype.setLyingGamble = function (user, room, users, sockets, callb
 			      //get the winner if exist
 			      var winner = self.isGameOver(updatedUsers);
 
+			      //set round result payload
+			      endRoundResult.wrongId = wrongGamblerId;
+			      endRoundResult.winnerId = winnerGamblerId;
 			      var usersData = {
 				users: originalUsers,
 				endRoundResult: endRoundResult
@@ -539,7 +542,7 @@ GameLogic.prototype.setLyingGamble = function (user, room, users, sockets, callb
 				    result = "WINNER_ROUND";
 
 				    //notify about the winner
-				    self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.PLAYER_WON, room.id, winner);
+				    self.sharedLogic.pushForRoomUsers(sockets, Utils.pushCase.PLAYER_WON, room.id, winner);
 
 				    //init the room
 				    self.restartGame(winner.id, room.id, sockets, Utils.pushCase.GAME_OVER, usersData, null, function (users) {
@@ -548,12 +551,10 @@ GameLogic.prototype.setLyingGamble = function (user, room, users, sockets, callb
 
 				} else {
 
-				    self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, usersData);
+				    self.sharedLogic.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, usersData);
 
-				    //if the one that said bluff right - set score for him
-				    if (result == "WRONG_GAMBLE") {
-				        self.sharedLogic.setBluffingScore(winnerGamblerId);
-				    }
+				    //set round score for the winner
+				    self.sharedLogic.setRoundScore(winnerGamblerId);
 				}
 
 				callback(null, result);
@@ -627,8 +628,36 @@ GameLogic.prototype.sendMessage = function (socket, userId, content, sockets, ca
 	  result: message
         });
 
-        self.DBManager.pushForRoomUsers(sockets, Utils.pushCase.NEW_MESSAGE, room.id, message);
+        self.sharedLogic.pushForRoomUsers(sockets, Utils.pushCase.NEW_MESSAGE, room.id, message);
     });
+};
+
+/**
+ * some user set auto lye - update the room's users
+ * @param socket
+ * @param autoLye
+ * @param sockets
+ * @param callback
+ */
+GameLogic.prototype.setAutoLye = function (socket, autoLye, sockets, callback) {
+    var self = this;
+
+    //get user and room
+    var user = socket.user;
+    var roomId = socket.roomId;
+
+    //set data
+    var data = {
+        userId: user.id,
+        autoLye: autoLye
+    };
+
+    callback({
+        response: Utils.serverResponse.SUCCESS,
+        result: data
+    });
+
+    self.sharedLogic.pushForRoomUsers(sockets, Utils.pushCase.SET_AUTO_LYE, roomId, data);
 };
 
 /**

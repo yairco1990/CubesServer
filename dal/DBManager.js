@@ -28,9 +28,9 @@ function DBManager() {
         host: selectedEnvironment.host,
         dialect: 'mysql',
         pool: {
-	  max: 5,
+	  max: 1,
 	  min: 0,
-	  idle: 10000
+	  idle: 500
         }
     });
 
@@ -116,9 +116,7 @@ DBManager.prototype.getRoomById = function (roomId, withUsers) {
         ];
     }
 
-    return self.Room.find(request).then(function (room) {
-        return setResult(room);
-    });
+    return self.Room.find(request);
 };
 
 DBManager.prototype.getRoomByName = function (roomName) {
@@ -131,9 +129,7 @@ DBManager.prototype.getRoomByName = function (roomName) {
         }
     };
 
-    return self.Room.find(request).then(function (room) {
-        return setResult(room);
-    });
+    return self.Room.find(request);
 };
 
 
@@ -146,8 +142,6 @@ DBManager.prototype.createRoom = function (roomName, initialCubeNumber, password
         initialCubeNumber: initialCubeNumber,
         ownerId: ownerId,
         password: password
-    }).then(function (room) {
-        return setResult(room);
     });
 };
 
@@ -169,8 +163,6 @@ DBManager.prototype.getUserByName = function (username) {
         where: {
 	  name: username
         }
-    }).then(function (user) {
-        return setResult(user);
     });
 };
 
@@ -189,22 +181,7 @@ DBManager.prototype.getUserById = function (userId) {
 
     var self = this;
 
-    return self.User.findById(userId).then(function (user) {
-        return setResult(user);
-    });
-};
-
-DBManager.prototype.getUserBySocketId = function (socketId) {
-
-    var self = this;
-
-    return self.User.find({
-        where: {
-	  socketId: socketId
-        }
-    }).then(function (user) {
-        return setResult(user);
-    });
+    return self.User.findById(userId);
 };
 
 DBManager.prototype.getUsersByRoomId = function (roomId, userId) {
@@ -229,8 +206,6 @@ DBManager.prototype.getUsersByRoomId = function (roomId, userId) {
 	  where: cubesWhere,
 	  required: false
         }]
-    }).then(function (users) {
-        return setResult(users);
     });
 };
 
@@ -245,8 +220,6 @@ DBManager.prototype.getRooms = function () {
 	      attributes: ['id']
 	  }
         ]
-    }).then(function (rooms) {
-        return setResult(rooms);
     });
 };
 
@@ -302,60 +275,6 @@ DBManager.prototype.saveUsers = function (users) {
     });
 
     return Promise.all(usersPromises);
-};
-
-/**
- * convert DB result to dataValues result
- * @param result
- * @returns {*}
- */
-function setResult(result) {
-    var finalResult;
-    if (result instanceof Array) {
-        finalResult = getDataValuesFromArray(result);
-    } else if (result == null) {
-        return {};
-    } else {
-        finalResult = result.toJSON();
-    }
-    return finalResult;
-}
-
-/**
- * convert array to only dataValues
- * @param array
- * @returns {Array}
- */
-function getDataValuesFromArray(array) {
-    var newArray = [];
-    array.forEach(function (item) {
-        newArray.push(item.toJSON());
-    });
-    return newArray;
-}
-
-/**
- * send push for room's sockets
- * @param roomSockets
- * @param type
- * @param roomId
- * @param data
- */
-DBManager.prototype.pushForRoomUsers = function (roomSockets, type, roomId, data) {
-
-    var self = this;
-
-    if (roomId) { //send to room's users
-        roomSockets.forEach(function (socket) {
-	  if (socket.roomId == roomId) {
-	      socket.emit(type, data);
-	  }
-        });
-    } else {//send to all the users
-        roomSockets.forEach(function (socket) {
-	  socket.emit(type, data);
-        });
-    }
 };
 
 module.exports = new DBManager();

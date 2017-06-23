@@ -27,7 +27,7 @@ var GameServices = require('./services/GameService');
 //web sockets manager
 io.on('connection', function (socket) {
 
-    //set empty object of user to the socket
+    //set empty user object to the socket
     socket.user = {};
 
     connections.push(socket);

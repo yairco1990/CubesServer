@@ -5,11 +5,6 @@ module.exports = function (socket, connections) {
 
     var userLogic = new UserLogic();
 
-    //client logged out from room
-    socket.on('exitRoom', function (data, callback) {
-        userLogic.exitRoom(socket, data.userId, connections, callback);
-    });
-
     //client login
     socket.on('login', function (data, callback) {
         userLogic.login(data.name, data.password, callback);

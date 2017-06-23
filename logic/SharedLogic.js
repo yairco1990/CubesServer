@@ -65,7 +65,7 @@ SharedLogic.prototype.setPerfectScore = function (playerId) {
     }).then(function (winner) {
         return self.DBManager.saveUser(winner);
     }).catch(function () {
-        Util.log("Error during update the winner score");
+        Util.log("Error during update the winner score(setPerfectScore)");
     });
 };
 
@@ -90,22 +90,47 @@ SharedLogic.prototype.setLeftPlayerScore = function (room, player) {
  * set score for the user that expose the bluffer
  * @param playerId - the player id of the one that exposed the bluff
  */
-SharedLogic.prototype.setBluffingScore = function (playerId) {
+SharedLogic.prototype.setRoundScore = function (playerId) {
 
     var self = this;
 
     self.DBManager.getUserById(playerId).then(function (player) {
 
-        player.score += 2;
+        player.score += 3;
         return player;
 
     }).then(function (player) {
 
         return self.DBManager.saveUser(player);
-    }).catch(function () {
+    }).then(function () {
 
-        Util.log("Error during update the exposer score");
+    }).catch(function () {
+        Util.log("Error during update the player score(setRoundScore)");
     });
+};
+
+/**
+ * send push for room's sockets
+ * @param roomSockets
+ * @param type
+ * @param roomId
+ * @param data
+ */
+SharedLogic.prototype.pushForRoomUsers = function (roomSockets, type, roomId, data) {
+
+    var self = this;
+
+    if (roomId) { //send to room's users
+        roomSockets.forEach(function (socket) {
+	  if (socket.roomId == roomId) {
+	      socket.emit(type, data);
+	  }
+        });
+    } else {//send to all the users
+        roomSockets.forEach(function (socket) {
+	  socket.emit(type, data);
+        });
+    }
 };
 
 module.exports = SharedLogic;
