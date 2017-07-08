@@ -566,7 +566,10 @@ GameLogic.prototype.setLyingGamble = function (socket, user, room, users, socket
 
 				    //init the room
 				    self.restartGame(winner.id, room.id, sockets, Utils.pushCase.GAME_OVER, usersData, null, function (users) {
-				        self.sharedLogic.setWinnerScore(room.sessionPlayers, winner);
+				        //get the updated winner after game restarted
+				        var updatedWinner = Utils.getUserById(users, winner.id);
+				        //update winner score
+				        self.sharedLogic.setWinnerScore(room.sessionPlayers, updatedWinner);
 				    });
 
 				} else {
