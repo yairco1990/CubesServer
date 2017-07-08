@@ -19,9 +19,10 @@ var Utils = {
         UPDATE_GAME: "updateGame",
         NEW_MESSAGE: "newMessage",
         NEW_ROOM_CREATED: "newRoomCreated",
-        SET_AUTO_LYE: "setAutoLye",
+        SET_AUTO_LIE: "setAutoLie",
         SAID_BLUFF: "saidBluff",
-        PLAYER_WON: "playerWon"
+        PLAYER_WON: "playerWon",
+        USER_KICKED: "userKicked"
     },
 
     /**
@@ -92,6 +93,20 @@ var Utils = {
 	  return count
         }
         return 0;
+    },
+
+    getSocketByUserId: function (sockets, userId) {
+        var self = this;
+
+        var selectedSocket = null;
+
+        sockets.forEach(function (socket) {
+	  if (socket.user && socket.user.id == userId) {
+	      selectedSocket = socket;
+	  }
+        });
+
+        return selectedSocket;
     }
 };
 

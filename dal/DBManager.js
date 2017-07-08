@@ -234,7 +234,8 @@ DBManager.prototype.saveRoom = function (room) {
         lastUserTurnId: room.lastUserTurnId,
         currentUserTurnId: room.currentUserTurnId,
         nextUserTurnId: room.nextUserTurnId,
-        firstRound: room.firstRound
+        firstRound: room.firstRound,
+        sessionPlayers: room.sessionPlayers
     }, {
         where: {
 	  id: room.id
@@ -256,7 +257,8 @@ DBManager.prototype.saveUser = function (user) {
         isLoggedIn: user.isLoggedIn,
         wins: user.wins,
         games: user.games,
-        score: user.score
+        score: user.score,
+        isAutoLie: user.isAutoLie
     }, {
         where: {
 	  id: user.id

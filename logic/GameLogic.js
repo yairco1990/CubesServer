@@ -69,6 +69,7 @@ GameLogic.prototype.restartGame = function (userId, roomId, sockets, pushType, e
 		        user.isLoggedIn = true;
 		        user.gambleCube = null;
 		        user.gambleTimes = null;
+		        user.isAutoLie = false;
 		    });
 
 		    //set users turns
@@ -87,12 +88,13 @@ GameLogic.prototype.restartGame = function (userId, roomId, sockets, pushType, e
 		room.lastGambleCube = null;
 		room.lastGambleTimes = null;
 		room.firstRound = true;
+		room.sessionPlayers = users.length;
 
 		callback(null, self.DBManager.saveRoom(room));
 	      },
 
 	      sendPush: function (callback) {
-		console.log("FINISH TO RESTART THE ROOM!");
+		Util.log("room restarted successfully");
 
 		pushType = pushType ? pushType : Utils.pushCase.GAME_RESTARTED;
 
@@ -241,15 +243,24 @@ GameLogic.prototype.restartRound = function (roomId, sockets, numOfUsersInRoom, 
         var room = result.room;
         var users = result.users;
 
+        //set auto lie to false when the round beginning
+        users.forEach(function (user) {
+	  user.isAutoLie = false;
+	  user.gambleTimes = null;
+	  user.gambleCube = null;
+        });
+
         //set cubes only if two or more playing
         if (numOfUsersInRoom >= 2) {
-	  //set cubes for users in room
-	  Promise.all(self.setCubesForUsersInRoom(users, null))
-	      .then(function () {
 
-		//update the users
-		self.sharedLogic.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
-	      });
+	  //save the users
+	  self.DBManager.saveUsers(users).then(function () {
+	      //set cubes for users in room
+	      return Promise.all(self.setCubesForUsersInRoom(users, null));
+	  }).then(function () {
+	      //update the users
+	      self.sharedLogic.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
+	  });
 
         } else { // 1 player or less - clean the room
 
@@ -319,15 +330,17 @@ GameLogic.prototype.setGamble = function (socket, userId, roomId, gambleTimes, g
         var room = result.room;
         var users = result.users;
 
-        //if the current user set lie - check last gamble
-        if (isLying) {
+        if (!socket.isGambling) {
+	  socket.isGambling = true;
+	  //if the current user set lie - check last gamble
+	  if (isLying) {
+	      //notify user that the player said bluff
+	      self.sharedLogic.pushForRoomUsers(sockets, Utils.pushCase.SAID_BLUFF, roomId, user);
+	      self.setLyingGamble(socket, user, room, users, sockets, callback);
 
-	  //notify user that the player said bluff
-	  self.sharedLogic.pushForRoomUsers(sockets, Utils.pushCase.SAID_BLUFF, roomId, user);
-	  self.setLyingGamble(user, room, users, sockets, callback);
-
-        } else {//case of regular gamble(no one said lye)
-	  self.setRaiseGamble(user, gambleCube, gambleTimes, room, sockets, callback);
+	  } else {//case of regular gamble(no one said lye)
+	      self.setRaiseGamble(socket, user, gambleCube, gambleTimes, room, sockets, callback);
+	  }
         }
     });
 };
@@ -335,7 +348,7 @@ GameLogic.prototype.setGamble = function (socket, userId, roomId, gambleTimes, g
 /**
  * case of player raised the gamble
  */
-GameLogic.prototype.setRaiseGamble = function (user, gambleCube, gambleTimes, room, sockets, callback) {
+GameLogic.prototype.setRaiseGamble = function (socket, user, gambleCube, gambleTimes, room, sockets, callback) {
 
     var self = this;
 
@@ -361,18 +374,20 @@ GameLogic.prototype.setRaiseGamble = function (user, gambleCube, gambleTimes, ro
 
 	  //return success
 	  callback(new ServerResponse(Utils.serverResponse.SUCCESS, {}));
+	  socket.isGambling = false;
         })
         //error case
         .catch(function (err) {
 	  Util.log(err);
 	  callback(new ServerResponse(Utils.serverResponse.ERROR, err.toString()));
+	  socket.isGambling = false;
         });
 };
 
 /**
  * in case of player said 'its a bluff'
  */
-GameLogic.prototype.setLyingGamble = function (user, room, users, sockets, callback) {
+GameLogic.prototype.setLyingGamble = function (socket, user, room, users, sockets, callback) {
 
     var self = this;
 
@@ -397,6 +412,9 @@ GameLogic.prototype.setLyingGamble = function (user, room, users, sockets, callb
     var allCubesCounter = -1;
 
     users.forEach(function (userInRoom) {
+
+        //set auto lie to false
+        userInRoom.isAutoLie = false;
 
         //iterate over the users cubes
         userInRoom.cubes.forEach(function (cube) {
@@ -451,9 +469,11 @@ GameLogic.prototype.setLyingGamble = function (user, room, users, sockets, callb
 	  self.DBManager.getUserById(wrongGamblerId).then(function (wrongGambler) {
 	      //minus cube for the loser
 	      wrongGambler.currentNumOfCubes--;
+	      wrongGambler.isAutoLie = false;
 
 	      //check game over for this user
 	      if (wrongGambler.currentNumOfCubes < 1) {
+		wrongGambler.games++;
 		wrongGambler.isLoggedIn = false;
 		users = Utils.removeFromArray(users, wrongGambler);
 		room.currentUserTurnId = wrongGambler.nextUserTurnId;
@@ -546,7 +566,7 @@ GameLogic.prototype.setLyingGamble = function (user, room, users, sockets, callb
 
 				    //init the room
 				    self.restartGame(winner.id, room.id, sockets, Utils.pushCase.GAME_OVER, usersData, null, function (users) {
-				        self.sharedLogic.setWinnerScore(users, winner);
+				        self.sharedLogic.setWinnerScore(room.sessionPlayers, winner);
 				    });
 
 				} else {
@@ -582,6 +602,7 @@ GameLogic.prototype.setLyingGamble = function (user, room, users, sockets, callb
         }
 
         callback(new ServerResponse(Utils.serverResponse.SUCCESS, result));
+        socket.isGambling = false;
 
         //if perfect gamble - set score
         if (isPerfectGamble) {
@@ -635,29 +656,37 @@ GameLogic.prototype.sendMessage = function (socket, userId, content, sockets, ca
 /**
  * some user set auto lye - update the room's users
  * @param socket
- * @param autoLye
+ * @param isAutoLie
  * @param sockets
  * @param callback
  */
-GameLogic.prototype.setAutoLye = function (socket, autoLye, sockets, callback) {
+GameLogic.prototype.setAutoLie = function (socket, isAutoLie, sockets, callback) {
     var self = this;
 
+    Util.log("set auto lie. userId -> " + socket.user.id);
+
     //get user and room
-    var user = socket.user;
+    var socketUser = socket.user;
     var roomId = socket.roomId;
 
     //set data
     var data = {
-        userId: user.id,
-        autoLye: autoLye
+        userId: socketUser.id,
+        isAutoLie: isAutoLie
     };
 
-    callback({
-        response: Utils.serverResponse.SUCCESS,
-        result: data
-    });
+    self.sharedLogic.pushForRoomUsers(sockets, Utils.pushCase.SET_AUTO_LIE, roomId, data);
 
-    self.sharedLogic.pushForRoomUsers(sockets, Utils.pushCase.SET_AUTO_LYE, roomId, data);
+    self.DBManager.getUserById(socketUser.id).then(function (user) {
+        user.isAutoLie = isAutoLie;
+
+        return self.DBManager.saveUser(user);
+    }).then(function () {
+        callback({
+	  response: Utils.serverResponse.SUCCESS,
+	  result: data
+        });
+    });
 };
 
 /**

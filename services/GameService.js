@@ -21,8 +21,8 @@ module.exports = function (socket, connections) {
     });
 
     //set auto lye
-    socket.on('setAutoLye', function (data, callback) {
-        gameLogic.setAutoLye(socket, data.autoLye, connections, callback);
+    socket.on('setAutoLie', function (data, callback) {
+        gameLogic.setAutoLie(socket, data.isAutoLie, connections, callback);
     });
 
     //send message

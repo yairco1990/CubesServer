@@ -7,42 +7,37 @@ function SharedLogic() {
 
 /**
  * set winner score when the game ended
- * @param players - list of the players in the room
+ * @param numOfPlayers - number of players that played in this room session
  * @param winner - the winner player object
  */
-SharedLogic.prototype.setWinnerScore = function (players, winner) {
+SharedLogic.prototype.setWinnerScore = function (numOfPlayers, winner) {
 
     var self = this;
 
-    //after finish the round, update users score
-    players.forEach(function (player) {
-        //if this is the winner - set wins and score
-        if (player.id == winner.id) {
-	  player.wins++;
-	  //score depends on number of players
-	  var winnerScore = 125;
-	  switch (players.length) {
-	      case 1:
-		winnerScore = 1;
-		break;
-	      case 2:
-		winnerScore = 25;
-		break;
-	      case 3:
-		winnerScore = 50;
-		break;
-	      case 4:
-		winnerScore = 75;
-		break;
-	      case 5:
-		winnerScore = 100;
-		break;
-	  }
-	  player.score += winnerScore;
-        }
-        player.games++;
-    });
-    self.DBManager.saveUsers(players).then(function () {
+    winner.wins++;
+    winner.games++;
+    //score depends on number of players
+    var winnerScore = 125;
+    switch (numOfPlayers) {
+        case 1:
+	  winnerScore = 1;
+	  break;
+        case 2:
+	  winnerScore = 25;
+	  break;
+        case 3:
+	  winnerScore = 50;
+	  break;
+        case 4:
+	  winnerScore = 75;
+	  break;
+        case 5:
+	  winnerScore = 100;
+	  break;
+    }
+    winner.score += winnerScore;
+
+    self.DBManager.saveUser(winner).then(function () {
         Util.log("user saved after game over");
     }).catch(function (err) {
         Util.log(err);
@@ -104,7 +99,8 @@ SharedLogic.prototype.setRoundScore = function (playerId) {
         return self.DBManager.saveUser(player);
     }).then(function () {
 
-    }).catch(function () {
+    }).catch(function (e) {
+        Util.log(e);
         Util.log("Error during update the player score(setRoundScore)");
     });
 };

@@ -51,31 +51,84 @@ RoomLogic.prototype.createRoom = function (socket, roomName, initialCubeNumber, 
 /**
  * on user exit from room
  */
-RoomLogic.prototype.exitRoom = function (socket, userId, sockets, callback) {
+RoomLogic.prototype.exitRoom = function (socket, sockets, callback) {
     var self = this;
 
     Util.log(socket.user.name + " left his room");
 
-    self.DBManager.getUserById(userId).then(function (user) {
+    //save current room id
+    var currentRoomId = socket.roomId;
+    var userId = socket.user.id;
 
-        //remove socket room id
-        socket.roomId = null;
+    if (currentRoomId) {
+        self.DBManager.getUserById(userId).then(function (user) {
 
-        //save current room id
-        var currentRoomId = user.roomId;
+	  //remove socket room id
+	  socket.roomId = null;
 
-        self.DBManager.getRoomById(currentRoomId, true).then(function (room) {
+	  self.DBManager.getRoomById(currentRoomId, true).then(function (room) {
 
-	  var data = {users: room.users, isUserLeft: true};
+	      var data = {users: room.users, isUserLeft: true};
 
-	  //clear user cubes
-	  self.DBManager.clearUserCubes(user.id).then(function () {
+	      //clear user cubes
+	      self.DBManager.clearUserCubes(user.id).then(function () {
 
-	      //check if user playing
-	      if (user.isLoggedIn) {
-		room.currentUserTurnId = user.nextUserTurnId;
+		//check if user playing
+		if (user.isLoggedIn) {
 
-		self.DBManager.saveRoom(room).then(function () {
+		    //move the turn to the next player
+		    room.currentUserTurnId = user.nextUserTurnId;
+
+		    //if the player exits on the first round it's ok and decrease the number of the players in the session
+		    if (room.firstRound) {
+		        room.sessionPlayers -= 1;
+		    }
+
+		    self.DBManager.saveRoom(room).then(function () {
+		        //set room to null
+		        user.roomId = null;
+		        //set user logout details
+		        user.nextUserTurnId = null;
+		        user.currentNumOfCubes = null;
+		        user.gambleCube = null;
+		        user.gambleTimes = null;
+
+		        //if it's not the first round and player left - decrease score
+		        self.sharedLogic.setLeftPlayerScore(room, user);
+
+		        //save user
+		        self.DBManager.saveUser(user).then(function () {
+
+			  //get room's users
+			  self.DBManager.getUsersByRoomId(currentRoomId).then(function (users) {
+
+			      //create gameLogic instance
+			      var GameLogic = require('./GameLogic');
+			      var gameLogic = new GameLogic();
+
+			      //save users turns
+			      self.DBManager.saveUsers(gameLogic.setTurnsOrder(users)).then(function () {
+
+				//if the number of the current players in the room is bigger than 2
+				if (users.length >= 2) {
+				    //if live players at least 2, restart round
+				    if (MyUtils.getNumberOfLivePlayers(users) >= 2) {
+				        gameLogic.restartRound(room.id, sockets, users.length, data);
+				    } else {//if there are at least 2 players, but maximum 1 is alive, restart game.
+				        gameLogic.restartGame(null, room.id, sockets, MyUtils.pushCase.GAME_RESTARTED, null, callback, null);
+				    }
+				} else {//in other case, just update the game
+				    self.sharedLogic.pushForRoomUsers(sockets, MyUtils.pushCase.UPDATE_GAME, room.id);
+				}
+				callback({
+				    response: MyUtils.serverResponse.SUCCESS,
+				    result: "no data"
+				});
+			      });
+			  });
+		        });
+		    });
+		} else {
 		    //set room to null
 		    user.roomId = null;
 		    //set user logout details
@@ -84,65 +137,28 @@ RoomLogic.prototype.exitRoom = function (socket, userId, sockets, callback) {
 		    user.gambleCube = null;
 		    user.gambleTimes = null;
 
-		    //if it's not the first round and player left - decrease score
-		    self.sharedLogic.setLeftPlayerScore(room, user);
-
 		    //save user
 		    self.DBManager.saveUser(user).then(function () {
 
-		        //get room's users
-		        self.DBManager.getUsersByRoomId(currentRoomId).then(function (users) {
+		        //update the other users
+		        self.sharedLogic.pushForRoomUsers(sockets, MyUtils.pushCase.UPDATE_GAME, room.id);
 
-			  //create gameLogic instance
-			  var GameLogic = require('./GameLogic');
-			  var gameLogic = new GameLogic();
-
-			  //save users turns
-			  self.DBManager.saveUsers(gameLogic.setTurnsOrder(users)).then(function () {
-
-			      //if the number of the current players in the room is bigger than 2
-			      if (users.length >= 2) {
-				//if live players at least 2, restart round
-				if (MyUtils.getNumberOfLivePlayers(users) >= 2) {
-				    gameLogic.restartRound(room.id, sockets, users.length, data);
-				} else {//if there are at least 2 players, but maximum 1 is alive, restart game.
-				    gameLogic.restartGame(null, room.id, sockets, MyUtils.pushCase.GAME_RESTARTED, null, callback, null);
-				}
-			      } else {//in other case, just update the game
-				self.sharedLogic.pushForRoomUsers(sockets, MyUtils.pushCase.UPDATE_GAME, room.id);
-			      }
-			      callback({
-				response: MyUtils.serverResponse.SUCCESS,
-				result: "no data"
-			      });
-			  });
+		        callback({
+			  response: MyUtils.serverResponse.SUCCESS,
+			  result: "no data"
 		        });
 		    });
-		});
-	      } else {
-		//set room to null
-		user.roomId = null;
-		//set user logout details
-		user.nextUserTurnId = null;
-		user.currentNumOfCubes = null;
-		user.gambleCube = null;
-		user.gambleTimes = null;
-
-		//save user
-		self.DBManager.saveUser(user).then(function () {
-
-		    //update the other users
-		    self.sharedLogic.pushForRoomUsers(sockets, MyUtils.pushCase.UPDATE_GAME, room.id);
-
-		    callback({
-		        response: MyUtils.serverResponse.SUCCESS,
-		        result: "no data"
-		    });
-		});
-	      }
+		}
+	      });
 	  });
         });
-    });
+    } else {
+        Util.log("try to exit without roomId. userId -> " + userId);
+        callback({
+	  response: MyUtils.serverResponse.ERROR,
+	  result: "probably already out of the room"
+        });
+    }
 };
 
 /**
@@ -159,9 +175,10 @@ RoomLogic.prototype.enterRoom = function (socket, roomId, userId, sockets, callb
     self.DBManager.getUserById(userId).then(function (user) {
         //set room id
         user.roomId = roomId;
-
-        //by default not play when entering
+        //by default is not playing when entering
         user.isLoggedIn = false;
+        //verify auto lie is false
+        user.isAutoLie = false;
 
         //save the user
         return self.DBManager.saveUser(user).then(function () {
@@ -208,7 +225,7 @@ RoomLogic.prototype.cleanInActiveRooms = function (sockets) {
         //iterate rooms
         rooms.forEach(function (room) {
 
-            //4 days
+	  //4 days
 	  var inActiveTimeToDelete = (1000 * 60 * 60 * 24) * 4;
 	  // var inActiveTimeToDelete = 1000 * 60;
 
@@ -227,6 +244,35 @@ RoomLogic.prototype.cleanInActiveRooms = function (sockets) {
 	  }
         });
     }).catch(MyUtils.getErrorFunction("Failed to clean inactive rooms"));
+};
+
+/**
+ * kick user by admin
+ * @param socket
+ * @param userId
+ * @param connections
+ * @param callback
+ */
+RoomLogic.prototype.kickUser = function (socket, userId, connections, callback) {
+    var self = this;
+
+    var socketToKick = MyUtils.getSocketByUserId(connections, userId);
+
+    //check if socket exist
+    if (socketToKick) {
+
+        Util.log(socketToKick.user.name + " kicked by " + socket.user.name);
+
+        //send push about the kick action
+        self.sharedLogic.pushForRoomUsers(connections, MyUtils.pushCase.USER_KICKED, socket.roomId, {userId: userId});
+
+        //exit for the kicked player
+        self.exitRoom(socketToKick, connections, callback);
+
+    } else {
+
+        callback(new ServerResponse(MyUtils.serverResponse.ERROR, "socket not found"));
+    }
 };
 
 module.exports = RoomLogic;

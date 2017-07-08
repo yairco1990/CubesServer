@@ -17,11 +17,16 @@ module.exports = function (socket, connections) {
 
     //client logged out from room
     socket.on('exitRoom', function (data, callback) {
-        roomLogic.exitRoom(socket, data.userId, connections, callback);
+        roomLogic.exitRoom(socket, connections, callback);
     });
 
     //enter to room
     socket.on('enterRoom', function (data, callback) {
         roomLogic.enterRoom(socket, data.roomId, data.userId, connections, callback);
+    });
+
+    //kick user by admin
+    socket.on('kickUser', function (data, callback) {
+        roomLogic.kickUser(socket, data.userId, connections, callback);
     });
 };
