@@ -250,22 +250,26 @@ GameLogic.prototype.restartRound = function (roomId, sockets, numOfUsersInRoom, 
 	  user.gambleCube = null;
         });
 
+        //init gamble details
+        room.lastGambleCube = null;
+        room.lastGambleTimes = null;
+
         //set cubes only if two or more playing
         if (numOfUsersInRoom >= 2) {
 
-	  //save the users
-	  self.DBManager.saveUsers(users).then(function () {
-	      //set cubes for users in room
-	      return Promise.all(self.setCubesForUsersInRoom(users, null));
-	  }).then(function () {
-	      //update the users
-	      self.sharedLogic.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
+            //save room
+	  self.DBManager.saveRoom(room).then(function () {
+	      //save the users
+	      self.DBManager.saveUsers(users).then(function () {
+		//set cubes for users in room
+		return Promise.all(self.setCubesForUsersInRoom(users, null));
+	      }).then(function () {
+		//update the users
+		self.sharedLogic.pushForRoomUsers(sockets, Utils.pushCase.SESSION_ENDED, room.id, data);
+	      });
 	  });
 
         } else { // 1 player or less - clean the room
-
-	  room.lastGambleCube = null;
-	  room.lastGambleTimes = null;
 	  room.currentUserTurnId = null;
 	  room.lastUserTurnId = null;
 
