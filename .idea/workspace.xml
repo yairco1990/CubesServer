@@ -2,170 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97c36215-b687-4980-bdb8-6816fe926ff8" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/client/.gitignore.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/bower.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/CordovaDialogsHelper$9.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/NativeToJsMessageQueue$JsMessage.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/platforms/android/assets/www/lib/angular/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/plugins/cordova-plugin-splashscreen/doc/ko/index.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/plugins/cordova-plugin-splashscreen/src/tizen/SplashScreenProxy.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/plugins/cordova-plugin-splashscreen/tests/ios/doc/de/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/plugins/cordova-plugin-statusbar/doc/ko/index.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/plugins/cordova-plugin-whitelist/plugin.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/plugins/ionic-plugin-keyboard/src/blackberry10/native/simulator/public/json_writer.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/Thumbs.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/Thumbs.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/drawable-hdpi-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/drawable-ldpi-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/drawable-mdpi-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/drawable-xhdpi-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/drawable-xxhdpi-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/drawable-xxxhdpi-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/res/drawable-hdpi/Thumbs.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/res/drawable-hdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/res/drawable-mdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/res/drawable-xhdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/res/drawable-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/res/drawable-xxxhdpi/Thumbs.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/res/drawable-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/Thumbs.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-land-hdpi-screen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-land-ldpi-screen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-land-mdpi-screen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-land-xhdpi-screen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-land-xxhdpi-screen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-land-xxxhdpi-screen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-port-hdpi-screen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-port-ldpi-screen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-port-mdpi-screen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-port-xhdpi-screen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-port-xxhdpi-screen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-port-xxxhdpi-screen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/splashScreen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-40.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-40@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-50.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-50@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-60.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-60@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-60@3x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-72.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-72@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-76.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-76@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-small.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-small@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-small@3x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default-568h@2x~iphone.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default-667h.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default-736h.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default-Landscape-736h.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default-Landscape@2x~ipad.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default-Landscape~ipad.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default-Portrait@2x~ipad.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default-Portrait~ipad.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default@2x~iphone.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default~iphone.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/resources/splash.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/scss/ionic.app.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/www/lib/angular/angular.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dal/DBManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/dal/DBManager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.bin/wellknown" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/isarray/.npmignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/isarray/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/isarray/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/isarray/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/isarray/component.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/isarray/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/isarray/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/isarray/test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/.npmignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/.zuul.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/doc/stream.markdown" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/doc/wg-meetings/2015-01-30.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/duplex.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/lib/_stream_duplex.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/lib/_stream_passthrough.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/lib/_stream_readable.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/lib/_stream_transform.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/lib/_stream_writable.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/passthrough.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/readable.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/transform.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/writable.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/readme.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/example/parse.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/readme.markdown" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/all_bool.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/bool.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/dash.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/default_bool.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/dotted.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/long.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/num.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/parse.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/parse_modified.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/short.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/stop_early.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/unknown.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/whitespace.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/process-nextick-args/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/process-nextick-args/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/process-nextick-args/license.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/process-nextick-args/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/process-nextick-args/readme.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/process-nextick-args/test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/typedarray/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/typedarray/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/typedarray/example/tarray.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/typedarray/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/typedarray/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/typedarray/readme.markdown" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/typedarray/test/server/undef_globals.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/typedarray/test/tarray.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/util-deprecate/History.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/util-deprecate/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/util-deprecate/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/util-deprecate/browser.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/util-deprecate/node.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/util-deprecate/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/.npmignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/.zuul.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/CHANGELOG.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/cli.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/component.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/test/data/geometrycollection.geojson" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/test/data/geometrycollection.wkt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/test/fuzz.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/test/stringify.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/test/wellknown.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/wellknown.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/ionic.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/www/services/MySocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/www/services/MySocket.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -473,7 +313,7 @@
       <workItem from="1499101077688" duration="32000" />
       <workItem from="1499435553325" duration="3854000" />
       <workItem from="1499539695138" duration="10762000" />
-      <workItem from="1611019269336" duration="3390000" />
+      <workItem from="1611019269336" duration="10023000" />
     </task>
     <servers />
   </component>
