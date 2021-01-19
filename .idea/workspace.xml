@@ -1,11 +1,172 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="97c36215-b687-4980-bdb8-6816fe926ff8" name="Default" comment="" />
-    <ignored path="socket-app.iws" />
-    <ignored path=".idea/workspace.xml" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
+    <list default="true" id="97c36215-b687-4980-bdb8-6816fe926ff8" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/client/.gitignore.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/bower.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/CordovaDialogsHelper$9.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/NativeToJsMessageQueue$JsMessage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/platforms/android/assets/www/lib/angular/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/plugins/cordova-plugin-splashscreen/doc/ko/index.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/plugins/cordova-plugin-splashscreen/src/tizen/SplashScreenProxy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/plugins/cordova-plugin-splashscreen/tests/ios/doc/de/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/plugins/cordova-plugin-statusbar/doc/ko/index.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/plugins/cordova-plugin-whitelist/plugin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/plugins/ionic-plugin-keyboard/src/blackberry10/native/simulator/public/json_writer.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/Thumbs.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/Thumbs.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/drawable-hdpi-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/drawable-ldpi-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/drawable-mdpi-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/drawable-xhdpi-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/drawable-xxhdpi-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/drawable-xxxhdpi-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/res/drawable-hdpi/Thumbs.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/res/drawable-hdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/res/drawable-mdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/res/drawable-xhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/res/drawable-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/res/drawable-xxxhdpi/Thumbs.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/icon/res/drawable-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/Thumbs.db" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-land-hdpi-screen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-land-ldpi-screen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-land-mdpi-screen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-land-xhdpi-screen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-land-xxhdpi-screen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-land-xxxhdpi-screen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-port-hdpi-screen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-port-ldpi-screen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-port-mdpi-screen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-port-xhdpi-screen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-port-xxhdpi-screen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/drawable-port-xxxhdpi-screen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/android/splash/splashScreen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-40.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-40@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-50.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-50@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-60.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-60@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-60@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-72.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-72@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-76.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-76@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-small.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-small@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon-small@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/icon/icon@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default-568h@2x~iphone.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default-667h.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default-736h.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default-Landscape-736h.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default-Landscape@2x~ipad.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default-Landscape~ipad.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default-Portrait@2x~ipad.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default-Portrait~ipad.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default@2x~iphone.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/ios/splash/Default~iphone.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/resources/splash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/scss/ionic.app.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/www/lib/angular/angular.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dal/DBManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/dal/DBManager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.bin/wellknown" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/isarray/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/isarray/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/isarray/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/isarray/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/isarray/component.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/isarray/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/isarray/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/isarray/test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/.zuul.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/doc/stream.markdown" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/doc/wg-meetings/2015-01-30.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/duplex.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/lib/_stream_duplex.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/lib/_stream_passthrough.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/lib/_stream_readable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/lib/_stream_transform.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/lib/_stream_writable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/passthrough.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/readable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/transform.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/node_modules/readable-stream/writable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/concat-stream/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/example/parse.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/readme.markdown" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/all_bool.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/bool.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/dash.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/default_bool.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/dotted.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/long.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/num.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/parse.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/parse_modified.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/short.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/stop_early.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/unknown.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/test/whitespace.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/process-nextick-args/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/process-nextick-args/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/process-nextick-args/license.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/process-nextick-args/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/process-nextick-args/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/process-nextick-args/test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/typedarray/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/typedarray/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/typedarray/example/tarray.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/typedarray/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/typedarray/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/typedarray/readme.markdown" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/typedarray/test/server/undef_globals.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/typedarray/test/tarray.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/util-deprecate/History.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/util-deprecate/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/util-deprecate/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/util-deprecate/browser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/util-deprecate/node.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/util-deprecate/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/.zuul.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/bower.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/cli.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/component.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/test/data/geometrycollection.geojson" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/test/data/geometrycollection.wkt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/test/fuzz.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/test/stringify.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/test/wellknown.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/wellknown/wellknown.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/utils.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,103 +175,8 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="socket-app" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="RoomLogic.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/logic/RoomLogic.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="115" column="64" lean-forward="false" selection-start-line="115" selection-start-column="64" selection-end-line="115" selection-end-column="64" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RoomService.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/services/RoomService.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="29" column="22" lean-forward="false" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="30" column="15" lean-forward="false" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="15" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="utils.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/utils.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="86" column="21" lean-forward="false" selection-start-line="86" selection-start-column="21" selection-end-line="86" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserService.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/services/UserService.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="25" column="7" lean-forward="false" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameLogic.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/logic/GameLogic.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="259" column="23" lean-forward="false" selection-start-line="259" selection-start-column="23" selection-end-line="259" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DBManager.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/dal/DBManager.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="53" lean-forward="false" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="modules.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dal/modules.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="41" lean-forward="false" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SharedLogic.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/logic/SharedLogic.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="20" column="24" lean-forward="false" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -167,6 +233,17 @@
       <dir>C:\Users\Yair\CubesProject\CubesServer</dir>
     </dirStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -222,6 +299,8 @@
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
+  <component name="ProjectId" id="1nGbEtFnAI1sFomMmKtMgEeSMns" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -270,32 +349,39 @@
       <pane id="PackagesPane" />
     </panes>
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="D:/Dev/Nitzan-Project/PerSecServer" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="ignore_missing_gitignore" value="true" />
+    <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
+    <property name="js.eslint.eslintPackage" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="recentsLimit" value="5" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="recentsLimit" value="5" />
-    <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
-    <property name="js.eslint.eslintPackage" value="" />
-    <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="restartRequiresConfirmation" value="false" />
-    <property name="ignore_missing_gitignore" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Yair\WebstormProjects\CubesServer\utils" />
-      <recent name="C:\Users\Yair\WebstormProjects\CubesServer\logic" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Yair\WebstormProjects\CubesServer\dal" />
       <recent name="C:\Users\Yair\WebstormProjects\socket-app" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="C:\Users\Yair\WebstormProjects\CubesServer\utils" />
+      <recent name="C:\Users\Yair\WebstormProjects\CubesServer\logic" />
+    </key>
   </component>
-  <component name="RunManager" selected="Node.js.Cubes Local">
+  <component name="RunManager">
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <method />
     </configuration>
@@ -308,64 +394,37 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
-      <config-file value="" />
-      <node-interpreter value="project" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
-      <method />
-    </configuration>
-    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
-      <method />
-    </configuration>
     <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
       <option name="cucumberJsArguments" value="" />
       <option name="executablePath" />
       <option name="filePath" />
       <method />
     </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Cubes Local" type="NodeJSConfigurationType" path-to-node="$USER_HOME$/.nvm/versions/node/v15.5.1/bin/node" path-to-js-file="app.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <gulpfile />
       <tasks />
       <arguments />
       <pass-parent-envs>true</pass-parent-envs>
-      <envs />
-      <method />
+      <method v="2" />
     </configuration>
-    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
-      <command value="run" />
-      <scripts />
-      <node-interpreter value="project" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <working-directory />
-      <pass-parent-env>true</pass-parent-env>
-      <envs />
-      <ui />
-      <extra-mocha-options />
-      <test-kind>DIRECTORY</test-kind>
-      <test-directory />
-      <recursive>false</recursive>
-      <method />
-    </configuration>
-    <configuration default="false" name="Cubes Local" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="app.js" working-dir="$PROJECT_DIR$">
-      <method />
-    </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Node.js.Cubes Local" />
-    </list>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
-  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -414,6 +473,7 @@
       <workItem from="1499101077688" duration="32000" />
       <workItem from="1499435553325" duration="3854000" />
       <workItem from="1499539695138" duration="10762000" />
+      <workItem from="1611019269336" duration="3390000" />
     </task>
     <servers />
   </component>
@@ -483,7 +543,18 @@
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="processedProjectFiles" value="true" />
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -493,13 +564,7 @@
       <collection />
     </option>
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="466" />
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="NodeJSConfigurationType">
         <watch expression="user.value().roomId" language="JavaScript" />

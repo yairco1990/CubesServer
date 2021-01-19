@@ -6,21 +6,22 @@ function DBManager() {
 
     var ENVIRONMENTS = {
         LOCAL: {
-	  host: 'localhost',
-	  schema: 'dice_db',
-	  username: 'root',
-	  password: 'q1w2e3'
+            host: 'localhost',
+            schema: 'dice_db',
+            username: 'root',
+            password: 'q1w2e3r4',
+            insecureAuth : true
         },
         PRODUCTION: {
-	  host: 'localhost',
-	  schema: 'dicelies_db',
-	  username: 'root',
-	  password: 'q1w2e3r4'
+            host: 'localhost',
+            schema: 'dicelies_db',
+            username: 'root',
+            password: 'q1w2e3r4'
         }
     };
 
     //TODO SELECTED ENVIRONMENT!!!!!
-    var selectedEnvironment = ENVIRONMENTS.PRODUCTION;
+    var selectedEnvironment = ENVIRONMENTS.LOCAL;
 
     //define DB connection
     var sequelize = new Sequelize(selectedEnvironment.schema, selectedEnvironment.username, selectedEnvironment.password, {
@@ -28,9 +29,9 @@ function DBManager() {
         host: selectedEnvironment.host,
         dialect: 'mysql',
         pool: {
-	  max: 1,
-	  min: 0,
-	  idle: 500
+            max: 1,
+            min: 0,
+            idle: 500
         }
     });
 
@@ -73,7 +74,7 @@ DBManager.prototype.clearRoomCubes = function (roomId) {
 
     return self.Cube.destroy({
         where: {
-	  roomId: roomId
+            roomId: roomId
         }
     });
 };
@@ -84,7 +85,7 @@ DBManager.prototype.clearUserCubes = function (userId) {
 
     return self.Cube.destroy({
         where: {
-	  userId: userId
+            userId: userId
         }
     });
 };
@@ -106,13 +107,13 @@ DBManager.prototype.getRoomById = function (roomId, withUsers) {
 
     var request = {
         where: {
-	  id: roomId
+            id: roomId
         }
     };
 
     if (withUsers) {
         request.include = [
-	  self.User
+            self.User
         ];
     }
 
@@ -125,7 +126,7 @@ DBManager.prototype.getRoomByName = function (roomName) {
 
     var request = {
         where: {
-	  name: roomName
+            name: roomName
         }
     };
 
@@ -150,7 +151,7 @@ DBManager.prototype.deleteRoom = function (roomId) {
 
     return self.Room.destroy({
         where: {
-	  id: roomId
+            id: roomId
         }
     });
 };
@@ -161,7 +162,7 @@ DBManager.prototype.getUserByName = function (username) {
 
     return self.User.findOne({
         where: {
-	  name: username
+            name: username
         }
     });
 };
@@ -199,12 +200,12 @@ DBManager.prototype.getUsersByRoomId = function (roomId, userId) {
 
     return self.User.findAll({
         where: {
-	  roomId: roomId
+            roomId: roomId
         },
         include: [{
-	  model: self.Cube,
-	  where: cubesWhere,
-	  required: false
+            model: self.Cube,
+            where: cubesWhere,
+            required: false
         }]
     });
 };
@@ -215,10 +216,10 @@ DBManager.prototype.getRooms = function () {
 
     return self.Room.findAll({
         include: [
-	  {
-	      model: self.User,
-	      attributes: ['id']
-	  }
+            {
+                model: self.User,
+                attributes: ['id']
+            }
         ]
     });
 };
@@ -238,7 +239,7 @@ DBManager.prototype.saveRoom = function (room) {
         sessionPlayers: room.sessionPlayers
     }, {
         where: {
-	  id: room.id
+            id: room.id
         }
     });
 };
@@ -261,7 +262,7 @@ DBManager.prototype.saveUser = function (user) {
         isAutoLie: user.isAutoLie
     }, {
         where: {
-	  id: user.id
+            id: user.id
         }
     });
 };

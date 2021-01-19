@@ -1,0 +1,173 @@
+/* Empty. Add your own CSS if you like */
+html {
+    direction: ltr;
+}
+
+.bar.bar-positive {
+    background-color: rgb(82, 128, 151) !important;
+}
+
+.my-background {
+    background-color: #003366;
+    background-image: url('../img/crossword.png');
+}
+
+.bar-positive .button {
+    border-color: #758090;
+    background-color: rgb(241, 241, 241);
+    color: #4a4a4a;
+}
+
+#navigation-top, #navigation-bottom {
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+}
+
+.bar-positive .button.activated {
+    border-color: #758090;
+    background-color: rgb(159, 162, 168);
+    color: #4a4a4a;
+}
+
+.bar .title.title-left {
+    color: #f4f4f4;
+}
+
+/*FOR PC OR TABLETS*/
+@media screen and (min-width: 600px) {
+    ion-side-menu-content {
+        height: 800px !important;
+        width: 600px !important;
+    }
+}
+
+ion-content {
+    background-color: #f1f1f1;
+}
+
+.main-color {
+    background-color: #f1f1f1;
+}
+
+.bar .title.title-left {
+    text-align: left;
+}
+
+.vertical-center {
+    display: flex;
+    align-items: center;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.no-margin {
+    margin: 0 !important;
+}
+
+#loginPage .regular-input {
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2px;
+    border-color: #b5b5b5;
+    padding: 5px;
+    display: inline;
+}
+
+#createRoomPage .regular-input {
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2px;
+    border-color: #b5b5b5;
+    padding: 5px;
+    display: inline;
+}
+
+.vertical-margin {
+    margin: 8px 0;
+}
+
+.opacity-05 {
+    opacity: 0.5;
+}
+
+.small-button {
+    line-height: 5px !important;
+    min-height: 24px !important;
+}
+
+.unread-messages {
+    background-color: #4cd216 !important;
+}
+
+.my-loader-wrapper {
+    height: 100%;
+    width: 100%;
+    z-index: 1000000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-loader {
+    max-width: 90%;
+    background-size: contain;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+
+.my-loader-spinner {
+    border: 16px solid #dccdcd; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    animation: spin 2s linear infinite;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.button.action-button {
+    background-color: rgba(126, 174, 177, 0.5);
+    width: 100%;
+    color: #fff;
+    border: solid #eeeeee;
+    border-radius: 19px;
+    border-width: 1px;
+}
+
+.action-button-wrapper {
+    margin: 0 30px;
+}
+
+.action-button {
+    line-height: 5px !important;
+    min-height: 40px !important;
+}
+
+.action-button.activated {
+    background-color: rgba(126, 174, 177, 0.9);
+}
+
+.platform-android .header-item.title {
+    transition-duration: 0ms;
+}
+.platform-android .header-item.buttons {
+    transition-duration: 0ms;
+}

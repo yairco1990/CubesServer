@@ -1,0 +1,44 @@
+<ion-view id="registerPage" view-title="Register">
+    <ion-content class="my-background">
+        <div class="container">
+
+            <div class="header-wrapper">
+                <!--LOGO-->
+                <div class="logo-wrapper">
+                    <img src="img/dice.png" class="logo">
+                </div>
+
+                <!--TITLE-->
+                <div>
+                    <label class="logo-title">
+                        Dice Lies
+                    </label>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px">
+                <my-input type="text" ng-model="player.username" placeholder="Username" icon="fa fa-user"></my-input>
+            </div>
+
+            <div style="margin-top: 10px">
+                <my-input type="password" ng-model="player.password" placeholder="Password" icon="fa fa-key"
+                          style="margin-top: 10px;"></my-input>
+            </div>
+
+            <div style="margin-top: 10px">
+                <my-input type="password" ng-model="player.password2" placeholder="Password Confirmation" icon="fa fa-key"
+                          style="margin-top: 10px;"></my-input>
+            </div>
+
+            <div class="register-button-wrapper">
+                <button class="button button-balanced register-button" ng-click="register()" style="margin-top: 20px;">
+                    Register
+                </button>
+            </div>
+
+            <p ng-click="moveToLogin()" class="move-to-register-text">
+                Already registered? click to login!
+            </p>
+        </div>
+    </ion-content>
+</ion-view>

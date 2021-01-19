@@ -1,0 +1,14 @@
+The game starts when all the players received the same number of dice, between 1 to 5, and each player can see only his own dice.
+The round starts when the first player setting his gamble.
+The gamble is defined by two parameters - number of dice and the dice's number.
+An example for a gamble can be 5 times of 3, that's say, at least 5 times of the number 3 on the table(for all players together).
+Then, the turn move to the next player.
+To the next player have two choices:
+1. To raise the gamble.
+2. To say that this is a lie.
+If the player choose the first choice, he can increase the amount of the dice, and to choose any number he want. If he want to stay with the current amount of dice, he must to increase the dice number(It's mean that if the last gamble was with the dice number 6, the current gamble must increase the amount of the dice). 
+If the player choose the second choice, all the players expose their dice and check if the last gamble was correct.
+For example, if the last gamble was 5 times of 3, and there are at least 5 times of 3 on the table, so last gamble was correct, and the player that sayed "It's a lie" lost the round. If there are no at least 5 times of 3, the player that set the last gamble lost the round. The player that lost the round, have to drop a single dice, and that's mean that in the next round he will be less powerfull than the other players.
+The game is ending when just one player holds dice, and of course, he is the winner of the game.
+Notice that the dice number 1 is generic dice and when player set his gamble, it means that we count the number that he gambled and also the number 1.
+For example, if player set gamble of 5 times of 3, we count the dice with the number 3, and also the dice with the number 1.

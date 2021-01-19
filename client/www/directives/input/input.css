@@ -1,0 +1,37 @@
+.my-input-wrapper {
+    margin: 0 30px 0 30px;
+    overflow: auto;
+    position: relative;
+}
+
+.my-icon-wrapper {
+    width: 15%;
+    float: left;
+    height: 40px;
+    background-color: rgba(126, 174, 177, 0.5);
+}
+
+.my-icon {
+    margin: 0 auto;
+    color: white;
+    font-size: 15px;
+}
+
+.my-devider {
+    width: 1px;
+    height: 30px;
+    margin-top: 5px;
+    position: absolute;
+    background-color: white;
+    left: 15%;
+}
+
+.my-custom-input {
+    width: 85%;
+    float: left;
+    height: 40px !important;
+    background-color: rgba(126, 174, 177, 0.5);
+    color: white !important;
+    padding-left: 10px !important;
+    padding-top: 0;
+}

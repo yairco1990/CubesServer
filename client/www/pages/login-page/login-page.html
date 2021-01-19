@@ -1,0 +1,39 @@
+<ion-view id="loginPage" view-title="Login">
+    <ion-content class="my-background">
+        <div class="container">
+
+            <div class="header-wrapper">
+                <!--LOGO-->
+                <div class="logo-wrapper">
+                    <img src="img/dice.png" class="logo">
+                </div>
+
+                <!--TITLE-->
+                <div>
+                    <label class="logo-title">
+                        Dice Lies
+                    </label>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px">
+                <my-input type="text" ng-model="player.username" placeholder="Username" icon="fa fa-user"></my-input>
+            </div>
+
+            <div style="margin-top: 10px">
+                <my-input type="password" ng-model="player.password" placeholder="Password" icon="fa fa-key"
+                          style="margin-top: 10px;"></my-input>
+            </div>
+
+            <div class="login-button-wrapper">
+                <button class="button button-balanced login-button" ng-click="login()" style="margin-top: 20px;">
+                    Login
+                </button>
+            </div>
+
+            <p ng-click="moveToRegister()" class="move-to-register-text">
+                Not registered yet? click here!
+            </p>
+        </div>
+    </ion-content>
+</ion-view>

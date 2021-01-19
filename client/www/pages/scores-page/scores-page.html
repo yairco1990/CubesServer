@@ -1,0 +1,56 @@
+<ion-view id="scoresPage" view-title="Scores">
+    <ion-content class="my-background">
+        <div class="container">
+            <div class="score-by-score" style="padding-top: 10px;text-align: center">
+
+                <table style="display: inline">
+                    <tr style="color:white">
+                        <td>
+                            <label class="titles">
+                                Name
+                            </label>
+                        </td>
+                        <td style="text-align: center">
+                            <label class="titles">
+                                Score
+                            </label>
+                        </td>
+                        <td style="text-align: center">
+                            <label class="titles">
+                                Wins
+                            </label>
+                        </td>
+                        <td style="text-align: center">
+                            <label class="titles">
+                                Games
+                            </label>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="player in vm.topScoreUsers" style="color:white">
+                        <td>
+                            <label>
+                                {{player.name}}
+                            </label>
+                        </td>
+                        <td style="text-align: center">
+                            <label>
+                                {{player.score}} Pts
+                            </label>
+                        </td>
+                        <td style="text-align: center">
+                            <label>
+                                {{player.wins}}
+                            </label>
+                        </td>
+                        <td style="text-align: center">
+                            <label>
+                                {{player.games}}
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

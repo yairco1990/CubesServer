@@ -14,7 +14,7 @@
     "bcrypt-nodejs": "0.0.3",
     "express": "^4.14.1",
     "jquery": "^3.1.1",
-    "mysql": "~2.3.2",
+    "mysql": "^2.3.2",
     "sequelize": "^3.30.2",
     "socket.io": "^1.7.3"
   }

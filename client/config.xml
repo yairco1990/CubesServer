@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget id="com.ionicframework.dicelies943218" version="1.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Dice Lies</name>
+  <description>&#xD;
+        The game of the bluffers, now, on application(BETA).&#xD;
+    </description>
+  <author email="yairco1990@gmail.com">&#xD;
+        Yair Cohen&#xD;
+    </author>
+  <content src="index.html"/>
+  <access origin="*"/>
+  <preference name="android-minSdkVersion" value="14"/>
+  <preference name="webviewbounce" value="false"/>
+  <preference name="UIWebViewBounce" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="BackupWebStorage" value="none"/>
+  <preference name="orientation" value="portrait"/>
+  <preference name="ShowSplashScreenSpinner" value="false"/>
+  <preference name="AutoHideSplashScreen" value="false"/>
+  <preference name="FadeSplashScreen" value="true"/>
+  <preference name="SplashScreen" value="screen"/>
+  <preference name="SplashScreenDelay" value="1000"/>
+  <preference name="FadeSplashScreenDuration" value="1000"/>
+  <feature name="StatusBar">
+    <param name="ios-package" value="CDVStatusBar" onload="true"/>
+  </feature>
+  <platform name="android">
+    <icon src="resources/android/icon/res/drawable-mdpi/ic_launcher.png" density="ldpi"/>
+    <icon src="resources/android/icon/res/drawable-mdpi/ic_launcher.png" density="mdpi"/>
+    <icon src="resources/android/icon/res/drawable-hdpi/ic_launcher.png" density="hdpi"/>
+    <icon src="resources/android/icon/res/drawable-xhdpi/ic_launcher.png" density="xhdpi"/>
+    <icon src="resources/android/icon/res/drawable-xxhdpi/ic_launcher.png" density="xxhdpi"/>
+    <icon src="resources/android/icon/res/drawable-xxxhdpi/ic_launcher.png" density="xxxhdpi"/>
+    <splash src="resources/android/splash/splashScreen.png" density="land-ldpi"/>
+    <splash src="resources/android/splash/splashScreen.png" density="land-mdpi"/>
+    <splash src="resources/android/splash/splashScreen.png" density="land-hdpi"/>
+    <splash src="resources/android/splash/splashScreen.png" density="land-xhdpi"/>
+    <splash src="resources/android/splash/splashScreen.png" density="land-xxhdpi"/>
+    <splash src="resources/android/splash/splashScreen.png" density="land-xxxhdpi"/>
+    <splash src="resources/android/splash/splashScreen.png" density="port-ldpi"/>
+    <splash src="resources/android/splash/splashScreen.png" density="port-mdpi"/>
+    <splash src="resources/android/splash/splashScreen.png" density="port-hdpi"/>
+    <splash src="resources/android/splash/splashScreen.png" density="port-xhdpi"/>
+    <splash src="resources/android/splash/splashScreen.png" density="port-xxhdpi"/>
+    <splash src="resources/android/splash/splashScreen.png" density="port-xxxhdpi"/>
+  </platform>
+</widget>

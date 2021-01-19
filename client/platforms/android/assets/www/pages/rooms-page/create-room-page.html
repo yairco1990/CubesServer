@@ -1,0 +1,41 @@
+<ion-view id="createRoomPage" view-title="Create room">
+
+    <ion-nav-buttons side="right">
+
+        <button class="button" ng-click="backToRooms()">
+            Back to rooms
+        </button>
+
+    </ion-nav-buttons>
+
+    <ion-content class="my-background">
+        <div class="container">
+            <form>
+
+                <!--ROOM NAME-->
+                <div style="margin-top: 40px">
+                    <my-input type="text" ng-model="room.name" placeholder="Room name"
+                              icon="fa fa-gamepad"></my-input>
+                </div>
+
+                <!--INITIAL DICE NUMBER-->
+                <div style="margin-top: 10px">
+                    <my-input type="text" ng-model="room.initialCubeNumber" placeholder="Initial dice number" icon="fa fa-cubes"
+                              style="margin-top: 10px;"></my-input>
+                </div>
+
+                <!--ROOM'S PASSWORD-->
+                <div style="margin-top: 10px">
+                    <my-input type="text" ng-model="room.password" placeholder="Password(Not required)" icon="fa fa-key"
+                              style="margin-top: 10px;"></my-input>
+                </div>
+
+                <div class="login-button-wrapper">
+                    <button class="button button-balanced login-button" ng-click="createRoom()" style="margin-top: 20px;">
+                        Save Room
+                    </button>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>

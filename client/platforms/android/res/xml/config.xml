@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.ionicframework.dicelies943218" version="1.0.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <preference name="loglevel" value="DEBUG" />
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="StatusBar">
+        <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Keyboard">
+        <param name="android-package" value="io.ionic.keyboard.IonicKeyboard" />
+        <param name="onload" value="true" />
+    </feature>
+    <icon density="ldpi" src="resources/android/icon/res/drawable-mdpi/ic_launcher.png" />
+    <icon density="mdpi" src="resources/android/icon/res/drawable-mdpi/ic_launcher.png" />
+    <icon density="hdpi" src="resources/android/icon/res/drawable-hdpi/ic_launcher.png" />
+    <icon density="xhdpi" src="resources/android/icon/res/drawable-xhdpi/ic_launcher.png" />
+    <icon density="xxhdpi" src="resources/android/icon/res/drawable-xxhdpi/ic_launcher.png" />
+    <icon density="xxxhdpi" src="resources/android/icon/res/drawable-xxxhdpi/ic_launcher.png" />
+    <splash density="land-ldpi" src="resources/android/splash/splashScreen.png" />
+    <splash density="land-mdpi" src="resources/android/splash/splashScreen.png" />
+    <splash density="land-hdpi" src="resources/android/splash/splashScreen.png" />
+    <splash density="land-xhdpi" src="resources/android/splash/splashScreen.png" />
+    <splash density="land-xxhdpi" src="resources/android/splash/splashScreen.png" />
+    <splash density="land-xxxhdpi" src="resources/android/splash/splashScreen.png" />
+    <splash density="port-ldpi" src="resources/android/splash/splashScreen.png" />
+    <splash density="port-mdpi" src="resources/android/splash/splashScreen.png" />
+    <splash density="port-hdpi" src="resources/android/splash/splashScreen.png" />
+    <splash density="port-xhdpi" src="resources/android/splash/splashScreen.png" />
+    <splash density="port-xxhdpi" src="resources/android/splash/splashScreen.png" />
+    <splash density="port-xxxhdpi" src="resources/android/splash/splashScreen.png" />
+    <name>Dice Lies</name>
+    <description>
+        The game of the bluffers, now, on application(BETA).
+    </description>
+    <author email="yairco1990@gmail.com">
+        Yair Cohen
+    </author>
+    <content original-src="index.html" src="http://192.168.43.233:8100" />
+    <access origin="*" />
+    <preference name="android-minSdkVersion" value="14" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="BackupWebStorage" value="none" />
+    <preference name="orientation" value="portrait" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="FadeSplashScreen" value="true" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="1000" />
+    <preference name="FadeSplashScreenDuration" value="1000" />
+</widget>

@@ -1,0 +1,29 @@
+#scoresPage .container {
+    text-align: center;
+}
+
+#scoresPage label {
+    color: #171717;
+    font-size: 15px;
+}
+
+
+#scoresPage td {
+    padding: 9px;
+    text-align: left;
+}
+
+
+#scoresPage .titles {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+#scoresPage .score-by-score {
+    background-color: #f1f1f1;
+    display: inline-block;
+    margin-top: 40px;
+    padding: 10px;
+    border: solid dimgrey 2px;
+    border-radius: 5px;
+}

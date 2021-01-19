@@ -33,10 +33,10 @@ var Utils = {
      */
     removeFromArray: function (array, value) {
         for (var i = 0; i < array.length; i++) {
-	  if (array[i].id == value.id) {
-	      array.splice(i, 1);
-	      break;
-	  }
+            if (array[i].id == value.id) {
+                array.splice(i, 1);
+                break;
+            }
         }
         return array;
     },
@@ -45,9 +45,9 @@ var Utils = {
         var array = [];
 
         users.forEach(function (user) {
-	  if (!onlyLoggedIn || (onlyLoggedIn && user.isLoggedIn)) {
-	      array.push(user.id);
-	  }
+            if (!onlyLoggedIn || (onlyLoggedIn && user.isLoggedIn)) {
+                array.push(user.id);
+            }
         });
 
         return array;
@@ -56,9 +56,9 @@ var Utils = {
     getUserById: function (users, id) {
         var selectedUser = null;
         users.forEach(function (user) {
-	  if (user.id == id) {
-	      selectedUser = user;
-	  }
+            if (user.id == id) {
+                selectedUser = user;
+            }
         });
         return selectedUser;
     },
@@ -68,15 +68,15 @@ var Utils = {
         var self = this;
 
         return function (err) {
-	  Util.log("ERROR: " + errorMessage);
-	  Util.log(err);
+            Util.log("ERROR: " + errorMessage);
+            Util.log(err);
 
-	  if (cb) {
-	      if (!response) {
-		response = self.serverResponse.ERROR;
-	      }
-	      cb(new ServerResponse(response, result));
-	  }
+            if (cb) {
+                if (!response) {
+                    response = self.serverResponse.ERROR;
+                }
+                cb(new ServerResponse(response, result));
+            }
         };
     },
 
@@ -84,13 +84,13 @@ var Utils = {
         var self = this;
 
         if (users && users.length) {
-	  var count = 0;
-	  users.forEach(function (user) {
-	      if (user.isLoggedIn) {
-		count++;
-	      }
-	  });
-	  return count
+            var count = 0;
+            users.forEach(function (user) {
+                if (user.isLoggedIn) {
+                    count++;
+                }
+            });
+            return count
         }
         return 0;
     },
@@ -101,9 +101,9 @@ var Utils = {
         var selectedSocket = null;
 
         sockets.forEach(function (socket) {
-	  if (socket.user && socket.user.id == userId) {
-	      selectedSocket = socket;
-	  }
+            if (socket.user && socket.user.id == userId) {
+                selectedSocket = socket;
+            }
         });
 
         return selectedSocket;
