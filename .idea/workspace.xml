@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97c36215-b687-4980-bdb8-6816fe926ff8" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/www/lib/custom/font-awesome.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/www/lib/custom/jquery.slim.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/ionic.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/www/services/MySocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/www/services/MySocket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/www/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/www/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -240,13 +241,15 @@
       <option name="filePath" />
       <method />
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -313,7 +316,8 @@
       <workItem from="1499101077688" duration="32000" />
       <workItem from="1499435553325" duration="3854000" />
       <workItem from="1499539695138" duration="10762000" />
-      <workItem from="1611019269336" duration="10023000" />
+      <workItem from="1611019269336" duration="19717000" />
+      <workItem from="1611186120962" duration="87000" />
     </task>
     <servers />
   </component>
@@ -395,6 +399,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
