@@ -19,7 +19,7 @@ angular.module('MyCubes.services.my-socket', [])
                 host: '192.168.43.233:3000'
             },
             PRODUCTION: {
-                host: 'http://35.158.239.64:3000'
+                host: '35.158.239.64:3000'
             }
         };
 
