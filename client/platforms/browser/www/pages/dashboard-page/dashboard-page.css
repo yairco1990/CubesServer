@@ -1,0 +1,7 @@
+#dashboardPage .profile-pic{
+    border-radius: 50%;
+    border-width: 2px;
+    border: solid grey;
+    height: 170px;
+    width: 170px;
+}
