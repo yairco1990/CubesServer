@@ -6,12 +6,12 @@ var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 var ServerResponse = require('./utils/ServerResponse');
 const path = require('path');
-server.listen(3000);
+server.listen(80);
 app.use(express.static(__dirname + '/node_modules'));
 Util.log("Server running...");
 ////////////////////end of server stuff////////////////////
 
-app.use('/app', express.static(path.join(__dirname, './client/www')))
+app.use('/', express.static(path.join(__dirname, './client/www')))
 
 //utils
 var Utils = require('./utils/utils');
