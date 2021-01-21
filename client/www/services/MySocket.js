@@ -10,16 +10,16 @@ angular.module('MyCubes.services.my-socket', [])
 
         var ENVIRONMENTS = {
             LOCAL: {
-                host: 'localhost:3000'
+                host: 'localhost:80'
             },
             TEAMMATE: {
-                host: '192.168.1.108:3000'
+                host: '192.168.1.108:80'
             },
             TEAMMATE2: {
-                host: '192.168.43.233:3000'
+                host: '192.168.43.233:80'
             },
             PRODUCTION: {
-                host: '35.158.239.64:3000'
+                host: '35.158.239.64:80'
             }
         };
 
