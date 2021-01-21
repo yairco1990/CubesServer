@@ -11,7 +11,7 @@ app.use(express.static(__dirname + '/node_modules'));
 Util.log("Server running...");
 ////////////////////end of server stuff////////////////////
 
-app.use('/app', express.static(path.join(__dirname, './client/platforms/browser/www')))
+app.use('/app', express.static(path.join(__dirname, './client/www')))
 
 //utils
 var Utils = require('./utils/utils');
