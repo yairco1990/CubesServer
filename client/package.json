@@ -4,7 +4,7 @@
   "description": "Dice Lies: One of the good bluffing game ever!",
   "dependencies": {
     "angularjs-scroll-glue": "^2.2.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-cli": "^2.3.0",
     "gulp-concat": "^2.2.0",
     "gulp-minify-css": "^0.3.0",
